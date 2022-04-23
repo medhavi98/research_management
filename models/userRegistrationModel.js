@@ -39,6 +39,14 @@ const userDetailsSchema = new Schema({
         type: String,
         required:false
     },
+    stdOrStaff : {
+        type: String,
+        required:true
+    },
+    password : {
+        type : String,
+        required : true
+    },
     tokens : [
         {
             token : {
