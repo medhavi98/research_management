@@ -24969,17 +24969,35 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _button = require("./components/pasindu/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
-var _reactRouterDom = require("react-router-dom");
 var _registration = require("./components/lakshika/registration");
 var _registrationDefault = parcelHelpers.interopDefault(_registration);
+var _reactRouterDom = require("react-router-dom");
+var _dashboard = require("./components/charith/Dashboard");
+var _dashboardDefault = parcelHelpers.interopDefault(_dashboard);
 class App extends _react.Component {
     render() {
         return /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
             children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.BrowserRouter, {
-                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
-                    path: "/",
-                    component: _registrationDefault.default
-                }, void 0, false, {
+                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Routes, {
+                    children: [
+                        /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
+                            path: "/",
+                            element: /*#__PURE__*/ _jsxDevRuntime.jsxDEV("registration", {}, void 0, false, void 0, void 0)
+                        }, void 0, false, {
+                            fileName: "App.js",
+                            lineNumber: 13,
+                            columnNumber: 21
+                        }, this),
+                        /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
+                            path: "/dashboard",
+                            element: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_dashboardDefault.default, {}, void 0, false, void 0, void 0)
+                        }, void 0, false, {
+                            fileName: "App.js",
+                            lineNumber: 14,
+                            columnNumber: 21
+                        }, this)
+                    ]
+                }, void 0, true, {
                     fileName: "App.js",
                     lineNumber: 12,
                     columnNumber: 17
@@ -25003,7 +25021,7 @@ exports.default = App;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/pasindu/Button":"ciyMm","react-router-dom":"fdOAw","./components/lakshika/registration":"33hyc"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/pasindu/Button":"ciyMm","react-router-dom":"fdOAw","./components/lakshika/registration":"33hyc","./components/charith/Dashboard":"3e0Bz"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -47246,6 +47264,42 @@ class registration extends _react.Component {
 exports.default = registration;
 
   $parcel$ReactRefreshHelpers$3d6d.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3e0Bz":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$bee7 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$bee7.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const Dashboard = ()=>{
+    return /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+        style: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        children: "Dashboard"
+    }, void 0, false, {
+        fileName: "components/charith/Dashboard.jsx",
+        lineNumber: 6,
+        columnNumber: 5
+    }, undefined);
+};
+_c = Dashboard;
+exports.default = Dashboard;
+var _c;
+$RefreshReg$(_c, "Dashboard");
+
+  $parcel$ReactRefreshHelpers$bee7.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
