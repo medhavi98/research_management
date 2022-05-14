@@ -9,6 +9,7 @@ const topicRouter = require("./routes/topicRouter");
 const marksRouter = require("./routes/MarkRouter");
 const submissionRouter = require("./routes/SubmissionRouter");
 const notificationRouter = require("./routes/NotificationRouter");
+const messageRouter = require("./routes/MessageRouter");
 
 //creating express app
 const app = express();
@@ -28,6 +29,7 @@ app.use('/topics', topicRouter);
 app.use('/marks', marksRouter);
 app.use('/submissions', submissionRouter);
 app.use('/notifications', notificationRouter);
+app.use('/messages', messageRouter);
 
 //creating express server
 app.listen(PORT, async () => {
