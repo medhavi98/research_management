@@ -2,12 +2,13 @@ const GroupModel = require('../models/GroupModel');
 
 const groupRegistrationRouter = require('express').Router();
 
+//add group details
 groupRegistrationRouter.post('/', async (req,res) => {
-    const { groupDetails, studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds } = req.body.groupDetails;
+    const { studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds } = req.body.groupDetails;
     const count = await GroupModel.count();
     let groupName = `AF_Group_${count+1}`;
     //TODO:- get student ids form user collection
-    const group = await new GroupModel({ groupDetails, groupName, studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds });
+    const group = await new GroupModel({ groupName, studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds });
 
     try {
         await group.save();
@@ -17,4 +18,17 @@ groupRegistrationRouter.post('/', async (req,res) => {
     }
 })
 
+//edit group details
+groupRegistrationRouter.post('/edit/:groupId', async (req,res) => {
+    const { groupId } = req.params;
+    const { studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds } = req.body.groupDetails;
+    const EditedGroup = { studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds };
+
+    try {
+        await GroupModel.findOneAndUpdate({_id: groupId}, EditedGroup);;
+        res.status(200).json("Group details updated successfully");
+    } catch (error) {
+        res.status(400).json("Group details updated failed");
+    }
+})
 module.exports = groupRegistrationRouter;
