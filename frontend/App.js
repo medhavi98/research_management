@@ -1,16 +1,19 @@
 import React, {Component} from "react";
 import Button from "./components/pasindu/Button";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import registration from "./components/lakshika/registration";
+import { Route, BrowserRouter ,Routes } from "react-router-dom";
+import Registration from './components/lakshika/Registration'
 
 export default class App extends Component{
     render(){
         return (
-        <div>
+        <div className="App">
             {/* <Registration/> */}
-            <Router>
-                <Route path='/' component={registration}/>
-            </Router>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/register' element={<Registration />} />
+                </Routes>
+            </BrowserRouter>
+            
         </div>
         )
     }
