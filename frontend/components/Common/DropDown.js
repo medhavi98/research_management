@@ -44,6 +44,7 @@ const DropDown = ({
             </MenuItem>
           ))}
         </Select>
+        <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
     </div>
   );
