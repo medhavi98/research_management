@@ -25,10 +25,21 @@ groupRegistrationRouter.post('/edit/:groupId', async (req,res) => {
     const EditedGroup = { studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds };
 
     try {
-        await GroupModel.findOneAndUpdate({_id: groupId}, EditedGroup);;
+        await GroupModel.findOneAndUpdate({_id: groupId}, EditedGroup);
         res.status(200).json("Group details updated successfully");
     } catch (error) {
         res.status(400).json("Group details updated failed");
+    }
+})
+
+//delete group details
+groupRegistrationRouter.delete('/delete/:groupId', async (req,res) => {
+    const { groupId } = req.params;
+    try {
+        await GroupModel.findByIdAndDelete(groupId);
+        res.status(200).json("Group details deleted successfully");
+    } catch (error) {
+        res.status(400).json("Group details deleted failed");
     }
 })
 module.exports = groupRegistrationRouter;
