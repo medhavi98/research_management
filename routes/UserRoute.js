@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { response } = require('express');
 const userDetails = require('../models/userRegistrationModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -23,7 +22,7 @@ router.post('/' , (req,res) => {
         details.save().then(() => {
             res.json('User details Added');
         }).catch((err) => {
-            console.log('Error has occured',err);
+            console.log('Error has occurred',err);
         })
     })
 })
@@ -46,6 +45,8 @@ router.post('/login', async (req,res) => {
         res.json({error : "Login Failed"});
     }
     else {
-        res.json({message : "Login Successgull", id : login._id});
+        res.json({message : "Login Successfully", id : login._id});
     }
 })
+
+module.exports = router;
