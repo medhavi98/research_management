@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const groupRegistrationRouter = require("./routes/GroupRegistrationRouter");
 
 //creating express app
 const app = express();
@@ -12,6 +13,9 @@ app.use(cors());
 //configuring dotenv variables
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
+
+//router
+app.use('/groupRegistrations', groupRegistrationRouter);
 
 //creating express server
 app.listen(PORT, async () => {
