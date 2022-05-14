@@ -15,6 +15,16 @@ marksRouter.post('/', async (req,res) => {
     }
 })
 
+//get mark details
+marksRouter.get('/getMarks/:groupId', async (req,res) => {
+    const { groupId } = req.params;
 
+    try {
+        const marks = await MarkModel.find({groupId});
+        res.status(200).json({marks});
+    } catch (error) {
+        res.status(400).json("Marks retrieving failed");
+    }
+})
 
 module.exports = marksRouter;
