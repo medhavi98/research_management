@@ -6,6 +6,7 @@ groupRegistrationRouter.post('/', async (req,res) => {
     const { groupDetails, studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds } = req.body.groupDetails;
     const count = await GroupModel.count();
     let groupName = `AF_Group_${count+1}`;
+    //TODO:- get student ids form user collection
     const group = await new GroupModel({ groupDetails, groupName, studentIds, groupLeaderId, supervisorId, coSupervisorId, panelMemberIds });
 
     try {
