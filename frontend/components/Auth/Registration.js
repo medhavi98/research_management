@@ -62,6 +62,7 @@ const Registration = () => {
                     minWidth="88%"
                     onChange={userTypeHandler}
                     options={userTypes}
+                    helperText={!userType ? "Please select your user type" : ""}
                   />
                 </Grid>
 
