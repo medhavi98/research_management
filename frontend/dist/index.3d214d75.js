@@ -24970,15 +24970,22 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _button = require("./components/pasindu/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _reactRouterDom = require("react-router-dom");
-var _registration = require("./components/lakshika/registration");
+var _registration = require("./components/lakshika/Registration");
 var _registrationDefault = parcelHelpers.interopDefault(_registration);
 class App extends _react.Component {
     render() {
         return /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+            className: "App",
             children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.BrowserRouter, {
-                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
-                    path: "/",
-                    component: _registrationDefault.default
+                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Routes, {
+                    children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
+                        path: "/register",
+                        element: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_registrationDefault.default, {}, void 0, false, void 0, void 0)
+                    }, void 0, false, {
+                        fileName: "App.js",
+                        lineNumber: 13,
+                        columnNumber: 21
+                    }, this)
                 }, void 0, false, {
                     fileName: "App.js",
                     lineNumber: 12,
@@ -25003,7 +25010,7 @@ exports.default = App;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/pasindu/Button":"ciyMm","react-router-dom":"fdOAw","./components/lakshika/registration":"33hyc"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/pasindu/Button":"ciyMm","react-router-dom":"fdOAw","./components/lakshika/Registration":"4c98N"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -47203,53 +47210,50 @@ function _renderMatches(matches, parentMatches) {
     return _renderMatches(matches);
 }
 
-},{"history":"iE5Zp","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"33hyc":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$3d6d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"history":"iE5Zp","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4c98N":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5d12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$3d6d.prelude(module);
+$parcel$ReactRefreshHelpers$5d12.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-class registration extends _react.Component {
-    render() {
-        return /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-            className: "container",
-            children: [
-                /*#__PURE__*/ _jsxDevRuntime.jsxDEV("h3", {
-                    children: "Create an Account"
-                }, void 0, false, {
-                    fileName: "components/lakshika/registration.js",
-                    lineNumber: 7,
-                    columnNumber: 17
-                }, this),
-                /*#__PURE__*/ _jsxDevRuntime.jsxDEV("input", {
-                    type: "text",
-                    placeholder: "Enter Your Full Name Here"
-                }, void 0, false, {
-                    fileName: "components/lakshika/registration.js",
-                    lineNumber: 9,
-                    columnNumber: 17
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "components/lakshika/registration.js",
-            lineNumber: 6,
-            columnNumber: 13
-        }, this);
-    }
-}
-exports.default = registration;
+// import React , {Component} from "react";
+// class Registration extends Component { 
+//       render() {
+//         return (
+//             <div className="container">
+//                 <h3>Create an Account</h3> 
+//                 <input
+//                     type={"text"}                    
+//                     placeholder={"Enter Your Full Name Here"}
+//                 />
+//             </div>
+//         )
+//     }
+// }
+//  export default Registration;
+const Registration = ()=>{
+    return /*#__PURE__*/ _jsxDevRuntime.jsxDEV("h1", {
+        children: "Hello"
+    }, void 0, false, {
+        fileName: "components/lakshika/Registration.js",
+        lineNumber: 21,
+        columnNumber: 5
+    }, undefined);
+};
+_c = Registration;
+exports.default = Registration;
+var _c;
+$RefreshReg$(_c, "Registration");
 
-  $parcel$ReactRefreshHelpers$3d6d.postlude(module);
+  $parcel$ReactRefreshHelpers$5d12.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["kn9T2","aPJuQ","bB7Pu"], "bB7Pu", "parcelRequire10c2")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["kn9T2","aPJuQ","bB7Pu"], "bB7Pu", "parcelRequire10c2")
 
 //# sourceMappingURL=index.3d214d75.js.map
