@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import Registration from "./components/lakshika/Registration";
 import Login from "./components/Auth/Login";
+import Registration from "./components/Auth/Registration";
 import "./Main.scss";
 
 export default class App extends Component {
