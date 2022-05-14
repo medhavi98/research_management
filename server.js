@@ -3,8 +3,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const groupRegistrationRouter = require("./routes/GroupRegistrationRouter");
-const requestRouter = require("./routes/RequestRoute");
+const requestRouter = require("./routes/RequestRouter");
 const userRoute = require("./routes/UserRoute");
+const topicRouter = require("./routes/topicRouter");
 
 //creating express app
 const app = express();
@@ -20,6 +21,7 @@ const MONGO_URI = process.env.MONGO_URI;
 app.use('/groupRegistrations', groupRegistrationRouter);
 app.use('/requests', requestRouter);
 app.use('/user', userRoute);
+app.use('/topics', topicRouter);
 
 //creating express server
 app.listen(PORT, async () => {
