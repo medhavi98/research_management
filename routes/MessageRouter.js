@@ -16,5 +16,17 @@ messageRouter.post('/', async (req,res) => {
     }
 })
 
+//get messages
+messageRouter.get('/getMessages/:receiverId', async (req,res) => {
+    const { receiverId } = req.params;
+
+    try {
+        const messages = await MessageModel.find({receiverId});
+        res.status(200).json({messages});
+    } catch (error) {
+        res.status(400).json("Messages retrieving failed");
+    }
+})
+
 module.exports = messageRouter;
 
