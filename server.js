@@ -6,6 +6,7 @@ const groupRegistrationRouter = require("./routes/GroupRegistrationRouter");
 const requestRouter = require("./routes/RequestRouter");
 const userRoute = require("./routes/UserRoute");
 const topicRouter = require("./routes/topicRouter");
+const marksRouter = require("./routes/MarkRouter");
 
 //creating express app
 const app = express();
@@ -22,6 +23,7 @@ app.use('/groupRegistrations', groupRegistrationRouter);
 app.use('/requests', requestRouter);
 app.use('/user', userRoute);
 app.use('/topics', topicRouter);
+app.use('/marks', marksRouter);
 
 //creating express server
 app.listen(PORT, async () => {
