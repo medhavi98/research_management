@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 //router
-app.use('/groupRegistrations', groupRegistrationRouter);
+app.use('/groups', groupRegistrationRouter);
 app.use('/requests', requestRouter);
 app.use('/user', userRoute);
 app.use('/topics', topicRouter);
