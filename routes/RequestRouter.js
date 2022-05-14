@@ -38,4 +38,16 @@ requestRouter.delete('/delete/:requestId', async (req,res) => {
         res.status(400).json("Request details deleted failed");
     }
 })
+
+//get request details
+requestRouter.get('/getRequests/:groupId', async (req,res) => {
+    const { groupId } = req.params;
+
+    try {
+        const requests = await RequestModel.find({groupId});
+        res.status(200).json({requests});
+    } catch (error) {
+        res.status(400).json("Requests retrieving failed");
+    }
+})
 module.exports = requestRouter;

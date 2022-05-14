@@ -29,4 +29,15 @@ topicRouter.post('/edit/:topicId', async (req,res) => {
     }
 })
 
+//get topic details
+topicRouter.get('/getTopic/:groupId', async (req,res) => {
+    const { groupId } = req.params;
+
+    try {
+        const topics = await TopicModel.find({groupId});
+        res.status(200).json({topics});
+    } catch (error) {
+        res.status(400).json("Topics retrieving failed");
+    }
+})
 module.exports = topicRouter;

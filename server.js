@@ -8,6 +8,7 @@ const userRoute = require("./routes/UserRoute");
 const topicRouter = require("./routes/topicRouter");
 const marksRouter = require("./routes/MarkRouter");
 const submissionRouter = require("./routes/SubmissionRouter");
+const notificationRouter = require("./routes/NotificationRouter");
 
 //creating express app
 const app = express();
@@ -20,12 +21,13 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 //router
-app.use('/groupRegistrations', groupRegistrationRouter);
+app.use('/groups', groupRegistrationRouter);
 app.use('/requests', requestRouter);
 app.use('/user', userRoute);
 app.use('/topics', topicRouter);
 app.use('/marks', marksRouter);
 app.use('/submissions', submissionRouter);
+app.use('/notifications', notificationRouter);
 
 //creating express server
 app.listen(PORT, async () => {

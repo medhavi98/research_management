@@ -42,4 +42,16 @@ groupRegistrationRouter.delete('/delete/:groupId', async (req,res) => {
         res.status(400).json("Group details deleted failed");
     }
 })
+
+//get group details
+groupRegistrationRouter.get('/getGroupDetails/:groupId', async (req,res) => {
+    const { groupId } = req.params;
+
+    try {
+        const groups = await GroupModel.findOne({_id: groupId});
+        res.status(200).json({groups});
+    } catch (error) {
+        res.status(400).json("groups details updated failed");
+    }
+})
 module.exports = groupRegistrationRouter;
