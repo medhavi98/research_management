@@ -29,8 +29,4 @@ topicRouter.post('/edit/:topicId', async (req,res) => {
     }
 })
 
-
-
-
-
 module.exports = topicRouter;
