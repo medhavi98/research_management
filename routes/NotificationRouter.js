@@ -23,7 +23,7 @@ notificationRouter.get('/getNotifications/:userId', async (req,res) => {
         const notifications = await NotificationModel.find({userId});
         res.status(200).json({notifications});
     } catch (error) {
-        res.status(400).json("Notification details updated failed");
+        res.status(400).json("Notification details retrieving failed");
     }
 })
 
