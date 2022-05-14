@@ -2,14 +2,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const groupRegistrationRouter = require("./routes/GroupRegistrationRouter");
-const requestRouter = require("./routes/RequestRouter");
-const userRoute = require("./routes/UserRoute");
-const topicRouter = require("./routes/topicRouter");
-const marksRouter = require("./routes/MarkRouter");
-const submissionRouter = require("./routes/SubmissionRouter");
-const notificationRouter = require("./routes/NotificationRouter");
-const messageRouter = require("./routes/MessageRouter");
+const { groupRegistrationRouter, requestRouter, userRoute, topicRouter, marksRouter, submissionRouter, notificationRouter, messageRouter } = require("./routes");
+
 
 //creating express app
 const app = express();
