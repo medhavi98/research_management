@@ -1,24 +1,18 @@
-// import React , {Component} from "react";
+import Button from "../Common/Button";
+import TextFieldComponent from "../Common/TextFieldComponent";
 
-// class Registration extends Component { 
-//       render() {
-//         return (
-//             <div className="container">
-//                 <h3>Create an Account</h3> 
+const Registration = () => {
+  return (
+    <div>
+      <h1>Hello</h1>
+      <TextFieldComponent
+        label="Email Address"
+        inputName="email"
+        classes="form-field"
+        required
+      />
+    </div>
+  );
+};
 
-//                 <input
-//                     type={"text"}                    
-//                     placeholder={"Enter Your Full Name Here"}
-//                 />
-//             </div>
-//         )
-//     }
-// }
-//  export default Registration;
-
-const  Registration = () =>{
-return(
-    <h1>Hello</h1>
-)
-}
 export default Registration;
