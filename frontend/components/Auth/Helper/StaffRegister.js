@@ -41,8 +41,8 @@ const StaffRegister = () => {
         </Grid>
         <Grid item md={12}>
           <TextFieldComponent
-            label="SLIIT Mail"
-            inputName="rNo"
+            label="SLIIT email"
+            inputName="sMail"
             classes="form-field"
             width="88%"
             required
@@ -50,10 +50,20 @@ const StaffRegister = () => {
         </Grid>
         <Grid item md={12}>
           <TextFieldComponent
-            label="Personal Optional"
-            inputName="rNo"
+            label="Personal email"
+            inputName="pMail"
             classes="form-field"
             width="88%"
+            required
+          />
+        </Grid>
+        <Grid item md={12}>
+          <TextFieldComponent
+            label="Password"
+            inputName="password"
+            classes="form-field"
+            width="88%"
+            type="password"
             required
           />
         </Grid>
