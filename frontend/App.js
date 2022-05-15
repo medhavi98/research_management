@@ -12,13 +12,15 @@ export default class App extends Component {
       <div className="App">
         {/* <Registration/> */}
         <BrowserRouter>
-          <Layout>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Registration />} />
+              <Route path="/" element={
+                <Layout>
+                  <Dashboard />
+                </Layout>} 
+              />
             </Routes>
-          </Layout>
         </BrowserRouter>
       </div>
     );
