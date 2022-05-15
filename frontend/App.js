@@ -1,20 +1,21 @@
-import React, {Component} from "react";
-import Button from "./components/pasindu/Button";
-import registration from "./components/lakshika/registration";
-import { BrowserRouter as Router, Routes ,Route } from "react-router-dom";
-import Dashboard from "./components/charith/Dashboard";
-export default class App extends Component{
-    render(){
-        return (
-        <div>
-            {/* <Registration/> */}
-            <Router>
-                <Routes>
-                    <Route path='/' element={<registration />}/>
-                    <Route path='/dashboard' element={<Dashboard />}/>
-                </Routes>
-            </Router>
-        </div>
-        )
-    }
+import React, { Component } from "react";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import Login from "./components/Auth/Login";
+import Registration from "./components/Auth/Registration";
+import "./Main.scss";
+
+export default class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        {/* <Registration/> */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Registration />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
