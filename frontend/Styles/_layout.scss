@@ -1,0 +1,29 @@
+.root {
+    display: flex;  
+}
+
+.children-wrapper{
+    margin-top: 100px;
+    margin-left: -10px;
+    margin-right: 30px;
+    text-align: justify;
+}
+
+.css-h4y409-MuiList-root{
+    padding-top: 40px !important;
+}
+
+.nav-links{
+    text-decoration: none;
+    color: #000000;
+}
+
+@media only screen and (max-width: 595px) {
+    /* For mobile phones: */
+    .children-wrapper{        
+        margin-top: 100px;
+        margin-left: -10px;
+        margin-right: 30px;
+        text-align: justify;
+    }
+  }

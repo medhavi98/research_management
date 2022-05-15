@@ -1,4 +1,5 @@
 @import './Styles/login.scss';
+@import './Styles/layout.scss';
    
 
 *{
@@ -10,5 +11,5 @@
 body{
    
     font-family: "Quicksand";
-  
+    background-color: #f5f6fa !important;
 }
