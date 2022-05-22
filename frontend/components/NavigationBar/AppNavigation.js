@@ -36,19 +36,19 @@ function AppNavigation(props) {
       <Toolbar />
       <List>
           {["Dashboard", "Group Details", "Topic Submission", "Document Submission"].map((text, index) => (
-            <Link  className='nav-links'
-              to={
-                text === "Dashboard"
-                  ? `/`
-                  : text === "Group Details"
-                  ? `/groups/${index}`
-                  : text === "Topic Submission"
-                  ? `/topics`
-                  : text === "Document Submission"
-                  ? `/documents`
-                  : null
-              }
-            >
+            // <Link  className='nav-links'
+            //   to={
+            //     text === "Dashboard"
+            //       ? `/`
+            //       : text === "Group Details"
+            //       ? `/groups/${index}`
+            //       : text === "Topic Submission"
+            //       ? `/topics`
+            //       : text === "Document Submission"
+            //       ? `/documents`
+            //       : null
+            //   }
+            // >
               <ListItem key={text}>
                 <ListItemButton>
                   <ListItemIcon>
@@ -58,10 +58,12 @@ function AppNavigation(props) {
                     : index === 3 ? <DriveFolderUploadIcon />
                     : null}
                   </ListItemIcon>
+                  <div onClick={() => props.onClickItem(text)} >
                   <ListItemText primary={text} />
+                  </div>
                 </ListItemButton>
               </ListItem>
-            </Link>
+            // </Link>
           ))}
         </List>
     </div>

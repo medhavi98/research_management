@@ -54,7 +54,8 @@ const userDetailsSchema = new Schema({
                 required : true
             }
         }
-    ],  
+    ],
+    //FIXME add group id
 })
 
 userDetailsSchema.methods.generateAuthToken = async function() {
