@@ -55,8 +55,11 @@ const userDetailsSchema = new Schema({
             }
         }
     ],
-    //FIXME add group id
-})
+    groupId: {
+        type: String,
+        default: '',
+    }
+}, {collection: 'users'})
 
 userDetailsSchema.methods.generateAuthToken = async function() {
     try {
