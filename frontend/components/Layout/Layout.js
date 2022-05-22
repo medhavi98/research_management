@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import AppNavigation from '../NavigationBar/AppNavigation';
+import React, { useState } from "react";
+import AppNavigation from "../NavigationBar/AppNavigation";
+import GroupDetails from "../Student/GroupDetails";
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
-  const onClick = componentName => {
-    console.log('click', componentName);
+  const onClick = (componentName) => {
+    console.log("click", componentName);
     setFocus(componentName);
-  }
+  };
   return (
-    <div className='root'>        
-        <AppNavigation onClickItem={onClick}/>
-        <main className='children-wrapper'>
-            {/* {children} */}
-            {focus === "Dashboard" ? <h2>Dashboard</h2> : ''}
-            {focus === "Group Details" ? <h2>Group Details</h2> : ''}
-        </main>
+    <div className="root">
+      <AppNavigation onClickItem={onClick} />
+      <main className="children-wrapper">
+        {/* {children} */}
+        {focus === "Dashboard" ? <h2>Dashboard</h2> : ""}
+        {focus === "Group Details" ? <GroupDetails /> : ""}
+      </main>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
