@@ -4,6 +4,7 @@ import Login from "./components/Auth/Login";
 import Registration from "./components/Auth/Registration";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/DashBoard";
+import TopicRegister from "./components/Student/TopicSubmission/TopicRegister";
 import "./Main.scss";
 
 export default class App extends Component {
@@ -18,6 +19,11 @@ export default class App extends Component {
               <Route exact path="/" element={
                 <Layout>
                   <Dashboard />
+                </Layout>} 
+              />
+              <Route exact path="/register_topic" element={
+                <Layout>
+                  <TopicRegister />
                 </Layout>} 
               />
             </Routes>
