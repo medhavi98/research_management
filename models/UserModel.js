@@ -56,8 +56,8 @@ const userDetailsSchema = new Schema({
         }
     ],
     groupId: {
-        type: String,
-        default: '',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "groups"
     }
 }, {collection: 'users'})
 
