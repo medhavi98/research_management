@@ -43,7 +43,7 @@ function AppNavigation(props) {
             //       : text === "Group Details"
             //       ? `/groups/${index}`
             //       : text === "Topic Submission"
-            //       ? `/topics`
+            //       ? `/register_topic`
             //       : text === "Document Submission"
             //       ? `/documents`
             //       : null
