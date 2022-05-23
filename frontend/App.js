@@ -5,7 +5,7 @@ import Registration from "./components/Auth/Registration";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/DashBoard";
 import TopicRegister from "./components/Student/TopicSubmission/TopicRegister";
-import AdminDashboard from "./components/Admin/DocumentsUpload/AdminDocUpload"
+import Admindoc from "./components/Admin/DocumentsUpload/AdminDocUpload"
 import "./Main.scss";
 
 export default class App extends Component {
