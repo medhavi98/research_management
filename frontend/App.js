@@ -5,6 +5,7 @@ import Registration from "./components/Auth/Registration";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/DashBoard";
 import TopicRegister from "./components/Student/TopicSubmission/TopicRegister";
+import AdminDashboard from "./components/Admin/DocumentsUpload/AdminDocUpload"
 import "./Main.scss";
 
 export default class App extends Component {
@@ -16,6 +17,7 @@ export default class App extends Component {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Registration />} />
+              <Route path="/admindoc" element={<Admindoc />} />
               <Route exact path="/" element={
                 <Layout>
                   <Dashboard />
