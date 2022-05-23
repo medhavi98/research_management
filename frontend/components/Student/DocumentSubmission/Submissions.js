@@ -6,12 +6,12 @@ const Submissions = () => {
       <Grid>
         <Grid container>
           <Grid item md={8}>
-            <Typography variant="h6">Submit research topic</Typography>
+            <Typography variant="h6">Introduction to the Research</Typography>
             <Typography variant="h6" mt={4}>
-              Charter submission
+              Learn how to create a SRS
             </Typography>
             <Typography variant="h6" mt={4}>
-              Presentation submissions
+              Sample charter document
             </Typography>
           </Grid>
           <Grid item md={4}>
