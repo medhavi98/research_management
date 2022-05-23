@@ -1,8 +1,7 @@
-
-import React, { useState } from 'react';
-import AppNavigation from '../NavigationBar/AppNavigation';
-import TopicRegister from '../Student/TopicSubmission/TopicRegister';
-
+import React, { useState } from "react";
+import AppNavigation from "../NavigationBar/AppNavigation";
+import TopicRegister from "../Student/TopicSubmission/TopicRegister";
+import GroupDetails from "../Student/GroupDetails";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -11,16 +10,14 @@ const Layout = ({ children }) => {
     setFocus(componentName);
   };
   return (
-
-    <div className='root'>        
-        <AppNavigation onClickItem={onClick}/>
-        <main className='children-wrapper'>
-            {/* {children} */}
-            {focus === "Dashboard" ? <h2>Dashboard</h2> : ''}
-            {focus === "Group Details" ? <h2>Group Details</h2> : ''}
-            {focus === "Topic Submission" ? <TopicRegister/> : ''}
-        </main>
-
+    <div className="root">
+      <AppNavigation onClickItem={onClick} />
+      <main className="children-wrapper">
+        {/* {children} */}
+        {focus === "Dashboard" ? <h2>Dashboard</h2> : ""}
+        {focus === "Group Details" ? <GroupDetails /> : ""}
+        {focus === "Topic Submission" ? <TopicRegister /> : ""}
+      </main>
     </div>
   );
 };
