@@ -4,6 +4,7 @@ import TopicRegister from "../Student/TopicSubmission/TopicRegister";
 import GroupDetails from "../Student/GroupDetails";
 import DashBoard from "../DashBoard";
 import DocumentSubmission from "../Student/DocumentSubmission/DocumentSubmission";
+import "../../Main.scss";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -14,7 +15,7 @@ const Layout = ({ children }) => {
   return (
     <div className="root">
       <AppNavigation onClickItem={onClick} />
-      <main className="children-wrapper">
+      <main className="children-wrapper" style={{marginTop: '10%'}}>
         {/* {children} */}
         {focus === "Dashboard" ? <DashBoard /> : ""}
         {focus === "Group Details" ? <GroupDetails /> : ""}
