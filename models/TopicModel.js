@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const topicSchema = new Schema({
+    submissionType: {
+        type: String,
+    },
     supervisorId: {
         type: String,
     },
