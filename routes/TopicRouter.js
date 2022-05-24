@@ -4,11 +4,11 @@ const topicRouter = require('express').Router();
 
 //add Topic details
 topicRouter.post('/', async (req,res) => {
-    const { supervisorId, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
-    const topic = new TopicModel({ supervisorId, groupId, topicName, topicDescription, researchField });
+    const { submissionType, supervisorId, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
+    const topic = new TopicModel({ submissionType, supervisorId, groupId, topicName, topicDescription, researchField });
     try {
         await topic.save();
-        res.status(200).json("Topic saved successfully");
+        res.status(201).json("Topic saved successfully");
     } catch (error) {
         console.log(error)
         res.status(400).json("Topic could not be saved");
@@ -16,7 +16,7 @@ topicRouter.post('/', async (req,res) => {
 })
 
 //edit Topic details
-topicRouter.post('/edit/:topicId', async (req,res) => {
+topicRouter.put('/edit/:topicId', async (req,res) => {
     const { topicId } = req.params;
     const { supervisorId, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
     const editedTopic = { supervisorId, groupId, topicName, topicDescription, researchField };

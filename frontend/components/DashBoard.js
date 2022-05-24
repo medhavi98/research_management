@@ -1,11 +1,12 @@
+import { Container } from '@mui/material'
 import React from 'react'
 
 const DashBoard = () => {
 
   return (
-    <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-        Dashboard
-    </div>
+    <Container>
+
+    </Container>
   )
 }
 
