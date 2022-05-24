@@ -6,12 +6,12 @@ const Resources = () => {
       <Grid>
         <Grid container>
           <Grid item md={8}>
-            <Typography variant="h6">Introduction to the Research</Typography>
+            <Typography variant="h6">Submit research topic</Typography>
             <Typography variant="h6" mt={4}>
-              Learn how to create a SRS
+              Charter submission
             </Typography>
             <Typography variant="h6" mt={4}>
-              Sample charter document
+              Presentation submissions
             </Typography>
           </Grid>
           <Grid item md={4}>

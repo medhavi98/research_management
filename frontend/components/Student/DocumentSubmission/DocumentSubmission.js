@@ -6,8 +6,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import AppBar from "@mui/material/AppBar";
-import Resources from "./Resources";
-import Submissions from "./Submissions";
+import Resources from "./Submissions";
+import Submissions from "./Resources";
 
 const DocumentSubmission = () => {
   const [value, setValue] = React.useState("1");

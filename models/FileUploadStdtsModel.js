@@ -9,7 +9,7 @@ const researchTemplateSchema = new Schema ({
 });
 
 const researchPapers = mongoose.model(
-    "UploadedReseachFile",researchTemplateSchema
+    "UploadedResearchFile",researchTemplateSchema
 );
 
 module.exports = researchPapers;

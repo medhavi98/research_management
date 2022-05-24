@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { groupRegistrationRouter, requestRouter, userRoute, topicRouter, marksRouter, submissionRouter, notificationRouter, messageRouter } = require("./routes");
+const stdFileUploadRouter = require("./routes/StdFileUploadRouter");
 
 
 //creating express app
@@ -24,6 +25,7 @@ app.use('/marks', marksRouter);
 app.use('/submissions', submissionRouter);
 app.use('/notifications', notificationRouter);
 app.use('/messages', messageRouter);
+app.use('/fileUploadstd',stdFileUploadRouter);
 
 //creating express server
 app.listen(PORT, async () => {
