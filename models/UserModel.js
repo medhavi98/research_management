@@ -33,7 +33,7 @@ const userDetailsSchema = new Schema({
     registerType: {
         type: [String],
     },
-    stdOrStaff: {
+    userType: {
         type: String,
     },
     password: {
