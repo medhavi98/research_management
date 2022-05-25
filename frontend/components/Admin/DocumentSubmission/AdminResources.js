@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-const Resources = () => {
+const AdminResources = () => {
   return (
     <>
       <Grid>
@@ -52,4 +52,4 @@ const Resources = () => {
   );
 };
 
-export default Resources;
+export default AdminResources;
