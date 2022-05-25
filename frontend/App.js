@@ -7,6 +7,8 @@ import Dashboard from "./components/DashBoard";
 import TopicRegister from "./components/Student/TopicSubmission/TopicRegister";
 import Admindoc from "./components/Admin/DocumentsUpload/AdminDocUpload"
 import "./Main.scss";
+import PrivateRoute from "./components/Auth/PrivateRoute";
+import PublicRoute from "./components/Auth/PublicRoute";
 
 export default class App extends Component {
   render() {
@@ -14,21 +16,30 @@ export default class App extends Component {
       <div className="App">
         {/* <Registration/> */}
         <BrowserRouter>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Registration />} />
-              <Route path="/admindoc" element={<Admindoc />} />
+          <Routes>
+            <Route path="/admindoc" element={<Admindoc />} />
+            <Route exact path="/register_topic" element={
+              <Layout>
+                <TopicRegister />
+              </Layout>}
+            />
+            {/* Private routes */}
+              //COMMENT :- routes that need to be logged in to be accessible
+            <Route path='/' element={<PrivateRoute />}>
               <Route exact path="/" element={
                 <Layout>
                   <Dashboard />
-                </Layout>} 
+                </Layout>}
               />
-              <Route exact path="/register_topic" element={
-                <Layout>
-                  <TopicRegister />
-                </Layout>} 
-              />
-            </Routes>
+            </Route>
+
+            {/* Public routes */}
+              //COMMENT :- routes that can be accessible without logged in
+            <Route path='/' element={<PublicRoute />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Registration />} />
+            </Route>
+          </Routes>
         </BrowserRouter>
       </div>
     );
