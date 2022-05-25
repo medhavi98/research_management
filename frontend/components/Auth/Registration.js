@@ -5,17 +5,60 @@ import DropDown from "../Common/DropDown";
 import TextFieldComponent from "../Common/TextFieldComponent";
 import StudentRegister from "./Helper/StudentRegister";
 import StaffRegister from "./Helper/StaffRegister";
+import { BASE_URL } from "../constants";
+import axios from "axios";
 
 const Registration = () => {
   const userTypes = [
     { name: "Student", value: "as student" },
     { name: "Staff", value: "as staff" },
   ];
-
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const [department, setDepartment] = useState("");
+  const [phone, setPhone] = useState("");
+  const [sliitEmail, setSliitEmail] = useState("");
+  const [personalEmail, setPersonalEmail] = useState("");
+  const [nic, setNic] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [staffId, setStaffId] = useState("");
+  const [interestFields, setInterestFields] = useState([]);
+  const [registerType, setRegisterType] = useState([]);
   const [userType, setUserType] = useState("");
 
   const userTypeHandler = (event) => {
     setUserType(event.target.value);
+  };
+
+  const onButtonPress = async () => {
+    let response;
+    if (userType === "as student") {
+      response = await axios.post(`${BASE_URL}/user`, {
+        fullName,
+        password,
+        department,
+        phone,
+        sliitEmail,
+        personalEmail,
+        nic,
+        studentId,
+      });
+    } else if (userType === "as staff") {
+      response = await axios.post(`${BASE_URL}/user`, {
+        fullName,
+        password,
+        department,
+        phone,
+        sliitEmail,
+        personalEmail,
+        nic,
+        staffId,
+        interestFields,
+        registerType,
+      });
+
+    }
+    console.log(response.data)
   };
 
   return (
@@ -66,17 +109,57 @@ const Registration = () => {
                   />
                 </Grid>
 
-                {userType === "as student" && <StudentRegister />}
-                {userType === "as staff" && <StaffRegister />}
-
+                {userType === "as student" && <StudentRegister
+                  fullName={fullName}
+                  password={password}
+                  department={department}
+                  phone={phone}
+                  sliitEmail={sliitEmail}
+                  personalEmail={personalEmail}
+                  nic={nic}
+                  studentId={studentId}
+                  setFullName={setFullName}
+                  setPassword={setPassword}
+                  setDepartment={setDepartment}
+                  setPhone={setPhone}
+                  setSliitEmail={setSliitEmail}
+                  setPersonalEmail={setPersonalEmail}
+                  setNic={setNic}
+                  setStudentId={setStudentId}
+                />}
+                {userType === "as staff" && <StaffRegister
+                  fullName={fullName}
+                  password={password}
+                  department={department}
+                  phone={phone}
+                  sliitEmail={sliitEmail}
+                  personalEmail={personalEmail}
+                  nic={nic}
+                  staffId={staffId}
+                  interestFields={interestFields}
+                  registerType={registerType}
+                  setFullName={setFullName}
+                  setPassword={setPassword}
+                  setDepartment={setDepartment}
+                  setPhone={setPhone}
+                  setSliitEmail={setSliitEmail}
+                  setPersonalEmail={setPersonalEmail}
+                  setNic={setNic}
+                  setStaffId={setStaffId}
+                  setInterestFields={setInterestFields}
+                  setRegisterType={setRegisterType}
+                />}
                 <Grid item md={12} pt={4}>
-                  <Button
-                    variant="contained"
-                    color="success"
-                    sx={{ width: "20%" }}
-                  >
-                    Register
-                  </Button>
+                  {!userType ? <></> : (
+                    <Button
+                      onClick={onButtonPress}
+                      variant="contained"
+                      color="success"
+                      sx={{ width: "20%" }}
+                    >
+                      Register
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
