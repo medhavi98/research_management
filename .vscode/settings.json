@@ -1,4 +1,10 @@
 {
-  "cSpell.words": ["lakshika", "Stdts", "templatefile", "Uploadstd"],
+  "cSpell.words": [
+    "lakshika",
+    "stdsubmission",
+    "Stdts",
+    "templatefile",
+    "Uploadstd"
+  ],
   "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
