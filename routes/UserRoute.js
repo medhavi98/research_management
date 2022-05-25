@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
             staffId: req.body.staffId,
             interestFields: req.body.interestFields,
             registerType: req.body.registerType,
-            stdOrStaff: req.body.stdOrStaff,
+            userType: req.body.userType,
             password: hash
         });
         details.save().then((user) => {
@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
 })
 
 // '/:interestFields/:registerType'
-router.get(`/:registerType/:interestFields`, async (req, res) => {
+router.get(`/interestFields/:registerType/:interestFields`, async (req, res) => {
 
     const registerType = req.params.registerType;
     const interestFields = req.params.interestFields;
@@ -74,6 +74,25 @@ router.get(`/:registerType/:interestFields`, async (req, res) => {
 
     } catch (error) {
         res.status(400).json("user retrieving failed");
+    }
+
+})
+
+//get one user details 
+router.get(`/userDetails/:userId`, async (req, res) => {
+
+    const { userId } = req.params;
+
+    try {
+        const user = await userDetails.findById(userId);
+
+        if (user) {
+            res.status(200).json({ user });
+        } else {
+            res.status(200).json({ error: "user retrieving failed" });
+        }
+    } catch (error) {
+        res.status(200).json({ error: "user retrieving failed" });
     }
 
 })

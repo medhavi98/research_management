@@ -43,7 +43,7 @@ const Registration = () => {
         personalEmail,
         nic,
         studentId,
-        stdOrStaff: userType === "as staff" ? "staff" : "student",
+        userType: userType === "as staff" ? "staff" : "student",
       });
     } else if (userType === "as staff") {
       response = await axios.post(`${BASE_URL}/user`, {
@@ -57,7 +57,7 @@ const Registration = () => {
         staffId,
         interestFields,
         registerType,
-        stdOrStaff: userType === "as staff" ? "staff" : "student",
+        userType: userType === "as staff" ? "staff" : "student",
       });
 
     }
