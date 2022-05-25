@@ -21,8 +21,6 @@ const Layout = ({ children }) => {
     fetchUser();
   }, [])
 
-  console.log()
-
   const fetchUser = async () => {
     const user = await axios.get(`${BASE_URL}/user/userDetails/${userId}`);
     setUserType(user.data.user.userType);
