@@ -20,10 +20,12 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import TopicIcon from '@mui/icons-material/Topic';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { Link } from "react-router-dom";
+import { getUserSessionDetails, removeUserSessionDetails } from "../../helpers/userSessionHandler";
 
 const drawerWidth = 250;
 
 function AppNavigation(props) {
+  const { isLoggedIn } = getUserSessionDetails();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -35,42 +37,47 @@ function AppNavigation(props) {
     <div>
       <Toolbar />
       <List>
-          {["Dashboard", "Group Details", "Topic Submission", "Document Submission"].map((text, index) => (
-            // <Link  className='nav-links'
-            //   to={
-            //     text === "Dashboard"
-            //       ? `/`
-            //       : text === "Group Details"
-            //       ? `/groups/${index}`
-            //       : text === "Topic Submission"
-            //       ? `/register_topic`
-            //       : text === "Document Submission"
-            //       ? `/documents`
-            //       : null
-            //   }
-            // >
-              <ListItem key={text}>
-                <ListItemButton>
-                  <ListItemIcon>
-                  {index == 0 ? <DashboardIcon /> 
-                    : index === 1 ? <GroupsIcon />
+        {["Dashboard", "Group Details", "Topic Submission", "Document Submission"].map((text, index) => (
+          // <Link  className='nav-links'
+          //   to={
+          //     text === "Dashboard"
+          //       ? `/`
+          //       : text === "Group Details"
+          //       ? `/groups/${index}`
+          //       : text === "Topic Submission"
+          //       ? `/register_topic`
+          //       : text === "Document Submission"
+          //       ? `/documents`
+          //       : null
+          //   }
+          // >
+          <ListItem key={text}>
+            <ListItemButton>
+              <ListItemIcon>
+                {index == 0 ? <DashboardIcon />
+                  : index === 1 ? <GroupsIcon />
                     : index === 2 ? <TopicIcon />
-                    : index === 3 ? <DriveFolderUploadIcon />
-                    : null}
-                  </ListItemIcon>
-                  <div onClick={() => props.onClickItem(text)} >
-                  <ListItemText primary={text} />
-                  </div>
-                </ListItemButton>
-              </ListItem>
-            // </Link>
-          ))}
-        </List>
+                      : index === 3 ? <DriveFolderUploadIcon />
+                        : null}
+              </ListItemIcon>
+              <div onClick={() => props.onClickItem(text)} >
+                <ListItemText primary={text} />
+              </div>
+            </ListItemButton>
+          </ListItem>
+          // </Link>
+        ))}
+      </List>
     </div>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  const userLoggedHandler = () => {
+    removeUserSessionDetails();
+    window.location = '/login';
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -97,8 +104,8 @@ function AppNavigation(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             LOGO
           </Typography>
-          <Link to={`/login`}>
-            <Button color="inherit">Login</Button>          
+          <Link to={''} onClick={userLoggedHandler} >
+            <Button color="inherit">Log out</Button>
           </Link>
         </Toolbar>
       </AppBar>
@@ -106,7 +113,7 @@ function AppNavigation(props) {
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
-      >        
+      >
         <Drawer
           container={container}
           variant="temporary"
@@ -120,7 +127,7 @@ function AppNavigation(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-            },            
+            },
           }}
         >
           {drawer}
