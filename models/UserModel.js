@@ -3,74 +3,57 @@ const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
 const userDetailsSchema = new Schema({
-    fullName : {
+    fullName: {
         type: String,
-        required:true
     },
-    department : {
+    department: {
         type: String,
-        required:true
     },
-    phone : {
+    phone: {
         type: String,
-        required:true
     },
-    sliitEmail : {
+    sliitEmail: {
         type: String,
-        required:true
     },
-    personalEmail : {
+    personalEmail: {
         type: String,
-        required:true
     },
-    nic : {
+    nic: {
         type: String,
-        required:true
     },
-    studentId : {
+    studentId: {
         type: String,
-        required:false
     },
-    interestFields : {
+    staffId: {
         type: String,
-        required:false
     },
-    registerType : {
+    interestFields: {
+        type: [String],
+    },
+    registerType: {
+        type: [String],
+    },
+    stdOrStaff: {
         type: String,
-        required:false
     },
-    stdOrStaff : {
+    password: {
         type: String,
-        required:true
     },
-    password : {
-        type : String,
-        required : true
-    },
-    tokens : [
-        {
-            token : {
-                type: String,
-                required : true
-            }
-        }
-    ],
     groupId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "groups"
+        type: String,
     }
-}, {collection: 'users'})
+}, { collection: 'users' })
 
-userDetailsSchema.methods.generateAuthToken = async function() {
-    try {
-        let token = jwt.sign({_id : this._id}, "aaaabbbbccccddddeeeeffffggggtttt");
-        this.tokens = this.tokens.concat({token : token});
-        await this.save();
-        return token;
-    } catch(error) {
-        console.log(error);
-    }
-}
+// userDetailsSchema.methods.generateAuthToken = async function() {
+//     try {
+//         let token = jwt.sign({_id : this._id}, "aaaabbbbccccddddeeeeffffggggtttt");
+//         this.tokens = this.tokens.concat({token : token});
+//         await this.save();
+//         return token;
+//     } catch(error) {
+//         console.log(error);
+//     }
+// }
 
-const userDetails = mongoose.model("UserDetails" , userDetailsSchema);
+const userDetails = mongoose.model("UserDetails", userDetailsSchema);
 module.exports = userDetails;

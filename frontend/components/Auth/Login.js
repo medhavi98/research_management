@@ -1,7 +1,25 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
+import { setUserSession } from "../../helpers/userSessionHandler";
 import img from "../asset/login2.jpg";
 import TextFieldComponent from "../Common/TextFieldComponent";
+import { BASE_URL } from "../constants";
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLoginPress = async () => {
+    const response = await axios.post(`${BASE_URL}/user/login`, { email, password });
+    console.log(response.data);
+    if (response?.data?.error) {
+      alert(response.data.error);
+    } else if (response?.data?.user) {
+      setUserSession(response.data.user._id);
+      alert('Login is successful!');
+      window.location = '/';
+    }
+  };
   return (
     <div>
       <Grid m={10} md={12} xs={12}>
@@ -44,6 +62,8 @@ const Login = () => {
                     classes="form-field"
                     width="88%"
                     required
+                    inputValue={email}
+                    handleChange={e => setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item md={12}>
@@ -53,10 +73,13 @@ const Login = () => {
                     classes="form-field"
                     width="88%"
                     required
+                    inputValue={password}
+                    handleChange={e => setPassword(e.target.value)}
                   />
                 </Grid>
                 <Grid item md={12} pt={2}>
                   <Button
+                    onClick={onLoginPress}
                     variant="contained"
                     color="success"
                     sx={{ width: "20%" }}

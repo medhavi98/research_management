@@ -2,12 +2,44 @@ import { Grid, Typography } from "@mui/material";
 import CheckBox from "../../Common/CheckBox";
 import TextFieldComponent from "../../Common/TextFieldComponent";
 
-const StaffRegister = () => {
+const StaffRegister = ({
+  fullName,
+  password,
+  department,
+  phone,
+  sliitEmail,
+  personalEmail,
+  nic,
+  staffId,
+  interestFields,
+  registerType,
+  setFullName,
+  setPassword,
+  setDepartment,
+  setPhone,
+  setSliitEmail,
+  setPersonalEmail,
+  setNic,
+  setStaffId,
+  setInterestFields,
+  setRegisterType
+}) => {
   const category = [
     { checkBoName: "Supervisor" },
     { checkBoName: "Co-Supervisor" },
     { checkBoName: "Panel-Member" },
   ];
+
+  const staffTypeHandler = type => {
+    if (!registerType.includes(type)) {
+      setRegisterType([...registerType, type])
+    } else {
+      const newArray = registerType.filter(value => {
+        return value !== type;
+      });
+      setRegisterType(newArray);
+    }
+  };
 
   return (
     <>
@@ -18,7 +50,9 @@ const StaffRegister = () => {
             inputName="name"
             classes="form-field"
             width="88%"
+            inputValue={fullName}
             required
+            handleChange={e => setFullName(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -28,6 +62,8 @@ const StaffRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={nic}
+            handleChange={e => setNic(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -37,6 +73,8 @@ const StaffRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={staffId}
+            handleChange={e => setStaffId(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -46,6 +84,8 @@ const StaffRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={sliitEmail}
+            handleChange={e => setSliitEmail(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -55,6 +95,8 @@ const StaffRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={personalEmail}
+            handleChange={e => setPersonalEmail(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -65,6 +107,8 @@ const StaffRegister = () => {
             width="88%"
             type="password"
             required
+            inputValue={password}
+            handleChange={e => setPassword(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -75,11 +119,13 @@ const StaffRegister = () => {
             type="number"
             width="88%"
             required
+            inputValue={phone}
+            handleChange={e => setPhone(e.target.value)}
           />
         </Grid>
         <Grid item md={12} pt={4}>
           <Typography variant="subtitle">Register as</Typography>
-          <CheckBox options={category} />
+          <CheckBox options={category} onChange={e => staffTypeHandler(e.target.value)} />
         </Grid>
       </Grid>
     </>

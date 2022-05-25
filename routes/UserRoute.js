@@ -14,38 +14,41 @@ router.post('/', (req, res) => {
             personalEmail: req.body.personalEmail,
             nic: req.body.nic,
             studentId: req.body.studentId,
+            staffId: req.body.staffId,
             interestFields: req.body.interestFields,
             registerType: req.body.registerType,
             stdOrStaff: req.body.stdOrStaff,
             password: hash
         });
-        details.save().then(() => {
-            res.json('User details Added');
+        details.save().then((user) => {
+            res.json({ message: "Registration is successful.", user });
         }).catch((err) => {
-            console.log('Error has occurred', err);
+            res.json({ error: "Registration failed. Please try again!" });
         })
     })
 })
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const login = await userDetails.findOne({ email: email });
-    const isMatch = await bcrypt.compare(password, login.password);
-    const token = await login.generateAuthToken();
+    const user = await userDetails.findOne({ personalEmail: email });
 
-    res.cookie("JWTToken", token, {
-        expires: new Date(Date.now() + 25892000000),
-        httpOnly: true
-    })
+    if (!user) {
+        return res.json({ error: "Incorrect email address!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    // const token = await login.generateAuthToken();
+
+    // res.cookie("JWTToken", token, {
+    //     expires: new Date(Date.now() + 25892000000),
+    //     httpOnly: true
+    // })
 
     if (!isMatch) {
-        console.log("Incorrect Password");
-    }
-    else if (!login) {
-        res.json({ error: "Login Failed" });
+        res.json({ error: "Incorrect password!" });
     }
     else {
-        res.json({ message: "Login Successfully", id: login._id });
+        res.json({ message: "Login is successful.", user });
     }
 })
 

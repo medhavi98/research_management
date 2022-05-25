@@ -1,7 +1,24 @@
 import { Grid } from "@mui/material";
 import TextFieldComponent from "../../Common/TextFieldComponent";
 
-const StudentRegister = () => {
+const StudentRegister = ({
+  fullName,
+  password,
+  department,
+  phone,
+  sliitEmail,
+  personalEmail,
+  nic,
+  studentId,
+  setFullName,
+  setPassword,
+  setDepartment,
+  setPhone,
+  setSliitEmail,
+  setPersonalEmail,
+  setNic,
+  setStudentId,
+}) => {
   return (
     <>
       <Grid container>
@@ -11,7 +28,9 @@ const StudentRegister = () => {
             inputName="name"
             classes="form-field"
             width="88%"
+            inputValue={fullName}
             required
+            handleChange={e => setFullName(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -21,6 +40,8 @@ const StudentRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={nic}
+            handleChange={e => setNic(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -30,6 +51,8 @@ const StudentRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={studentId}
+            handleChange={e => setStudentId(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -39,6 +62,8 @@ const StudentRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={sliitEmail}
+            handleChange={e => setSliitEmail(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -48,6 +73,8 @@ const StudentRegister = () => {
             classes="form-field"
             width="88%"
             required
+            inputValue={personalEmail}
+            handleChange={e => setPersonalEmail(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -58,6 +85,8 @@ const StudentRegister = () => {
             width="88%"
             type="password"
             required
+            inputValue={password}
+            handleChange={e => setPassword(e.target.value)}
           />
         </Grid>
         <Grid item md={12}>
@@ -68,6 +97,8 @@ const StudentRegister = () => {
             type="number"
             width="88%"
             required
+            inputValue={phone}
+            handleChange={e => setPhone(e.target.value)}
           />
         </Grid>
       </Grid>
