@@ -8,18 +8,25 @@ import "../../Main.scss";
 import { getUserSessionDetails } from "../../helpers/userSessionHandler";
 import axios from "axios";
 import { BASE_URL } from "../constants";
+import StudentGroups from "../Admin/DocumentSubmission/StudentGroups/StudentGroups";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
   const [userType, setUserType] = useState("admin");
-  const student = ["Dashboard", "Group details", "Topic submission", "Document submission", "Chat"];
+  const student = [
+    "Dashboard",
+    "Group details",
+    "Topic submission",
+    "Document submission",
+    "Chat",
+  ];
   const admin = ["Dashboard", "Users", "Student groups", "Documents"];
   const staff = ["Dashboard", "Student requests", "Group marks", "Chat"];
   const { userId } = getUserSessionDetails();
 
   useEffect(() => {
     fetchUser();
-  }, [])
+  }, []);
 
   const fetchUser = async () => {
     const user = await axios.get(`${BASE_URL}/user/userDetails/${userId}`);
@@ -32,11 +39,16 @@ const Layout = ({ children }) => {
   };
   return (
     <div className="root">
-      <AppNavigation onClickItem={onClick} menuItems={userType === "admin" ? admin : userType === "staff" ? staff : student} />
-      <main className="children-wrapper" style={{ marginTop: '10%' }}>
+      <AppNavigation
+        onClickItem={onClick}
+        menuItems={
+          userType === "admin" ? admin : userType === "staff" ? staff : student
+        }
+      />
+      <main className="children-wrapper" style={{ marginTop: "10%" }}>
         {/* {children} */}
         {focus === "Dashboard" ? <DashBoard /> : ""}
-        {focus === "Group Details" ? <GroupDetails /> : ""}
+        {focus === "Student groups" ? <StudentGroups /> : ""}
         {focus === "Topic Submission" ? <TopicRegister /> : ""}
         {focus === "Document Submission" ? <DocumentSubmission /> : ""}
       </main>
