@@ -8,6 +8,7 @@ import TopicRegister from "./components/Student/TopicSubmission/TopicRegister";
 import "./Main.scss";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import PublicRoute from "./components/Auth/PublicRoute";
+import SubmissionsStd from "./components/Student/DocumentSubmission/Submissions";
 
 export default class App extends Component {
   render() {
@@ -37,6 +38,7 @@ export default class App extends Component {
                   </Layout>
                 }
               />
+              <Route path="/stdsubmission" element={<SubmissionsStd />} />
             </Route>
             {/* Public routes */}
             //COMMENT :- routes that can be accessible without logged in

@@ -6,10 +6,10 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import AppBar from "@mui/material/AppBar";
-import Resources from "./Submissions";
-import Submissions from "./Resources";
+import Resources from "./AdminDocSubmissions";
+import Submissions from "./AdminResources";
 
-const DocumentSubmission = () => {
+const AdminDocumentSubmission = () => {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -43,4 +43,4 @@ const DocumentSubmission = () => {
   );
 };
 
-export default DocumentSubmission;
+export default AdminDocumentSubmission;
