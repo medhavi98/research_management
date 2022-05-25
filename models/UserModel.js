@@ -3,43 +3,46 @@ const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
 const userDetailsSchema = new Schema({
-    fullName : {
+    fullName: {
         type: String,
     },
-    department : {
+    department: {
         type: String,
     },
-    phone : {
+    phone: {
         type: String,
     },
-    sliitEmail : {
+    sliitEmail: {
         type: String,
     },
-    personalEmail : {
+    personalEmail: {
         type: String,
     },
-    nic : {
+    nic: {
         type: String,
     },
-    studentId : {
+    studentId: {
         type: String,
     },
-    interestFields : {
+    staffId: {
         type: String,
     },
-    registerType : {
+    interestFields: {
         type: [String],
     },
-    stdOrStaff : {
+    registerType: {
+        type: [String],
+    },
+    stdOrStaff: {
         type: String,
     },
-    password : {
-        type : String,
+    password: {
+        type: String,
     },
     groupId: {
         type: String,
     }
-}, {collection: 'users'})
+}, { collection: 'users' })
 
 // userDetailsSchema.methods.generateAuthToken = async function() {
 //     try {
@@ -52,5 +55,5 @@ const userDetailsSchema = new Schema({
 //     }
 // }
 
-const userDetails = mongoose.model("UserDetails" , userDetailsSchema);
+const userDetails = mongoose.model("UserDetails", userDetailsSchema);
 module.exports = userDetails;

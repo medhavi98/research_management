@@ -14,13 +14,14 @@ router.post('/', (req, res) => {
             personalEmail: req.body.personalEmail,
             nic: req.body.nic,
             studentId: req.body.studentId,
+            staffId: req.body.staffId,
             interestFields: req.body.interestFields,
             registerType: req.body.registerType,
             stdOrStaff: req.body.stdOrStaff,
             password: hash
         });
         details.save().then((user) => {
-            res.json({message: "Registration is successful.", user});
+            res.json({ message: "Registration is successful.", user });
         }).catch((err) => {
             res.json({ error: "Registration failed. Please try again!" });
         })
@@ -30,7 +31,7 @@ router.post('/', (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await userDetails.findOne({ personalEmail: email });
-    
+
     if (!user) {
         return res.json({ error: "Incorrect email address!" });
     }
@@ -44,7 +45,7 @@ router.post('/login', async (req, res) => {
     // })
 
     if (!isMatch) {
-        res.json({ error: "Incorrect password!"});
+        res.json({ error: "Incorrect password!" });
     }
     else {
         res.json({ message: "Login is successful.", user });
