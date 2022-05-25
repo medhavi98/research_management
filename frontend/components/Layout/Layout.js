@@ -46,11 +46,16 @@ const Layout = ({ children }) => {
         }
       />
       <main className="children-wrapper" style={{ marginTop: "10%" }}>
-        {/* {children} */}
         {focus === "Dashboard" ? <DashBoard /> : ""}
+        {/* {Admin} */}
         {focus === "Student groups" ? <StudentGroups /> : ""}
-        {focus === "Topic Submission" ? <TopicRegister /> : ""}
-        {focus === "Document Submission" ? <DocumentSubmission /> : ""}
+
+        {/* {Staff} */}
+
+        {/* {Student} */}
+        {focus === "Topic submission" ? <TopicRegister /> : ""}
+        {focus === "Group details" ? <GroupDetails /> : ""}
+        {focus === "Document submission" ? <DocumentSubmission /> : ""}
       </main>
     </div>
   );
