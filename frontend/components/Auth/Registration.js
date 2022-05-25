@@ -7,6 +7,7 @@ import StudentRegister from "./Helper/StudentRegister";
 import StaffRegister from "./Helper/StaffRegister";
 import { BASE_URL } from "../constants";
 import axios from "axios";
+import { getUserSessionDetails, setUserSession } from "../../helpers/userSessionHandler";
 
 const Registration = () => {
   const userTypes = [
@@ -42,6 +43,7 @@ const Registration = () => {
         personalEmail,
         nic,
         studentId,
+        stdOrStaff: userType === "as staff" ? "staff" : "student",
       });
     } else if (userType === "as staff") {
       response = await axios.post(`${BASE_URL}/user`, {
@@ -55,10 +57,17 @@ const Registration = () => {
         staffId,
         interestFields,
         registerType,
+        stdOrStaff: userType === "as staff" ? "staff" : "student",
       });
 
     }
-    console.log(response.data)
+    if (response?.data?.user) {
+      setUserSession(response.data.user._id);
+      alert('Registration is successful!')
+      window.location = '/';
+    } else if (response?.data?.error) {
+      alert(response.data.error);
+    }
   };
 
   return (
