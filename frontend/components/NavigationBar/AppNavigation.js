@@ -18,6 +18,10 @@ import { Button } from "@mui/material";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupsIcon from '@mui/icons-material/Groups';
 import TopicIcon from '@mui/icons-material/Topic';
+import ManIcon from '@mui/icons-material/Man';
+import PercentIcon from '@mui/icons-material/Percent';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ForumIcon from '@mui/icons-material/Forum';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { Link } from "react-router-dom";
 import { getUserSessionDetails, removeUserSessionDetails } from "../../helpers/userSessionHandler";
@@ -37,7 +41,7 @@ function AppNavigation(props) {
     <div>
       <Toolbar />
       <List>
-        {["Dashboard", "Group Details", "Topic Submission", "Document Submission"].map((text, index) => (
+        {props.menuItems?.map((text, index) => (
           // <Link  className='nav-links'
           //   to={
           //     text === "Dashboard"
@@ -54,11 +58,17 @@ function AppNavigation(props) {
           <ListItem key={text}>
             <ListItemButton>
               <ListItemIcon>
-                {index == 0 ? <DashboardIcon />
-                  : index === 1 ? <GroupsIcon />
-                    : index === 2 ? <TopicIcon />
-                      : index === 3 ? <DriveFolderUploadIcon />
-                        : null}
+                {text == "Dashboard" ? <DashboardIcon />
+                  : text === "Group details" ? <GroupsIcon />
+                    : text === "Topic submission" ? <TopicIcon />
+                      : text === "Document submission" ? <DriveFolderUploadIcon />
+                        : text === "Users" ? <ManIcon />
+                          : text === "Student groups" ? <GroupsIcon />
+                            : text === "Documents" ? <DriveFolderUploadIcon />
+                              : text === "Student requests" ? <PersonAddIcon />
+                                : text === "Group marks" ? <PercentIcon />
+                                  : text === "Chat" ? <ForumIcon />
+                                    : null}
               </ListItemIcon>
               <div onClick={() => props.onClickItem(text)} >
                 <ListItemText primary={text} />
