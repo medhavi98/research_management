@@ -2,6 +2,8 @@ const router = require('express').Router();
 const userDetails = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const GroupModel = require('../models/GroupModel');
 
 router.post('/', (req, res) => {
     bcrypt.hash(req.body.password, 10).then(hash => {
@@ -12,6 +14,7 @@ router.post('/', (req, res) => {
             phone: req.body.phone,
             sliitEmail: req.body.sliitEmail,
             personalEmail: req.body.personalEmail,
+            groupId: req.body.groupId,
             nic: req.body.nic,
             studentId: req.body.studentId,
             staffId: req.body.staffId,
@@ -79,20 +82,66 @@ router.get(`/interestFields/:registerType/:interestFields`, async (req, res) => 
 })
 
 //get one user details 
-router.get(`/userDetails/:userId`, async (req, res) => {
-
-    const { userId } = req.params;
-
+router.get(`/userDetails`, async (req, res) => {
     try {
-        const user = await userDetails.findById(userId);
+        let userNames = [];
+        const groups = await GroupModel.find({});
+        for (let index = 0; index < groups.length; index++) {
+            let studentNames = [];
+            let panelMemberNames = [];
+            const students = await userDetails.find(
+                {
+                    _id: { $in: groups[index].studentIds },
+                },
+                {
+                    _id: 0,
+                    fullName: 1
+                });
 
-        if (user) {
-            res.status(200).json({ user });
-        } else {
-            res.status(200).json({ error: "user retrieving failed" });
+            //FIXME finish this
+            // const panelMembers = await userDetails.find(
+            //     {
+            //         _id: { $in: groups[index].panelMemberIds },
+            //     },
+            //     {
+            //         _id: 0,
+            //         fullName: 1
+            //     });
+
+            students.forEach(student => {
+                studentNames.push(student.fullName);
+            });
+
+            // panelMembers.forEach(student => {
+            //     panelMemberNames.push(student.fullName);
+            // });
+
+
+            let supervisorName = "";
+            let coSupervisorName = "";
+
+            if (groups[index].supervisorId) {
+                let supervisor = await userDetails.findById(groups[index].supervisorId);
+                supervisorName = supervisor.fullName;
+            }
+            if (groups[index].coSupervisorId) {
+                let coSupervisor = await userDetails.findById(groups[index].coSupervisorId);
+                coSupervisorName = coSupervisor.fullName;
+            }
+
+
+            userNames.splice(index, 0, {
+                'studentNames': studentNames,
+                'panelMemberNames': panelMemberNames,
+                'supervisorName': supervisorName,
+                'coSupervisorName': coSupervisorName
+            });
+            // userNames[index].supervisorId = group.supervisorId;
+            // userNames[index].coSupervisorId = group.coSupervisorId;      
         }
+        res.json({ userNames });
     } catch (error) {
-        res.status(200).json({ error: "user retrieving failed" });
+        res.status(200).json(error);
     }
 
 })
