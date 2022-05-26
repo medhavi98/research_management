@@ -134,7 +134,8 @@ router.get(`/userDetails`, async (req, res) => {
                 'studentNames': studentNames,
                 'panelMemberNames': panelMemberNames,
                 'supervisorName': supervisorName,
-                'coSupervisorName': coSupervisorName
+                'coSupervisorName': coSupervisorName,
+                'groupName': groups[index].groupName
             });
             // userNames[index].supervisorId = group.supervisorId;
             // userNames[index].coSupervisorId = group.coSupervisorId;      
