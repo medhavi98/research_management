@@ -1,51 +1,50 @@
 import { Button, Grid, Typography } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import React, { useState } from "react";
-import {Container} from "@mui/material";
+import { Container } from "@mui/material";
 import { storage } from "../../../firebase";
-import { ref , uploadBytes,getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 const Submissions = () => {
-
-  const [ResearchUploadFile, setResearchUploadFile ] = useState(); 
+  const [ResearchUploadFile, setResearchUploadFile] = useState();
   const [rTemplate, setRTemplate] = useState({});
-  
-  const id = localStorage.getItem("abc")
 
   const submitResearchDoc = () => {
     const researchDetails = {
-      templateFile: ResearchUploadFile,    
+      templateFile: ResearchUploadFile,
+    };
+    console.log("ruf", researchDetails);
 
+    axios
+      .post(`http://localhost:5001/fileUploadstd`, researchDetails)
+      .then(() => {
+        window.alert("File Uploaded!");
+      })
+      .catch((err) => {
+        window.alert("FIle is not uploaded successfully : ", err.message);
+      });
   };
-  console.log('ruf',researchDetails);
 
-  axios.post(`http://localhost:5001/fileUploadstd`,researchDetails).then(() => {
-      window.alert("File Uploaded!");
-  }).catch((err) => {
-      window.alert("FIle is not uploaded successfully : " , err.message);
-  });
-
-  }
-
-  const saveResearchDoc = ()  => {
+  const saveResearchDoc = () => {
     console.log("called button submitResearchDoc: ", rTemplate);
     const date = Date.now();
     console.log("u");
-    const uploadTaskTemp = ref(storage,`UploadedResearchFile/${date}_${rTemplate.name}`);
+    const uploadTaskTemp = ref(
+      storage,
+      `UploadedResearchFile/${date}_${rTemplate.name}`
+    );
     console.log("uq");
     uploadBytes(uploadTaskTemp, rTemplate).then((upload) => {
-        console.log("upload : ", upload);
-        
-        getDownloadURL(upload.ref).then((url) => {
-            console.log(url);
-            setResearchUploadFile(url) //  this.setState({ ResearchUploadFile: url});
-             setTimeout(submitResearchDoc(),2000)
-             window.alert("uploaded")
+      console.log("upload : ", upload);
 
-        })
-    })
-
-}
+      getDownloadURL(upload.ref).then((url) => {
+        console.log(url);
+        setResearchUploadFile(url); //  this.setState({ ResearchUploadFile: url});
+        setTimeout(submitResearchDoc(), 2000);
+        window.alert("uploaded");
+      });
+    });
+  };
 
   return (
     <>
@@ -68,18 +67,24 @@ const Submissions = () => {
                 component="label"
                 startIcon={<DriveFolderUploadIcon />}
               >
-                <input type="file"  onChange={(e) => {
-                  console.log("e is : ", e);
-                  if(e.target.files[0]){
-                    console.log('rTemplate :', e.target.files[0])
-                    setRTemplate(e.target.files[0]);
-                  }
-                }} />
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    console.log("e is : ", e);
+                    if (e.target.files[0]) {
+                      console.log("rTemplate :", e.target.files[0]);
+                      setRTemplate(e.target.files[0]);
+                    }
+                  }}
+                />
               </Button>
               <button
-                    type="submit" 
-                    value={"Upload Document"}
-                    onClick = {saveResearchDoc} >Submit</button>
+                type="submit"
+                value={"Upload Document"}
+                onClick={saveResearchDoc}
+              >
+                Submit
+              </button>
             </Grid>
             <Grid mt={3}>
               <Button
@@ -88,18 +93,24 @@ const Submissions = () => {
                 component="label"
                 startIcon={<DriveFolderUploadIcon />}
               >
-                <input type="file"  onChange={(e) => {
-                  console.log("e is : ", e);
-                  if(e.target.files[0]){
-                    console.log('rTemplate :', e.target.files[0])
-                    setRTemplate(e.target.files[0]);
-                  }
-                }} />
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    console.log("e is : ", e);
+                    if (e.target.files[0]) {
+                      console.log("rTemplate :", e.target.files[0]);
+                      setRTemplate(e.target.files[0]);
+                    }
+                  }}
+                />
               </Button>
               <button
-                    type="submit" 
-                    value={"Upload Document"}
-                    onClick = {saveResearchDoc} >Submit</button>
+                type="submit"
+                value={"Upload Document"}
+                onClick={saveResearchDoc}
+              >
+                Submit
+              </button>
             </Grid>
             <Grid mt={3}>
               <Button
@@ -108,17 +119,23 @@ const Submissions = () => {
                 component="label"
                 startIcon={<DriveFolderUploadIcon />}
               >
-                <input type="file" onChange={(e) => {
-                  if(e.target.files[0]){
-                    console.log('rTemplate :', e.target.files[0])
-                    setRTemplate(e.target.files[0]);
-                  }
-                }} />
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    if (e.target.files[0]) {
+                      console.log("rTemplate :", e.target.files[0]);
+                      setRTemplate(e.target.files[0]);
+                    }
+                  }}
+                />
               </Button>
               <button
-                    type="submit" 
-                    value={"Upload Document"}
-                    onClick = {saveResearchDoc} >Submit</button>
+                type="submit"
+                value={"Upload Document"}
+                onClick={saveResearchDoc}
+              >
+                Submit
+              </button>
             </Grid>
           </Grid>
         </Grid>
