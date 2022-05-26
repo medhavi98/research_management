@@ -7,26 +7,38 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import AppBar from "@mui/material/AppBar";
 import DisplayGroupDetails from "./DisplayGroupDetails";
+import { BASE_URL } from '../../../constants'
 import { margin } from "@mui/system";
+import axios from 'axios'
 
 const StudentGroups = () => {
-  const groupDetails = [
-    {
-      id: "627f89e9ea2421bf3c457f42",
-      supervisorName: "Lakshika",
-      coSupervisorName: "Lalith",
-      pMembers: ["Kamal", "Nimal", "Sunimal"],
-      students: ["supun", "pathum", "saman", "sajth"],
-    },
-    {
-      id: "627f89e9ea2421bf3c457f42",
-      supervisorName: "Lakshika",
-      coSupervisorName: "Lalith",
-      pMembers: ["Kamal", "Nimal", "Sunimal"],
-      students: ["supun", "pathum", "saman", "sajth"],
-    },
-  ];
+  // const groupDetails = [
+  //   {
+  //     id: "627f89e9ea2421bf3c457f42",
+  //     supervisorName: "Lakshika",
+  //     coSupervisorName: "Lalith",
+  //     pMembers: ["Kamal", "Nimal", "Sunimal"],
+  //     students: ["supun", "pathum", "saman", "sajth"],
+  //   },
+  //   {
+  //     id: "627f89e9ea2421bf3c457f42",
+  //     supervisorName: "Lakshika",
+  //     coSupervisorName: "Lalith",
+  //     pMembers: ["Kamal", "Nimal", "Sunimal"],
+  //     students: ["supun", "pathum", "saman", "sajth"],
+  //   },
+  // ];
+  const [groupDetails, setGroupDetails] = React.useState([]);
 
+  React.useEffect(() => {
+    fetchGroupUserNames();
+  }, [])
+
+  const fetchGroupUserNames = async () => {
+    const response = await axios.get(`${BASE_URL}/user/userDetails`);
+    setGroupDetails(response.data.userNames);
+    console.log(response)
+  };
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -46,13 +58,14 @@ const StudentGroups = () => {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {groupDetails.map((item) => (
+              {groupDetails.map((item, index) => (
                 <DisplayGroupDetails
-                  GroupId={item.id}
+                  key={index}
+                  GroupId={item.groupName}
                   supervisorName={item.supervisorName}
                   coSupervisorName={item.coSupervisorName}
-                  pMembers={item.pMembers}
-                  students={item.students}
+                  pMembers={item.panelMemberNames}
+                  students={item.studentNames}
                 />
               ))}
             </TabPanel>

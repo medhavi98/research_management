@@ -27,7 +27,7 @@ const DisplayGroupDetails = ({
             Supervisor Name
           </Grid>
           <Grid item md={6}>
-            {supervisorName}
+            {supervisorName ? supervisorName : 'Not assigned.'}
           </Grid>
         </Grid>
 
@@ -36,7 +36,7 @@ const DisplayGroupDetails = ({
             Co-Supervisor Name
           </Grid>
           <Grid item md={6}>
-            {coSupervisorName}
+            {coSupervisorName ? coSupervisorName : 'Not assigned.'}
           </Grid>
         </Grid>
 
@@ -44,13 +44,13 @@ const DisplayGroupDetails = ({
           <Grid item md={3}>
             Panel members
           </Grid>
-          {pMembers.map((member) => {
+          {pMembers.length > 0 ? (pMembers.map((member) => {
             return (
               <Grid item md={3}>
                 {member}
               </Grid>
             );
-          })}
+          })) : 'Not assigned.'}
         </Grid>
 
         <Grid container mt={2}>
@@ -59,13 +59,13 @@ const DisplayGroupDetails = ({
           </Grid>
         </Grid>
         <Grid container mt={2}>
-          {students.map((student) => {
+          {students.length > 0 ? (students.map((student) => {
             return (
               <Grid item md={3}>
                 {student}
               </Grid>
             );
-          })}
+          })) : 'Not added.'}
         </Grid>
       </Grid>
     </Card>
