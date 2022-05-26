@@ -89,6 +89,8 @@ router.get(`/userDetails`, async (req, res) => {
         for (let index = 0; index < groups.length; index++) {
             let studentNames = [];
             let panelMemberNames = [];
+            let supervisorName = "";
+            let coSupervisorName = "";
             const students = await userDetails.find(
                 {
                     _id: { $in: groups[index].studentIds },
@@ -117,8 +119,6 @@ router.get(`/userDetails`, async (req, res) => {
             // });
 
 
-            let supervisorName = "";
-            let coSupervisorName = "";
 
             if (groups[index].supervisorId) {
                 let supervisor = await userDetails.findById(groups[index].supervisorId);
