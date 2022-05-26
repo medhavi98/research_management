@@ -9,7 +9,7 @@ import AppBar from "@mui/material/AppBar";
 import Resources from "./AdminDocSubmissions";
 import Submissions from "./AdminResources";
 
-const AdminDocumentSubmission = () => {
+const AdminDocSubmission = () => {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -43,4 +43,4 @@ const AdminDocumentSubmission = () => {
   );
 };
 
-export default AdminDocumentSubmission;
+export default AdminDocSubmission;
