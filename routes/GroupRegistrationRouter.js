@@ -79,5 +79,5 @@ groupRegistrationRouter.get("/getGroupDetails/:groupId", async (req, res) => {
     res.status(400).json("groups details updated failed");
   }
 });
-//BUG Fetch suppa details
+
 module.exports = groupRegistrationRouter;
