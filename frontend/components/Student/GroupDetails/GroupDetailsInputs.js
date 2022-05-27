@@ -3,6 +3,7 @@ import TextFieldComponent from "../../Common/TextFieldComponent";
 import { useState } from "react";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
+import { getUserSessionDetails} from "../../../helpers/userSessionHandler";
 
 const GroupDetailsInputs = () => {
   const [leader, setLeader] = useState("");
@@ -10,6 +11,7 @@ const GroupDetailsInputs = () => {
   const [member3, setMember3] = useState("");
   const [member4, setMember4] = useState("");
   const members = [leader, member2, member3, member4];
+  const { userId } = getUserSessionDetails();
 
   const handelOnSubmit = (event) => {
     event.preventDefault();
