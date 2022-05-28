@@ -53,14 +53,14 @@ body {
 
 .card-dialog {
   width: 600px;
-  overflow-x: hidden;
+  overflow-x: hidden;  
 
   .message-card-group {
     display: block;
     
     .message-card-left {
       border-left: 3px solid #9cbcff;
-      margin: 10px 0px;
+      margin: 15px 0px;
       padding: 5px 20px;
       width: 300px;
       float: left;
@@ -70,7 +70,7 @@ body {
 
     .message-card-right {
       border-right: 3px solid #9cbcff;
-      margin: 10px 0px;
+      margin: 15px 0px;
       padding: 5px 20px;
       width: 300px;
       float: right;

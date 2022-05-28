@@ -131,16 +131,16 @@ const Messenger = () => {
                             <div className="message-card-group">
                                 <Card className="message-card-left">
                                     <Typography variant='h6'>
-                                        Sender
+                                        {messages[0].sender}
                                     </Typography>
                                     <Typography variant='p'>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        {messages[0].message}
                                     </Typography>
                                 </Card><br />
 
                                 <Card className="message-card-right">
                                     <Typography variant='h6'>
-                                        Receiver
+                                        You
                                     </Typography>
                                     <Typography variant='p'>
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -150,19 +150,19 @@ const Messenger = () => {
                             <div className="message-card-group">
                                 <Card className="message-card-left">
                                     <Typography variant='h6'>
-                                        Sender
+                                        {messages[0].sender}
                                     </Typography>
                                     <Typography variant='p'>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        {messages[0].message}
                                     </Typography>
                                 </Card><br />
 
                                 <Card className="message-card-right">
                                     <Typography variant='h6'>
-                                        Receiver
+                                        {messages[1].sender}
                                     </Typography>
                                     <Typography variant='p'>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        {messages[1].message}                                        
                                     </Typography>
                                 </Card>
                             </div>
@@ -173,19 +173,19 @@ const Messenger = () => {
                             id="standard-multiline-flexible"
                             label="Message"
                             multiline
-                            sx={{width: '80%'}}
+                            sx={{ width: '80%' }}
                             maxRows={4}
                             value={send_message}
-                            onChange={(e)=> setSend_message(e.target.value)}
+                            onChange={(e) => setSend_message(e.target.value)}
                             variant="standard"
                             required
                         />
-                        <Button 
-                        variant="contained" 
-                        sx={{marginLeft:'10px'}} 
-                        color='primary' 
-                        onClick={handleSubmit}
-                        type="submit"
+                        <Button
+                            variant="contained"
+                            sx={{ marginLeft: '10px' }}
+                            color='primary'
+                            onClick={handleSubmit}
+                            type="submit"
                         >
                             Send {`>`}
                         </Button>
