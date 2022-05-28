@@ -13,6 +13,7 @@ import {
   InputLabel,
   FormHelperText,
   TextField,
+  Form
 } from "@mui/material";
 import TextFieldComponent from "../../Common/TextFieldComponent"
 import axios from "axios";
@@ -25,14 +26,13 @@ const TopicRegister = () => {
     fulName: "",
     supervisorId: "",
     groupId: "",
-    description:"",
+    description: "",
     topicName: "",
     researchField: "",
     interestFields: ""
   });
 
   const [supervisors, setSupervisors] = useState([]);
-  const [userID, setUserID] = useState("");
 
   const handleOnChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -44,11 +44,10 @@ const TopicRegister = () => {
     event.preventDefault();
     try {
 
-        registerType = values.registerType,
+      registerType = values.registerType,
         interestFields = values.researchField
 
-      const response = await axios.get(`http://localhost:5001/user/${registerType}/${interestFields}`);
-      console.log(response.data.user);
+      const response = await axios.get(`http://localhost:5001/user/interestFields/${registerType}/${interestFields}`);
       if (response.status === 200) {
         setSupervisors(response.data.user);
       }
@@ -81,7 +80,6 @@ const TopicRegister = () => {
     } catch (error) {
       alert(error);
     }
-
   };
 
   return (
@@ -168,20 +166,39 @@ const TopicRegister = () => {
                       handleChange={handleOnChange("researchField")}
                       required
                     />
-                    <Button
-                      sx={{
-                        m: 3,
-                        p: 2,
-                        height: "40px",
-                        width: "60px",
-                      }}
-                      variant="contained"
-                      type="submit"
-                      color="primary"
-                      onClick={getResearchInterest}
-                    >
-                      Find
-                    </Button>
+                    {values.registerType
+                      && values.researchField !== "" ?
+                      <Button
+                        sx={{
+                          m: 3,
+                          p: 2,
+                          height: "40px",
+                          width: "60px",
+                        }}
+                        variant="contained"
+                        type="submit"
+                        color="primary"
+                        onClick={getResearchInterest}
+                      >
+                        Find
+                      </Button>
+                      :
+                      <Button
+                        sx={{
+                          m: 3,
+                          p: 2,
+                          height: "40px",
+                          width: "60px",
+                        }}
+                        variant="contained"
+                        type="submit"
+                        disabled
+                        color="primary"
+                        onClick={getResearchInterest}
+                      >
+                        Find
+                      </Button>                                        
+                    }
                   </Grid>
 
                   {values.registerType === "Supervisor" ? (
@@ -203,6 +220,9 @@ const TopicRegister = () => {
                               <MenuItem value={list._id} key={list._id}>{list.fullName}</MenuItem>
                             )
                           })}
+                          {supervisors.length < 1 ?
+                            <MenuItem value="">No Records found</MenuItem> : null
+                          }
                         </Select>
                         <FormHelperText>
                           {
@@ -231,9 +251,13 @@ const TopicRegister = () => {
                               <MenuItem value={list._id} key={list._id}>{list.fullName}</MenuItem>
                             )
                           })}
+                          {supervisors.length < 1 ?
+                            <MenuItem value="">No Records found</MenuItem> : null
+                          }
                         </Select>
                       </FormControl>
                     </Grid>
+
                   ) : null}
 
                   <Grid item md={12}>
@@ -262,15 +286,29 @@ const TopicRegister = () => {
 
                   </Grid>
                   <Grid item md={12} pt={2}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      sx={{ width: "40%" }}
-                      onClick={submitHandler}
-                    >
-                      Submit
-                    </Button>
+                    {values.registerType && values.researchField &&
+                      values.topicName && values.supervisorId
+                      && values.description !== "" ?
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        sx={{ width: "40%" }}
+                        onClick={submitHandler}
+                      >Submit
+                      </Button>
+                      :
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled
+                        sx={{ width: "40%" }}
+                        onClick={submitHandler}
+                      >
+                        Submit
+                      </Button>
+                    }
                   </Grid>
                 </Grid>
               </form>
