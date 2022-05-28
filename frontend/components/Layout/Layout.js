@@ -8,9 +8,11 @@ import "../../Main.scss";
 import { getUserSessionDetails } from "../../helpers/userSessionHandler";
 import axios from "axios";
 import { BASE_URL } from "../constants";
-import StudentGroups from "../Admin/DocumentSubmission/StudentGroups/StudentGroups";
+import StudentGroups from "../Admin/StudentGroups/StudentGroups";
+// import StudentGroups from "../Admin/DocumentSubmission/StudentGroups/StudentGroups";
 import Messenger from "../Student/Chat/Messenger";
 import { Container, Grid } from "@mui/material";
+import UserTabs from "../Admin/Users/UserTabs";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -21,10 +23,16 @@ const Layout = ({ children }) => {
     "Topic submission",
     "Document submission",
     "Chat",
-    "student"
+    "student",
   ];
   const admin = ["Dashboard", "Users", "Student groups", "Documents", "admin"];
-  const staff = ["Dashboard", "Student requests", "Group marks", "Chat", "staff"];
+  const staff = [
+    "Dashboard",
+    "Student requests",
+    "Group marks",
+    "Chat",
+    "staff",
+  ];
   const { userId } = getUserSessionDetails();
 
   useEffect(() => {
@@ -32,7 +40,9 @@ const Layout = ({ children }) => {
   }, []);
 
   const fetchUser = async () => {
-    const user = await axios.get(`${BASE_URL}/user/getOneUserDetails/${userId}`);
+    const user = await axios.get(
+      `${BASE_URL}/user/getOneUserDetails/${userId}`
+    );
     setUserType(user.data.user.userType);
   };
 
@@ -42,23 +52,26 @@ const Layout = ({ children }) => {
   };
   return (
     <Container className="root">
-
       <Grid container>
         <Grid item md={2}>
           <AppNavigation
             onClickItem={onClick}
             menuItems={
-              userType === "admin" ? admin : userType === "staff" ? staff : student
+              userType === "admin"
+                ? admin
+                : userType === "staff"
+                ? staff
+                : student
             }
           />
         </Grid>
 
-        <Grid item md={10} sx={{mt:10}}>
+        <Grid item md={10} sx={{ mt: 10 }}>
           <main className="children-wrapper">
             {focus === "Dashboard" ? <DashBoard /> : ""}
             {/* {Admin} */}
             {focus === "Student groups" ? <StudentGroups /> : ""}
-
+            {focus === "Users" ? <UserTabs /> : ""}
             {/* {Staff} */}
 
             {/* {Student} */}
