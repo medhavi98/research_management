@@ -28,8 +28,7 @@ const TextFieldComponent = ({
       color="success"
       sx={{
         width: { width },
-      }}
-      autoFocus
+      }}      
       variant="outlined"
       InputProps={{
         disableUnderline: true,
