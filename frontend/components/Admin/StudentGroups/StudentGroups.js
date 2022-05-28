@@ -7,9 +7,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import AppBar from "@mui/material/AppBar";
 import DisplayGroupDetails from "./DisplayGroupDetails";
-import { BASE_URL } from '../../../constants'
+import { BASE_URL } from "../../constants";
 import { margin } from "@mui/system";
-import axios from 'axios'
+import axios from "axios";
 
 const StudentGroups = () => {
   // const groupDetails = [
@@ -32,12 +32,12 @@ const StudentGroups = () => {
 
   React.useEffect(() => {
     fetchGroupUserNames();
-  }, [])
+  }, []);
 
   const fetchGroupUserNames = async () => {
     const response = await axios.get(`${BASE_URL}/user/userDetails`);
     setGroupDetails(response.data.userNames);
-    console.log(response)
+    console.log(response);
   };
   const [value, setValue] = React.useState("1");
 
