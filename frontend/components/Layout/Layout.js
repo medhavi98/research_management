@@ -12,16 +12,17 @@ import StudentGroups from "../Admin/DocumentSubmission/StudentGroups/StudentGrou
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
-  const [userType, setUserType] = useState("admin");
+  const [userType, setUserType] = useState("");
   const student = [
     "Dashboard",
     "Group details",
     "Topic submission",
     "Document submission",
     "Chat",
+    "student"
   ];
-  const admin = ["Dashboard", "Users", "Student groups", "Documents"];
-  const staff = ["Dashboard", "Student requests", "Group marks", "Chat"];
+  const admin = ["Dashboard", "Users", "Student groups", "Documents", "admin"];
+  const staff = ["Dashboard", "Student requests", "Group marks", "Chat", "staff"];
   const { userId } = getUserSessionDetails();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Layout = ({ children }) => {
   }, []);
 
   const fetchUser = async () => {
-    const user = await axios.get(`${BASE_URL}/user/userDetails/${userId}`);
+    const user = await axios.get(`${BASE_URL}/user/getOneUserDetails/${userId}`);
     setUserType(user.data.user.userType);
   };
 
