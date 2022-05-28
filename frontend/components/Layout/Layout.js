@@ -9,6 +9,8 @@ import { getUserSessionDetails } from "../../helpers/userSessionHandler";
 import axios from "axios";
 import { BASE_URL } from "../constants";
 import StudentGroups from "../Admin/DocumentSubmission/StudentGroups/StudentGroups";
+import Messenger from "../Student/Chat/Messenger";
+import { Container, Grid } from "@mui/material";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -39,26 +41,35 @@ const Layout = ({ children }) => {
     setFocus(componentName);
   };
   return (
-    <div className="root">
-      <AppNavigation
-        onClickItem={onClick}
-        menuItems={
-          userType === "admin" ? admin : userType === "staff" ? staff : student
-        }
-      />
-      <main className="children-wrapper" style={{ marginTop: "10%" }}>
-        {focus === "Dashboard" ? <DashBoard /> : ""}
-        {/* {Admin} */}
-        {focus === "Student groups" ? <StudentGroups /> : ""}
+    <Container className="root">
 
-        {/* {Staff} */}
+      <Grid container>
+        <Grid item md={2}>
+          <AppNavigation
+            onClickItem={onClick}
+            menuItems={
+              userType === "admin" ? admin : userType === "staff" ? staff : student
+            }
+          />
+        </Grid>
 
-        {/* {Student} */}
-        {focus === "Topic submission" ? <TopicRegister /> : ""}
-        {focus === "Group details" ? <GroupDetails /> : ""}
-        {focus === "Document submission" ? <DocumentSubmission /> : ""}
-      </main>
-    </div>
+        <Grid item md={10} sx={{mt:10}}>
+          <main className="children-wrapper">
+            {focus === "Dashboard" ? <DashBoard /> : ""}
+            {/* {Admin} */}
+            {focus === "Student groups" ? <StudentGroups /> : ""}
+
+            {/* {Staff} */}
+
+            {/* {Student} */}
+            {focus === "Topic submission" ? <TopicRegister /> : ""}
+            {focus === "Group details" ? <GroupDetails /> : ""}
+            {focus === "Document submission" ? <DocumentSubmission /> : ""}
+            {focus === "Chat" ? <Messenger /> : ""}
+          </main>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
