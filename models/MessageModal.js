@@ -14,7 +14,11 @@ const messageSchema = new Schema({
     message: {
         type: String,
     },
-}, {collection : 'messages'})
+    time: {
+        type: String,
+        default: new Date().toLocaleString()
+    }
+}, { collection: 'messages' })
 
-const MessageModel = mongoose.model("MessageModel" , messageSchema);
+const MessageModel = mongoose.model("MessageModel", messageSchema);
 module.exports = MessageModel;

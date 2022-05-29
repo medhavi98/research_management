@@ -39,8 +39,9 @@ const userDetailsSchema = new Schema({
     password: {
         type: String,
     },
-    groupId: {
-        type: String,
+    groupIds: {
+        type: [String],
+        default: [],
     }
 }, { collection: 'users' })
 

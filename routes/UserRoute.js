@@ -147,12 +147,27 @@ router.get(`/userDetails`, async (req, res) => {
 
 })
 
+//get user information
 router.get('/getOneUserDetails/:userId', async (req, res) => {
     const { userId } = req.params;
     try {
         const user = await userDetails.findOne({ _id: userId });
-        console.log(user.userType);
         res.json({ user });
+    } catch (error) {
+        res.json({ error });
+    }
+});
+
+//get group ids for a single user
+router.get('/getGroupIds/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const user = await userDetails.findOne({ _id: userId });
+        if (user.groupIds.length > 0) {
+            res.json({ groupIds: user.groupIds });
+        } else {
+            res.json({ groupIds: [] });
+        }
     } catch (error) {
         res.json({ error });
     }
