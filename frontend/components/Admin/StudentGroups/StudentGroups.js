@@ -9,25 +9,9 @@ import AppBar from "@mui/material/AppBar";
 import DisplayGroupDetails from "./DisplayGroupDetails";
 import { BASE_URL } from "../../constants";
 import { margin } from "@mui/system";
-import axios from "axios";
+import axios from 'axios'
 
 const StudentGroups = () => {
-  // const groupDetails = [
-  //   {
-  //     id: "627f89e9ea2421bf3c457f42",
-  //     supervisorName: "Lakshika",
-  //     coSupervisorName: "Lalith",
-  //     pMembers: ["Kamal", "Nimal", "Sunimal"],
-  //     students: ["supun", "pathum", "saman", "sajth"],
-  //   },
-  //   {
-  //     id: "627f89e9ea2421bf3c457f42",
-  //     supervisorName: "Lakshika",
-  //     coSupervisorName: "Lalith",
-  //     pMembers: ["Kamal", "Nimal", "Sunimal"],
-  //     students: ["supun", "pathum", "saman", "sajth"],
-  //   },
-  // ];
   const [groupDetails, setGroupDetails] = React.useState([]);
 
   React.useEffect(() => {
