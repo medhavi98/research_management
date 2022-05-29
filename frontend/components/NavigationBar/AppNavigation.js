@@ -41,20 +41,7 @@ function AppNavigation(props) {
     <div>
       <Toolbar />
       <List>
-        {props.menuItems?.map((text, index) => (
-          // <Link  className='nav-links'
-          //   to={
-          //     text === "Dashboard"
-          //       ? `/`
-          //       : text === "Group Details"
-          //       ? `/groups/${index}`
-          //       : text === "Topic Submission"
-          //       ? `/register_topic`
-          //       : text === "Document Submission"
-          //       ? `/documents`
-          //       : null
-          //   }
-          // >
+        {props.menuItems?.map((text) => (
           <ListItem key={text}>
             <ListItemButton>
               <ListItemIcon>
@@ -161,7 +148,7 @@ function AppNavigation(props) {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { sm: `calc(100% - ${drawerWidth}px)`},
         }}
         className='box-content'
       >

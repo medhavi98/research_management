@@ -147,4 +147,15 @@ router.get(`/userDetails`, async (req, res) => {
 
 })
 
+router.get('/getOneUserDetails/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const user = await userDetails.findOne({ _id: userId });
+        console.log(user.userType);
+        res.json({ user });
+    } catch (error) {
+        res.json({ error });
+    }
+});
+
 module.exports = router;
