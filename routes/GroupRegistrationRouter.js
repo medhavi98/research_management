@@ -1,4 +1,5 @@
 const GroupModel = require("../models/GroupModel");
+const UserModel = require("../models/UserModel");
 
 const groupRegistrationRouter = require("express").Router();
 
@@ -13,6 +14,7 @@ groupRegistrationRouter.post("/", async (req, res) => {
   } = req.body.groupDetails;
   const count = await GroupModel.count();
   let groupName = `AF_Group_${count + 1}`;
+
   //TODO:- get student ids form user collection
   const group = await new GroupModel({
     groupName,
