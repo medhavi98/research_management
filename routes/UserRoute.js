@@ -199,4 +199,16 @@ router.get("/getSupervisors", async (req, res) => {
   }
 });
 
+router.get("/getCosupervisor", async (req, res) => {
+  console.log("Co-Supervisor fetched");
+  try {
+    await userDetails.find({ registerType: "Co-Supervisor" }).then((result) => {
+      console.log("data fetched");
+      res.status(200).json(result);
+    });
+  } catch (error) {
+    res.status(400).json("Co-Supervisorr fetching failed", error);
+  }
+});
+
 module.exports = router;
