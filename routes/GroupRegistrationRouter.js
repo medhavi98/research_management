@@ -141,7 +141,7 @@ groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
         res.status(400).json(err);
       });
   } catch (error) {
-    // res.status(400).json("panel member adding failed");
+    res.status(400).json("panel member adding failed");
   }
 });
 
