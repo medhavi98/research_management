@@ -5,6 +5,9 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Button, Card, Grid } from "@mui/material";
+import FormDialog from "../../Common/FormDialog";
+// import GroupDetailsInputs from "../../Student/GroupDetails/GroupDetailsInputs";
+import UpdateUserDetails from "./UpdateUserDetails";
 
 const UserTabs = () => {
   const [value, setValue] = React.useState("1");
@@ -33,6 +36,12 @@ const UserTabs = () => {
       name: "Pasindu",
     },
   ];
+
+  const tab1HandleClickOpen = () => {};
+
+  const tab2HandleClickOpen = () => {
+    console.log("tab2HandleClickOpen");
+  };
   return (
     <Card>
       <Box sx={{ width: "100%", typography: "body1" }}>
@@ -46,14 +55,24 @@ const UserTabs = () => {
           <TabPanel value="1">
             {DummyData.map((user, index) => {
               if (user.type === "student") {
-                return <UserDetailsCard name={user.name} />;
+                return (
+                  <UserDetailsCard
+                    name={user.name}
+                    onClick={tab1HandleClickOpen}
+                  />
+                );
               }
             })}
           </TabPanel>
           <TabPanel value="2">
             {DummyData.map((user, index) => {
               if (user.type === "staff") {
-                return <UserDetailsCard name={user.name} />;
+                return (
+                  <UserDetailsCard
+                    name={user.name}
+                    onClick={tab2HandleClickOpen}
+                  />
+                );
               }
             })}
           </TabPanel>
@@ -63,21 +82,47 @@ const UserTabs = () => {
   );
 };
 
-const UserDetailsCard = ({ name, onUpdatePress, onDeletePress }) => {
-  const onDisplayDataHandler = () => {
-    console.log("display work");
+const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick }) => {
+  const commonStyles = {
+    borderLeft: 5,
+    borderLeftColor: "#9cbcff",
   };
+
+  const [RNumber, setRNumber] = React.useState("");
+  const [fullName, setFullName] = React.useState("");
+  const [sliitMail, setSliitMail] = React.useState("");
+  const [personalEmail, setPersonalEmail] = React.useState("");
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+
   return (
-    <Card sx={{ mt: 2 }} onClick={onDisplayDataHandler}>
+    <Card sx={{ ...commonStyles, mt: 2 }} onClick={onClick}>
       <Grid m={3}>
         <Grid container>
           <Grid item md={8}>
             {name}
           </Grid>
           <Grid item md={2}>
-            <Button variant="contained" color="success" onClick={onUpdatePress}>
-              Update
-            </Button>
+            <FormDialog
+              testButton="Update"
+              Description="Update Details"
+              onButtonPress={() => {
+                console.log("group details");
+              }}
+              children={
+                <UpdateUserDetails
+                  RNumber={RNumber}
+                  setRNumber={setRNumber}
+                  fullName={fullName}
+                  setFullName={setFullName}
+                  sliitMail={sliitMail}
+                  setSliitMail={setSliitMail}
+                  personalEmail={personalEmail}
+                  setPersonalEmail={setPersonalEmail}
+                  phoneNumber={phoneNumber}
+                  setPhoneNumber={setPhoneNumber}
+                />
+              }
+            />
           </Grid>
           <Grid item md={2}>
             <Button variant="contained" color="error" onClick={onDeletePress}>
