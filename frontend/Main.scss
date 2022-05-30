@@ -13,12 +13,12 @@ body {
 }
 
 .chat-layout {
-  display: flex !important;
-  justify-content: center !important;
+  display: block !important;
   margin-left: 10% !important;
 
   .chat-card {
     padding: 20px 50px;
+    margin: 25px 0px;
     width: 950px;
     box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17) !important;
     border-radius: 10px !important;
