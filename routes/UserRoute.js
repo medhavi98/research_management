@@ -187,4 +187,16 @@ router.get("/getPanelMembers", async (req, res) => {
   }
 });
 
+router.get("/getSupervisors", async (req, res) => {
+  console.log("Supervisor members fetched");
+  try {
+    await userDetails.find({ registerType: "Supervisor" }).then((result) => {
+      console.log("data fetched");
+      res.status(200).json(result);
+    });
+  } catch (error) {
+    res.status(400).json("Supervisor member fetching failed", error);
+  }
+});
+
 module.exports = router;
