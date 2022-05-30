@@ -145,10 +145,15 @@ groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
 groupRegistrationRouter.get("/", async (req, res) => {
   console.log("group details gets");
   try {
-    GroupModel.find().then((response) => {
-      console.log("groups fetching success");
-      res.status(200).json(response);
-    });
+    GroupModel.find()
+      .populate("supervisorId", "fullName")
+      .populate("coSupervisorId", "fullName")
+      .populate("panelMemberIds", "fullName")
+      .populate("studentIds", "fullName")
+      .then((response) => {
+        console.log("groups fetching success");
+        res.status(200).json(response);
+      });
   } catch (error) {
     res.status(400).json("group details fetching failed", error);
   }

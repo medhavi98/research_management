@@ -6,24 +6,32 @@ const groupSchema = new Schema(
     groupName: {
       type: String,
     },
-    studentIds: {
-      type: [String],
-    },
+    studentIds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserDetails",
+      },
+    ],
     groupLeaderId: {
       type: String,
     },
     supervisorId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserDetails",
       required: false,
     },
     coSupervisorId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserDetails",
       required: false,
     },
-    panelMemberIds: {
-      type: [String],
-      required: false,
-    },
+    panelMemberIds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserDetails",
+        required: false,
+      },
+    ],
   },
   { collection: "groups" }
 );

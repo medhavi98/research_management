@@ -15,6 +15,7 @@ const DisplayGroupDetails = ({
   coSupervisorName,
   pMembers,
   students,
+  groupObjId,
 }) => {
   const [fPanelMemberName, setFPMName] = React.useState("");
   const [sPanelMemberName, setSPMName] = React.useState("");
@@ -55,6 +56,7 @@ const DisplayGroupDetails = ({
                 setSPMName={setSPMName}
                 tPanelMemberName={tPanelMemberName}
                 setTPMName={setTPMName}
+                groupObjId={groupObjId}
               />
             }
           />
@@ -86,7 +88,7 @@ const DisplayGroupDetails = ({
             ? pMembers.map((member) => {
                 return (
                   <Grid item md={3}>
-                    {member}
+                    {member.fullName}
                   </Grid>
                 );
               })
@@ -103,7 +105,7 @@ const DisplayGroupDetails = ({
             ? students.map((student) => {
                 return (
                   <Grid item md={3}>
-                    {student}
+                    {student.fullName}
                   </Grid>
                 );
               })

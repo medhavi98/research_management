@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import axios from "axios";
 import TextFieldComponent from "../../Common/TextFieldComponent";
 
 const AddPanelMember = ({
@@ -8,10 +9,23 @@ const AddPanelMember = ({
   setSPMName,
   tPanelMemberName,
   setTPMName,
+  groupObjId
 }) => {
   const handelOnSubmit = (event) => {
     event.preventDefault();
-    console.log("Testing");
+    const panelMembers ={
+      memberOne : fPanelMemberName, memberTwo: sPanelMemberName, memberThree: tPanelMemberName
+    }
+    await axios
+      .put(`${BASE_URL}/groups/addPanelMembers/${groupObjId}`,panelMembers)
+      .then((response) => {
+        console.log(response.data);
+        alert("Panel members added successfully")
+      })
+      .catch((err) => {
+        console.log(err); 
+        alert("Panel members not added ")
+      });
   };
   return (
     <>

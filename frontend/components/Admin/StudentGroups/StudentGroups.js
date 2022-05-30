@@ -52,11 +52,20 @@ const StudentGroups = () => {
                 groupDetails.map((item, index) => (
                   <DisplayGroupDetails
                     key={index}
+                    groupObjId={item._id}
                     GroupId={item.groupName}
-                    supervisorName={item.supervisorName}
-                    coSupervisorName={item.coSupervisorName}
-                    pMembers={item.panelMemberNames}
-                    students={item.studentNames}
+                    supervisorName={
+                      item.supervisorId
+                        ? item.supervisorId.fullName
+                        : "Not Assigned"
+                    }
+                    coSupervisorName={
+                      item.coSupervisorId
+                        ? item.coSupervisorId.fullName
+                        : "Not Assigned"
+                    }
+                    pMembers={item.panelMemberIds ? item.panelMemberIds : []}
+                    students={item.studentIds ? item.studentIds : []}
                   />
                 ))
               ) : (
