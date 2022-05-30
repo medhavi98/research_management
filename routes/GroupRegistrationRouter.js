@@ -53,23 +53,6 @@ groupRegistrationRouter.post("/", async (req, res) => {
     console.error("error while requesting ", err);
     res.status(500).json(error);
   }
-
-  // //TODO:- get student ids form user collection
-  // const group = await new GroupModel({
-  //   groupName,
-  //   studentIds,
-  //   groupLeaderId,
-  //   supervisorId,
-  //   coSupervisorId,
-  //   panelMemberIds,
-  // });
-
-  // try {
-  //   await group.save();
-  //   res.status(200).json("Group registration completed");
-  // } catch (error) {
-  //   res.status(400).json("Group registration failed");
-  // }
 });
 
 //edit group details
@@ -118,6 +101,61 @@ groupRegistrationRouter.get("/getGroupDetails/:groupId", async (req, res) => {
     res.status(200).json({ groups });
   } catch (error) {
     res.status(400).json("groups details updated failed");
+  }
+});
+
+groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
+  const { groupId } = req.params;
+  console.log("Add Panel members");
+  const { memberOne, memberTwo, memberThree } = req.body;
+  try {
+    await GroupModel.updateOne(
+      { _id: groupId },
+      {
+        $push: {
+          panelMemberIds: [memberOne, memberTwo, memberThree],
+        },
+      }
+    )
+      .then(async (response) => {
+        console.log("Panel member added to the group");
+        let members = [memberOne, memberTwo, memberThree];
+        for (let i = 0; i < members.length; i++) {
+          await UserModel.updateOne(
+            { _id: members[i] },
+            {
+              $push: {
+                groupIds: [JSON.stringify({ panel_member: groupId })],
+              },
+            }
+          ).catch(async (err) => {
+            res.status(400).json("panel member adding failed", err);
+          });
+        }
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  } catch (error) {
+    res.status(400).json("panel member adding failed", error);
+  }
+});
+
+groupRegistrationRouter.get("/", async (req, res) => {
+  console.log("group details gets");
+  try {
+    GroupModel.find()
+      .populate("supervisorId", "fullName")
+      .populate("coSupervisorId", "fullName")
+      .populate("panelMemberIds", "fullName")
+      .populate("studentIds", "fullName")
+      .then((response) => {
+        console.log("groups fetching success");
+        res.status(200).json(response);
+      });
+  } catch (error) {
+    res.status(400).json("group details fetching failed", error);
   }
 });
 

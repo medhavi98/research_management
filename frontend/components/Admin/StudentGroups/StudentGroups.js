@@ -9,7 +9,7 @@ import AppBar from "@mui/material/AppBar";
 import DisplayGroupDetails from "./DisplayGroupDetails";
 import { BASE_URL } from "../../constants";
 import { margin } from "@mui/system";
-import axios from 'axios'
+import axios from "axios";
 
 const StudentGroups = () => {
   const [groupDetails, setGroupDetails] = React.useState([]);
@@ -19,12 +19,18 @@ const StudentGroups = () => {
   }, []);
 
   const fetchGroupUserNames = async () => {
-    const response = await axios.get(`${BASE_URL}/user/userDetails`);
-    setGroupDetails(response.data.userNames);
-    console.log(response);
+    await axios
+      .get(`${BASE_URL}/groups/`)
+      .then((response) => {
+        setGroupDetails(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const [value, setValue] = React.useState("1");
-
+  console.log(groupDetails);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -42,16 +48,29 @@ const StudentGroups = () => {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {groupDetails.map((item, index) => (
-                <DisplayGroupDetails
-                  key={index}
-                  GroupId={item.groupName}
-                  supervisorName={item.supervisorName}
-                  coSupervisorName={item.coSupervisorName}
-                  pMembers={item.panelMemberNames}
-                  students={item.studentNames}
-                />
-              ))}
+              {groupDetails ? (
+                groupDetails.map((item, index) => (
+                  <DisplayGroupDetails
+                    key={index}
+                    groupObjId={item._id}
+                    GroupId={item.groupName}
+                    supervisorName={
+                      item.supervisorId
+                        ? item.supervisorId.fullName
+                        : "Not Assigned"
+                    }
+                    coSupervisorName={
+                      item.coSupervisorId
+                        ? item.coSupervisorId.fullName
+                        : "Not Assigned"
+                    }
+                    pMembers={item.panelMemberIds ? item.panelMemberIds : []}
+                    students={item.studentIds ? item.studentIds : []}
+                  />
+                ))
+              ) : (
+                <label>No Groups registered yet</label>
+              )}
             </TabPanel>
           </TabContext>
         </Box>
