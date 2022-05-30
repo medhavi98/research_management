@@ -16,6 +16,7 @@ groupRegistrationRouter.post("/", async (req, res) => {
   let groupName = `AF_Group_${count + 1}`;
 
   try {
+    const { stdIds } = await UserModel.findOne();
   } catch (err) {}
 
   //TODO:- get student ids form user collection
