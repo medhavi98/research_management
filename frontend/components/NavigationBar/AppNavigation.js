@@ -23,6 +23,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ForumIcon from '@mui/icons-material/Forum';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import Person from '@mui/icons-material/Person';
 import { Link } from "react-router-dom";
 import { getUserSessionDetails, removeUserSessionDetails } from "../../helpers/userSessionHandler";
 
@@ -55,7 +56,8 @@ function AppNavigation(props) {
                               : text === "Student requests" ? <PersonAddIcon />
                                 : text === "Group marks" ? <PercentIcon />
                                   : text === "Chat" ? <ForumIcon />
-                                    : null}
+                                    : text === "student" ? <Person />
+                                      : null}
               </ListItemIcon>
               <div onClick={() => props.onClickItem(text)} >
                 <ListItemText primary={text} />
@@ -148,7 +150,7 @@ function AppNavigation(props) {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)`},
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
         className='box-content'
       >
