@@ -9,7 +9,7 @@ import AppBar from "@mui/material/AppBar";
 import DisplayGroupDetails from "./DisplayGroupDetails";
 import { BASE_URL } from "../../constants";
 import { margin } from "@mui/system";
-import axios from 'axios'
+import axios from "axios";
 
 const StudentGroups = () => {
   const [groupDetails, setGroupDetails] = React.useState([]);
@@ -24,7 +24,7 @@ const StudentGroups = () => {
     console.log(response);
   };
   const [value, setValue] = React.useState("1");
-
+  console.log(groupDetails);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -42,16 +42,20 @@ const StudentGroups = () => {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {groupDetails.map((item, index) => (
-                <DisplayGroupDetails
-                  key={index}
-                  GroupId={item.groupName}
-                  supervisorName={item.supervisorName}
-                  coSupervisorName={item.coSupervisorName}
-                  pMembers={item.panelMemberNames}
-                  students={item.studentNames}
-                />
-              ))}
+              {groupDetails ? (
+                groupDetails.map((item, index) => (
+                  <DisplayGroupDetails
+                    key={index}
+                    GroupId={item.groupName}
+                    supervisorName={item.supervisorName}
+                    coSupervisorName={item.coSupervisorName}
+                    pMembers={item.panelMemberNames}
+                    students={item.studentNames}
+                  />
+                ))
+              ) : (
+                <label>No Groups registered yet</label>
+              )}
             </TabPanel>
           </TabContext>
         </Box>
