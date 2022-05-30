@@ -53,23 +53,6 @@ groupRegistrationRouter.post("/", async (req, res) => {
     console.error("error while requesting ", err);
     res.status(500).json(error);
   }
-
-  // //TODO:- get student ids form user collection
-  // const group = await new GroupModel({
-  //   groupName,
-  //   studentIds,
-  //   groupLeaderId,
-  //   supervisorId,
-  //   coSupervisorId,
-  //   panelMemberIds,
-  // });
-
-  // try {
-  //   await group.save();
-  //   res.status(200).json("Group registration completed");
-  // } catch (error) {
-  //   res.status(400).json("Group registration failed");
-  // }
 });
 
 //edit group details
@@ -156,6 +139,18 @@ groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
       });
   } catch (error) {
     res.status(400).json("panel member adding failed", error);
+  }
+});
+
+groupRegistrationRouter.get("/", async (req, res) => {
+  console.log("group details gets");
+  try {
+    GroupModel.find().then((response) => {
+      console.log("groups fetching success");
+      res.status(200).json(response);
+    });
+  } catch (error) {
+    res.status(400).json("group details fetching failed", error);
   }
 });
 

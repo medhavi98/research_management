@@ -19,9 +19,15 @@ const StudentGroups = () => {
   }, []);
 
   const fetchGroupUserNames = async () => {
-    const response = await axios.get(`${BASE_URL}/user/userDetails`);
-    setGroupDetails(response.data.userNames);
-    console.log(response);
+    await axios
+      .get(`${BASE_URL}/groups/`)
+      .then((response) => {
+        setGroupDetails(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const [value, setValue] = React.useState("1");
   console.log(groupDetails);

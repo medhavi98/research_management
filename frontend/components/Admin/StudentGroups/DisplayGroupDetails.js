@@ -82,7 +82,7 @@ const DisplayGroupDetails = ({
           <Grid item md={3}>
             <b>Panel members</b>
           </Grid>
-          {pMembers.length > 0
+          {pMembers
             ? pMembers.map((member) => {
                 return (
                   <Grid item md={3}>
@@ -99,7 +99,7 @@ const DisplayGroupDetails = ({
           </Grid>
         </Grid>
         <Grid container mt={2}>
-          {students.length > 0
+          {students
             ? students.map((student) => {
                 return (
                   <Grid item md={3}>
