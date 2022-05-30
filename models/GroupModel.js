@@ -1,26 +1,32 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const groupSchema = new Schema({
-    groupName : {
-        type: String,
+const groupSchema = new Schema(
+  {
+    groupName: {
+      type: String,
     },
     studentIds: {
-        type: [String],
+      type: [String],
     },
     groupLeaderId: {
-        type: String,
+      type: String,
     },
     supervisorId: {
-        type: String,
+      type: String,
+      required: false,
     },
     coSupervisorId: {
-        type: String,
+      type: String,
+      required: false,
     },
     panelMemberIds: {
-        type: [String],
+      type: [String],
+      required: false,
     },
-}, {collection : 'groups'})
+  },
+  { collection: "groups" }
+);
 
-const GroupModel = mongoose.model("GroupModel" , groupSchema);
+const GroupModel = mongoose.model("GroupModel", groupSchema);
 module.exports = GroupModel;
