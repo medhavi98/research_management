@@ -9,22 +9,24 @@ const AddPanelMember = ({
   setSPMName,
   tPanelMemberName,
   setTPMName,
-  groupObjId
+  groupObjId,
 }) => {
-  const handelOnSubmit = (event) => {
+  const handelOnSubmit = async (event) => {
     event.preventDefault();
-    const panelMembers ={
-      memberOne : fPanelMemberName, memberTwo: sPanelMemberName, memberThree: tPanelMemberName
-    }
+    const panelMembers = {
+      memberOne: fPanelMemberName,
+      memberTwo: sPanelMemberName,
+      memberThree: tPanelMemberName,
+    };
     await axios
-      .put(`${BASE_URL}/groups/addPanelMembers/${groupObjId}`,panelMembers)
+      .put(`${BASE_URL}/groups/addPanelMembers/${groupObjId}`, panelMembers)
       .then((response) => {
         console.log(response.data);
-        alert("Panel members added successfully")
+        alert("Panel members added successfully");
       })
       .catch((err) => {
-        console.log(err); 
-        alert("Panel members not added ")
+        console.log(err);
+        alert("Panel members not added ");
       });
   };
   return (
