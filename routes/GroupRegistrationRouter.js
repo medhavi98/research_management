@@ -123,13 +123,14 @@ groupRegistrationRouter.get("/getGroupDetails/:groupId", async (req, res) => {
 
 groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
   const { groupId } = req.params;
+  console.log("Add Panel members");
   const { memberOne, memberTwo, memberThree } = req.body;
   try {
     await GroupModel.updateOne(
       { _id: groupId },
       {
         $push: {
-          panelMemberIds: { memberOne, memberTwo, memberThree },
+          panelMemberIds: [memberOne, memberTwo, memberThree],
         },
       }
     )
