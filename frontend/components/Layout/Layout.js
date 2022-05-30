@@ -13,6 +13,7 @@ import StudentGroups from "../Admin/StudentGroups/StudentGroups";
 import Messenger from "../Student/Chat/Messenger";
 import { Container, Grid } from "@mui/material";
 import UserTabs from "../Admin/Users/UserTabs";
+import TopicsTabView from "../Student/TopicSubmission/TopicsTabView";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -75,7 +76,7 @@ const Layout = ({ children }) => {
             {/* {Staff} */}
 
             {/* {Student} */}
-            {focus === "Topic submission" ? <TopicRegister /> : ""}
+            {focus === "Topic submission" ? <TopicsTabView /> : ""}
             {focus === "Group details" ? <GroupDetails /> : ""}
             {focus === "Document submission" ? <DocumentSubmission /> : ""}
             {focus === "Chat" ? <Messenger /> : ""}

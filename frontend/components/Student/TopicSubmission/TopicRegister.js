@@ -13,9 +13,12 @@ import {
   InputLabel,
   FormHelperText,
   TextField,
-  Form
+  Snackbar,
+  Alert,
+  Card
 } from "@mui/material";
-import TextFieldComponent from "../../Common/TextFieldComponent"
+import TextFieldComponent from "../../Common/TextFieldComponent";
+import { researchFields } from "./data";
 import axios from "axios";
 
 
@@ -75,6 +78,13 @@ const TopicRegister = () => {
       const response = await axios.post('http://localhost:5001/topics/', { topicDetails });
       if (response.status === 201) {
         alert('Topic Register Success');
+        setValues({
+          registerType: "",
+          supervisorId: "",
+          topicName: "",
+          researchField: "",     
+          description: "",
+        });
       }
 
     } catch (error) {
@@ -82,9 +92,34 @@ const TopicRegister = () => {
     }
   };
 
+
+
+
   return (
     <Container>
-      <Grid mb={10} md={12} xs={12}>
+      <Grid mb={8} md={12} xs={12}>
+        {/* <div>
+          <Button
+            onClick={handleClick({
+              vertical: 'top',
+              horizontal: 'center',
+            })}
+          >
+            Top-Center
+          </Button>
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={open}
+            onClose={handleClose}
+            key={vertical + horizontal}
+            autoHideDuration='2000'
+          >
+            <Alert variant="filled" severity="success">
+              This is a success message!
+              Test Successful
+            </Alert>
+          </Snackbar>
+        </div> */}
         <Typography variant="h4">Topic Register</Typography>
         <hr />
         <Box
@@ -94,13 +129,13 @@ const TopicRegister = () => {
             backgroundColor: "white",
             boxShadow: 2,
             borderRadius: 5,
-            width: "950px",
+            width: "850px",
           }}
         >
           <Grid container>
             <Grid
               item
-              md={4}
+              md={3}
               sx={{
                 borderTopLeftRadius: 10,
                 borderBottomLeftRadius: 10,
@@ -117,7 +152,7 @@ const TopicRegister = () => {
             </Grid>
             <Grid
               item
-              md={6}
+              md={7}
               sx={{
                 borderRadius: "0px 15px 15px 0px",
               }}
@@ -154,24 +189,42 @@ const TopicRegister = () => {
                     md={12}
                     sx={{
                       display: "flex",
-                      justifyContent: "end",
+                      justifyContent: "space-between",
+                      alignItems:"center",
+                      mt: 2
                     }}
                   >
-                    <TextFieldComponent
-                      label="Research Field"
-                      name="researchField"
-                      classes="form-field"
-                      width="100%"
-                      inputValue={values.researchField}
-                      handleChange={handleOnChange("researchField")}
-                      required
-                    />
-                    {values.registerType
-                      && values.researchField !== "" ?
+                    <FormControl color="success" sx={{ minWidth: '80%' }}>
+                      <InputLabel id="demo-simple-select-helper-label">Research Field</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        classes="form-field"
+                        width="100%"
+                        label="Research Field"
+                        value={values.researchField}
+                        onChange={handleOnChange("researchField")}
+                        required
+                      >
+                        <MenuItem defaultValue=""></MenuItem>
+                        {researchFields.map((list)=> {
+                          return(
+                            <MenuItem value={list.field_name} key={list.id}>{list.field_name}</MenuItem>
+                          )
+                        })}
+                      </Select>
+                      <FormHelperText>
+                        {
+                          !values.researchField
+                            ? "Please select Research Field"
+                            : null
+                        }
+                      </FormHelperText>
+                    </FormControl>
+
+                    {values.registerType && values.researchField !== "" ?
                       <Button
                         sx={{
-                          m: 3,
-                          p: 2,
                           height: "40px",
                           width: "60px",
                         }}
@@ -184,9 +237,8 @@ const TopicRegister = () => {
                       </Button>
                       :
                       <Button
-                        sx={{
-                          m: 3,
-                          p: 2,
+                        sx={{            
+                          mb: 3,           
                           height: "40px",
                           width: "60px",
                         }}
@@ -197,7 +249,7 @@ const TopicRegister = () => {
                         onClick={getResearchInterest}
                       >
                         Find
-                      </Button>                                        
+                      </Button>
                     }
                   </Grid>
 
