@@ -136,13 +136,26 @@ groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
     )
       .then(async (response) => {
         console.log("Panel member added to the group");
+        let members = [memberOne, memberTwo, memberThree];
+        for (let i = 0; i < members.length; i++) {
+          await UserModel.updateOne(
+            { _id: members[i] },
+            {
+              $push: {
+                groupIds: [JSON.stringify({ panel_member: groupId })],
+              },
+            }
+          ).catch(async (err) => {
+            res.status(400).json("panel member adding failed", err);
+          });
+        }
         res.status(200).json(response);
       })
       .catch((err) => {
         res.status(400).json(err);
       });
   } catch (error) {
-    res.status(400).json("panel member adding failed");
+    res.status(400).json("panel member adding failed", error);
   }
 });
 
