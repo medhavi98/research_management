@@ -16,6 +16,8 @@ groupRegistrationRouter.post("/", async (req, res) => {
   let groupName = `AF_Group_${count + 1}`;
 
   try {
+    let stdID = [];
+    studentIds.forEach((element) => {});
     const { stdIds } = await UserModel.findOne();
   } catch (err) {}
 
