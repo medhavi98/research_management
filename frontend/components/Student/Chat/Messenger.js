@@ -60,17 +60,35 @@ const Messenger = () => {
     const [send_message, setSend_message] = useState("")
     const [messages, setMessages] = useState([]);
     const [messageLength, setMessageLength] = useState(0);
+    const [groupMessages, setGroupMessages] = useState([]);
+    const [groupId, setGroupId] = useState("")
+    const descriptionElementRef = React.useRef(null);
+    const chatBottomRef = React.useRef(null);
 
-    const handleClickOpen = (scrollType) => () => {
+    const handleClickOpen = async (scrollType, groupId) => {
         setOpen(true);
         setScroll(scrollType);
+        setGroupId(groupId);
+        const groupIds = JSON.stringify(groupId);
+        const res = await axios.get(`${BASE_URL}/messages/getMessagesByGroup/${groupIds}`);
+        const obj = res.data.messages[0];
+        setGroupMessages(obj[1].reverse());
+        socket.on(`messageTo${groupId}`, ({ messageData }) => {
+            setGroupMessages([...obj[1], messageData]);
+            setMessageLength(messageLength + 1);
+            obj[1] = [...obj[1], messageData];
+            chatBottomRef.current.scrollIntoView();
+        })
+        chatBottomRef.current.scrollIntoView();
     };
 
     const handleClose = () => {
+        setGroupMessages([]);
+        setGroupId("");
+        fetchUserGroups();
         setOpen(false);
     };
 
-    const descriptionElementRef = React.useRef(null);
     React.useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;
@@ -82,12 +100,17 @@ const Messenger = () => {
 
     useEffect(() => {
         userGroupIds.map((group) => {
-            socket.on(`messageTo${group}`, ({ messageData }) => {
-                console.log(messageData);
-                // alert(messageData.message);
-            })
+            // socket.on(`messageTo${group}`, ({ messageData }) => {
+            //     // alert(messageData.message);
+            // })
         })
     }, [userGroupIds])
+
+    // useEffect(() => {
+    //     if (groupMessages?.length > 0) {
+    //         chatBottomRef.current.scrollIntoView();
+    //     }
+    // }, [groupMessages])
 
     useEffect(() => {
         fetchUserGroups();
@@ -103,21 +126,34 @@ const Messenger = () => {
         setMessageLength(msgResponses.data.messageLength);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const message = {
+            "groupId": groupId,
+            "senderId": userId,
+            "message": send_message,
+            "time": new Date().toLocaleString(),
+        }
+        const res = await axios.post(`${BASE_URL}/messages`, { message });
+        setSend_message("");
+        if (res.status === 400) {
+            alert("❌Message couldn't send. Please try again.")
+        }
     }
+
     const renderChatCards = messages => {
         return messages[1].map((msg, index) => {
             if (index === 0) {
                 return (
-                    <Card onClick={handleClickOpen('paper')} className='chat-card'>
+                    <Card onClick={() => handleClickOpen('paper', msg.groupId)} className='chat-card'>
                         {
                             <div className='card-content'>
                                 <Grid item md={2}>
-                                    <Avatar className='avatar' aria-label="user">
-                                        {/* {item._id} */}
+                                    <Avatar className='avatar' aria-label="user" sx={{
+                                        bgcolor: '#9cbcff',
+                                    }}>
+                                        AF_{msg.groupName.split('_')[2]}
                                     </Avatar>
-
                                 </Grid>
                                 <Grid item md={10}>
                                     <Typography className='message-sender' variant="h5">{msg.senderName}</Typography>
@@ -133,6 +169,26 @@ const Messenger = () => {
         })
     }
 
+    function getRandomColorForName(name) {
+        let hash = 0;
+        let i;
+
+        /* eslint-disable no-bitwise */
+        for (i = 0; i < name.length; i += 1) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+
+        let color = '#';
+
+        for (i = 0; i < 3; i += 1) {
+            const value = (hash >> (i * 8)) & 0xff;
+            color += `00${value.toString(16)}`.slice(-2);
+        }
+        /* eslint-enable no-bitwise */
+
+        return color;
+    }
+
     return (
         <Container>
             <Grid mb={10} md={12} xs={12} >
@@ -143,11 +199,11 @@ const Messenger = () => {
             </Grid>
             <Grid container md={12} sx={{ display: 'flex', justifyContent: 'center', }}>
                 <Grid item className='chat-layout'>
-                    {messageLength > 0 && (
+                    {messageLength > 0 ? (
                         messages.map((i) => {
                             return renderChatCards(i);
                         })
-                    )}
+                    ) : <p>You have no group chats available yet.</p>}
                 </Grid>
             </Grid>
 
@@ -168,20 +224,25 @@ const Messenger = () => {
                             ref={descriptionElementRef}
                             tabIndex={-1}
                         >
-                            {/* {messages.map((message, index) => {
+                            {groupMessages?.length > 0 ? groupMessages.map((message, index) => {
                                 return (
                                     <div className="message-card-group">
                                         <Card className={userId === message.senderId ? "message-card-right" : "message-card-left"}>
-                                            <Typography variant='h6'>
-                                                {message.sender}
+                                            <Typography variant='p' sx={{ fontWeight: 'bold', color: getRandomColorForName(message.senderName) }}>
+                                                {message.senderName}
                                             </Typography>
+                                            <br />
                                             <Typography variant='p'>
                                                 {message.message}
                                             </Typography>
                                         </Card>
                                     </div>
                                 );
-                            })} */}
+                            }) : <center>This group chat is empty.</center>}
+                            <div style={{ float: "left", height: '50px', marginTop: '50px', color: 'transparent' }}
+                                ref={chatBottomRef}>
+                                {'.'}
+                            </div>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions style={{ padding: '20px' }}>
