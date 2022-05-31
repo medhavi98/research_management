@@ -1,31 +1,38 @@
 .root {
-    display: flex;  
+  display: flex;
 }
 
-.children-wrapper{
-    margin-top: 50px;
-    margin-left: -10px;
-    margin-right: 30px;
+.children-wrapper {
+  margin-top: 50px;
+  margin-left: -10px;
+  margin-right: 30px;
 }
 
-.css-h4y409-MuiList-root{
-    padding-top: 40px !important;
+.css-h4y409-MuiList-root {
+  padding-top: 40px !important;
 }
 
-.nav-links{
-    text-decoration: none;
-    color: #000000;
+.nav-links {
+  text-decoration: none;
+  color: #000000;
 }
 
-.card-gradient{
-    background-image: linear-gradient(to left top, #ffc700, #f8b400, #f0a100, #e68e00, #dc7c00);    
+.card-gradient {
+  background-image: linear-gradient(
+    to left top,
+    #ffc700,
+    #f8b400,
+    #f0a100,
+    #e68e00,
+    #dc7c00
+  );
 }
 
 @media only screen and (max-width: 595px) {
-    /* For mobile phones: */
-    .children-wrapper{        
-        margin-top: 100px;
-        margin-left: -10px;
-        margin-right: 30px;
-    }
+  /* For mobile phones: */
+  .children-wrapper {
+    margin-top: 100px;
+    margin-left: -10px;
+    margin-right: 30px;
   }
+}
