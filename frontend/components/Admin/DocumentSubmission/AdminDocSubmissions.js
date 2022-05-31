@@ -45,7 +45,7 @@ const AdminDocSubmissions = () => {
         setTimeout(() => {
           console.log("ResearchUploadFile 2", ResearchUploadFile);
           // setTimeout(submitResearchDoc(), 2000);
-          // window.alert("uploaded");
+          window.alert("uploaded");
         }, 6000);
       });
     });
