@@ -47,7 +47,7 @@ messageRouter.get('/getMessagesByGroup/:groupIds', async (req, res) => {
     const { groupIds } = req.params;
     const groupIdsArr = JSON.parse(groupIds);
 
-    if (groupIdsArr = []) {
+    if (groupIdsArr === []) {
         return res.status(200).json({ messages: [], messageLength: 0 });;
     }
 
