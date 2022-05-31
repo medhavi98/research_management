@@ -15,6 +15,7 @@ import { Container, Grid } from "@mui/material";
 import UserTabs from "../Admin/Users/UserTabs";
 import TopicsTabView from "../Student/TopicSubmission/TopicsTabView";
 import StudentRequest from "../Staff/StudentsRequest/StudentRequest";
+import AdminDocSubmission from "../Admin/DocumentSubmission/AdminDocSubmissions";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -74,6 +75,7 @@ const Layout = ({ children }) => {
             {/* {Admin} */}
             {focus === "Student groups" ? <StudentGroups /> : ""}
             {focus === "Users" ? <UserTabs /> : ""}
+            {focus === "Documents" ? <AdminDocSubmission /> : ""}
 
             {/* {Staff} */}
             {focus === "Student requests" ? <StudentRequest /> : ""}

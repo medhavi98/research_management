@@ -9,8 +9,6 @@ const AdminDocSubmissions = () => {
   const [ResearchUploadFile, setResearchUploadFile] = useState();
   const [rTemplate, setRTemplate] = useState({});
 
-  const id = localStorage.getItem("abc");
-
   const submitResearchDoc = () => {
     const researchDetails = {
       templateFile: ResearchUploadFile,
@@ -42,8 +40,13 @@ const AdminDocSubmissions = () => {
       getDownloadURL(upload.ref).then((url) => {
         console.log(url);
         setResearchUploadFile(url); //  this.setState({ ResearchUploadFile: url});
-        setTimeout(submitResearchDoc(), 2000);
-        window.alert("uploaded");
+        console.log("ResearchUploadFile 1", ResearchUploadFile);
+
+        setTimeout(() => {
+          console.log("ResearchUploadFile 2", ResearchUploadFile);
+          // setTimeout(submitResearchDoc(), 2000);
+          // window.alert("uploaded");
+        }, 6000);
       });
     });
   };
