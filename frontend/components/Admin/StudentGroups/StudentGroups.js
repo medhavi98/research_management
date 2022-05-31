@@ -13,9 +13,11 @@ import axios from "axios";
 
 const StudentGroups = () => {
   const [groupDetails, setGroupDetails] = React.useState([]);
+  const [panelMembers, setPanelMembers] = React.useState([]);
 
   React.useEffect(() => {
     fetchGroupUserNames();
+    fetchPanelMembers();
   }, []);
 
   const fetchGroupUserNames = async () => {
@@ -24,6 +26,18 @@ const StudentGroups = () => {
       .then((response) => {
         setGroupDetails(response.data);
         console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const fetchPanelMembers = async () => {
+    await axios
+      .get(`${BASE_URL}/user/getPanelMembers`)
+      .then((response) => {
+        setPanelMembers(response.data);
+        console.log("getPanelMembers", response.data);
       })
       .catch((err) => {
         console.log(err);
