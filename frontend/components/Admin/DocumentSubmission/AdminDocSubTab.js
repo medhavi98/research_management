@@ -6,8 +6,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import AppBar from "@mui/material/AppBar";
-import Resources from "./Submissions";
-import Submissions from "./Resources";
+import AdminDocSubmissions from "./AdminDocSubmissions";
 
 const DocumentSubmission = () => {
   const [value, setValue] = React.useState("1");
@@ -26,15 +25,12 @@ const DocumentSubmission = () => {
                 onChange={handleChange}
                 aria-label="lab API tabs example"
               >
-                <Tab label="Submissions" value="1" />
-                <Tab label="Resources" value="2" />
+                <Tab label="Upload Documents" value="1" />
               </TabList>
             </Box>
+
             <TabPanel value="1">
-              <Resources />
-            </TabPanel>
-            <TabPanel value="2">
-              <Submissions />
+              <AdminDocSubmissions />
             </TabPanel>
           </TabContext>
         </Box>
