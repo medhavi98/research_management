@@ -64,12 +64,28 @@ messageRouter.get('/getMessagesByGroup/:groupIds', async (req, res) => {
             });
             messages[index] = { ...messages[index].toObject(), senderName: user.fullName, groupName: group.groupName };
         });
-        if (messages) {
+        if (messages.length > 0) {
             const grouped = _.mapValues(_.groupBy(messages, 'groupId'));
             const arr = Object.keys(grouped).map((key, index) => [index, grouped[key]]);
-            res.status(200).json({ messages: arr, messageLength: messages.length });;
-        } else {
-            res.status(200).json([]);
+            res.status(200).json({ messages: arr, messageLength: messages.length });
+        } else if (messages.length === 0 && groupNames) {
+            let arr = [];
+            groupNames.map((grp, index) => {
+                const innerArr = [
+                    [],
+                    [
+                        {
+                            groupId: grp._id,
+                            senderName: grp.groupName,
+                            groupName: grp.groupName,
+                            noMessages: true,
+                        }
+                    ]
+                ]
+
+                arr[index] = innerArr;
+            })
+            res.status(200).json({ messages: arr, messageLength: 1 });
         }
     } catch (error) {
         res.status(400).json("Messages retrieving failed");

@@ -65,19 +65,19 @@ const Messenger = () => {
     const descriptionElementRef = React.useRef(null);
     const chatBottomRef = React.useRef(null);
 
-    const handleClickOpen = async (scrollType, groupId) => {
+    const handleClickOpen = async (scrollType, groupId, noMessages) => {
         setOpen(true);
         setScroll(scrollType);
         setGroupId(groupId);
+        let obj = [];
+
         const groupIds = JSON.stringify(groupId);
         const res = await axios.get(`${BASE_URL}/messages/getMessagesByGroup/${groupIds}`);
-        const obj = res.data.messages[0];
+        obj = res.data.messages[0];
         setGroupMessages(obj[1].reverse());
         socket.on(`messageTo${groupId}`, ({ messageData }) => {
             setGroupMessages([...obj[1], messageData]);
-            setMessageLength(messageLength + 1);
             obj[1] = [...obj[1], messageData];
-            chatBottomRef.current.scrollIntoView();
         })
         chatBottomRef.current.scrollIntoView();
     };
@@ -124,20 +124,23 @@ const Messenger = () => {
         const msgResponses = await axios.get(`${BASE_URL}/messages/getMessagesByGroup/${groupIds}`);
         setMessages(msgResponses.data.messages)
         setMessageLength(msgResponses.data.messageLength);
+        console.log(msgResponses)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const message = {
-            "groupId": groupId,
-            "senderId": userId,
-            "message": send_message,
-            "time": new Date().toLocaleString(),
-        }
-        const res = await axios.post(`${BASE_URL}/messages`, { message });
-        setSend_message("");
-        if (res.status === 400) {
-            alert("❌Message couldn't send. Please try again.")
+        if (send_message !== "") {
+            const message = {
+                "groupId": groupId,
+                "senderId": userId,
+                "message": send_message,
+                "time": new Date().toLocaleString(),
+            }
+            const res = await axios.post(`${BASE_URL}/messages`, { message });
+            setSend_message("");
+            if (res.status === 400) {
+                alert("❌Message couldn't send. Please try again.")
+            }
         }
     }
 
@@ -145,7 +148,7 @@ const Messenger = () => {
         return messages[1].map((msg, index) => {
             if (index === 0) {
                 return (
-                    <Card onClick={() => handleClickOpen('paper', msg.groupId)} className='chat-card'>
+                    <Card onClick={() => handleClickOpen('paper', msg.groupId, msg.noMessages)} className='chat-card'>
                         {
                             <div className='card-content'>
                                 <Grid item md={2}>
@@ -226,19 +229,20 @@ const Messenger = () => {
                         >
                             {groupMessages?.length > 0 ? groupMessages.map((message, index) => {
                                 return (
-                                    <div className="message-card-group">
-                                        <Card className={userId === message.senderId ? "message-card-right" : "message-card-left"}>
-                                            <Typography variant='p' sx={{ fontWeight: 'bold', color: getRandomColorForName(message.senderName) }}>
-                                                {message.senderName}
-                                            </Typography>
-                                            <br />
-                                            <Typography variant='p'>
-                                                {message.message}
-                                            </Typography>
-                                        </Card>
-                                    </div>
-                                );
-                            }) : <center>This group chat is empty.</center>}
+                                    message.groupName !== message.senderName ? (
+                                        <div className="message-card-group">
+                                            <Card className={userId === message.senderId ? "message-card-right" : "message-card-left"}>
+                                                <Typography variant='p' sx={{ fontWeight: 'bold', color: getRandomColorForName(message.senderName) }}>
+                                                    {message.senderName}
+                                                </Typography>
+                                                <br />
+                                                <Typography variant='p'>
+                                                    {message.message}
+                                                </Typography>
+                                            </Card>
+                                        </div>
+                                    ) : <></>)
+                            }) : <></>}
                             <div style={{ float: "left", height: '50px', marginTop: '50px', color: 'transparent' }}
                                 ref={chatBottomRef}>
                                 {'.'}
