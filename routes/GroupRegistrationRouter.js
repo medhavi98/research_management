@@ -40,8 +40,20 @@ groupRegistrationRouter.post("/", async (req, res) => {
 
     await group
       .save()
-      .then((response) => {
+      .then(async (response) => {
         console.log("Group Details Saved", response);
+
+        for (let i = 0; i < stdID.length; i++) {
+          await UserModel.updateOne(
+            { _id: stdID[i] },
+            {
+              $push: { groupIds: response._id },
+            }
+          ).catch((err) => {
+            console.error(err);
+            res.status(500).json(err);
+          });
+        }
         res.status(200).json(response);
       })
       .catch((error) => {
