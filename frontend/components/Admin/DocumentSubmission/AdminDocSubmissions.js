@@ -18,7 +18,7 @@ const AdminDocSubmissions = () => {
     axios
       .post(`http://localhost:5001/fileUploadstd`, researchDetails)
       .then(() => {
-        window.alert("File Uploaded!");
+        window.alert("File Uploaded to database!");
       })
       .catch((err) => {
         window.alert("FIle is not uploaded successfully : ", err.message);
@@ -45,7 +45,8 @@ const AdminDocSubmissions = () => {
         setTimeout(() => {
           console.log("ResearchUploadFile 2", ResearchUploadFile);
           // setTimeout(submitResearchDoc(), 2000);
-          window.alert("uploaded");
+          submitResearchDoc();
+          window.alert("Url saved to firebase");
         }, 6000);
       });
     });
