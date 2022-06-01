@@ -1,4 +1,4 @@
-import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
+import { Box, Button, CardMedia, Grid, Link, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { setUserSession } from "../../helpers/userSessionHandler";
@@ -10,14 +10,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const onLoginPress = async () => {
-    const response = await axios.post(`${BASE_URL}/user/login`, { email, password });
+    const response = await axios.post(`${BASE_URL}/user/login`, {
+      email,
+      password,
+    });
     console.log(response.data);
     if (response?.data?.error) {
       alert(response.data.error);
     } else if (response?.data?.user) {
       setUserSession(response.data.user._id);
-      alert('Login is successful!');
-      window.location = '/';
+      alert("Login is successful!");
+      window.location = "/";
     }
   };
   return (
@@ -63,18 +66,19 @@ const Login = () => {
                     width="88%"
                     required
                     inputValue={email}
-                    handleChange={e => setEmail(e.target.value)}
+                    handleChange={(e) => setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item md={12}>
                   <TextFieldComponent
                     label="Password"
                     inputName="Password"
+                    type="Password"
                     classes="form-field"
                     width="88%"
                     required
                     inputValue={password}
-                    handleChange={e => setPassword(e.target.value)}
+                    handleChange={(e) => setPassword(e.target.value)}
                   />
                 </Grid>
                 <Grid item md={12} pt={2}>
@@ -86,6 +90,15 @@ const Login = () => {
                   >
                     Login
                   </Button>
+                </Grid>
+                <Grid item md={12} pt={2}>
+                  <Link
+                    href="/Register"
+                    variant="body2"
+                    style={{ color: "black" }}
+                  >
+                    {"Don't have an account?  Register"}
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>
