@@ -4,6 +4,10 @@ const { Schema } = mongoose;
 const requestSchema = new Schema({
     supervisor: {
         type: Object,
+        //{
+        // type: "supervisor",
+        // supervisorId: "sdasdaku32423re",
+        // }
     },
     groupId: {
         type: String,
