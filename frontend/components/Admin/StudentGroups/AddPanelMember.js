@@ -1,16 +1,10 @@
-import { Button, FormControl } from "@mui/material";
+import { Button, FormControl, Grid } from "@mui/material";
 import axios from "axios";
+import { useState } from "react";
+import DropDown from "../../Common/DropDown";
 import TextFieldComponent from "../../Common/TextFieldComponent";
 
-const AddPanelMember = ({
-  fPanelMemberName,
-  setFPMName,
-  sPanelMemberName,
-  setSPMName,
-  tPanelMemberName,
-  setTPMName,
-  groupObjId,
-}) => {
+const AddPanelMember = () => {
   const handelOnSubmit = async (event) => {
     event.preventDefault();
     const panelMembers = {
@@ -29,52 +23,75 @@ const AddPanelMember = ({
         alert("Panel members not added ");
       });
   };
-  return (
-    <>
-      <form onSubmit={handelOnSubmit}>
-        <TextFieldComponent
-          label="1st panel member name"
-          inputName="fpmName"
-          classes="form-field"
-          width="100%"
-          inputValue={fPanelMemberName}
-          required
-          handleChange={(e) => setFPMName(e.target.value)}
-        />
-        <TextFieldComponent
-          label="2nd panel member name"
-          inputName="spmName"
-          classes="form-field"
-          width="100%"
-          inputValue={sPanelMemberName}
-          required
-          handleChange={(e) => setSPMName(e.target.value)}
-        />
-        <TextFieldComponent
-          label="3rd panel member name"
-          inputName="tpmName"
-          classes="form-field"
-          width="100%"
-          inputValue={tPanelMemberName}
-          required
-          handleChange={(e) => setTPMName(e.target.value)}
-        />
-        {/* <TextFieldComponent
-          label="2nd member registration number"
-          width="100%"
-          required
-        /> */}
 
-        <Button
-          variant="contained"
-          color="success"
-          type="submit"
-          sx={{ float: "right" }}
-        >
-          Submit
-        </Button>
+  const userTypes = [
+    { name: "Karthiga", value: "Karthiga" },
+    { name: "Lalith", value: "Lalith" },
+  ];
+
+  const [fPanelMemberName, setfPanelMemberName] = useState("");
+  const [sPanelMemberName, setsPanelMemberName] = useState("");
+  const [tPanelMemberName, settPanelMemberName] = useState("");
+
+  const userTypeHandler = (event) => {
+    setfPanelMemberName(event.target.value);
+  };
+  const userTypeHandler2 = (event) => {
+    setsPanelMemberName(event.target.value);
+  };
+  const userTypeHandler3 = (event) => {
+    settPanelMemberName(event.target.value);
+  };
+
+  return (
+    <Grid mt={2}>
+      <form onSubmit={handelOnSubmit}>
+        <Grid mt={2}>
+          <DropDown
+            label="1st panel member name"
+            tValue="1st panel member name"
+            name="user_type"
+            value={fPanelMemberName}
+            minWidth="100%"
+            onChange={userTypeHandler}
+            options={userTypes}
+          />
+        </Grid>
+        <Grid mt={2}>
+          <DropDown
+            label="2nd panel member name"
+            tValue="2nd panel member name"
+            name="user_type"
+            value={sPanelMemberName}
+            minWidth="100%"
+            onChange={userTypeHandler2}
+            options={userTypes}
+          />
+        </Grid>
+        <Grid mt={2}>
+          <DropDown
+            label="3rd panel member name"
+            tValue="3rd panel member name"
+            name="user_type"
+            value={tPanelMemberName}
+            minWidth="100%"
+            onChange={userTypeHandler3}
+            options={userTypes}
+          />
+        </Grid>
+
+        <Grid mt={2}>
+          <Button
+            variant="contained"
+            color="success"
+            type="submit"
+            sx={{ float: "right" }}
+          >
+            Submit
+          </Button>
+        </Grid>
       </form>
-    </>
+    </Grid>
   );
 };
 
