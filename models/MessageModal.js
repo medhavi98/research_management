@@ -8,9 +8,6 @@ const messageSchema = new Schema({
     senderId: {
         type: String,
     },
-    receiverId: {
-        type: String,
-    },
     message: {
         type: String,
     },
