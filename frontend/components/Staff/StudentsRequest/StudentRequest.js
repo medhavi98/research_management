@@ -11,7 +11,9 @@ import { Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
-import { getUserSessionDetails } from '../../../helpers/userSessionHandler'
+import { getUserSessionDetails } from "../../../helpers/userSessionHandler";
+import FormDialog from "../../Common/FormDialog";
+import UpdateStudentRequest from "./UpdateStudentRequest";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,7 +44,9 @@ const StudentRequest = () => {
   }, []);
 
   const fetchRequest = async () => {
-    const res = await axios.get(`${BASE_URL}/requests/getRequestsByUserId/${userId}`);
+    const res = await axios.get(
+      `${BASE_URL}/requests/getRequestsByUserId/${userId}`
+    );
     setRequests(res.data.requests);
   };
   console.log(requests);
@@ -81,11 +85,17 @@ const StudentRequest = () => {
                       {row.review}
                     </StyledTableCell>
                     <StyledTableCell align="justify">
-                      {row.isAccepted === true ? "Accept" : "Reject"}
+                      {/* {row.isAccepted === true ? "Accept" : "Reject"} */}
                     </StyledTableCell>
                     <StyledTableCell>
-                      {" "}
-                      <Button variant="outlined">Test</Button>
+                      <FormDialog
+                        testButton="Update"
+                        Description="Add Your Research Group Member Details"
+                        onButtonPress={() => {
+                          console.log("group details");
+                        }}
+                        children={<UpdateStudentRequest />}
+                      />
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
