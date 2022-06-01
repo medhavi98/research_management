@@ -11,33 +11,7 @@ import { Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
-
-let dummyData = [
-  {
-    groupId: "GID001",
-    topicName: "Test Name styled styled",
-    topicDescription:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    review: "Lorem Ipsum is simply dummy text of the ",
-    isAccepted: false,
-  },
-  {
-    groupId: "GID001",
-    topicName: "Test Name styled styled",
-    topicDescription:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    review: "Lorem Ipsum is simply dummy text of the ",
-    isAccepted: true,
-  },
-  {
-    groupId: "GID001",
-    topicName: "Test Name styled styled",
-    topicDescription:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    review: "Lorem Ipsum is simply dummy text of the ",
-    isAccepted: false,
-  },
-];
+import { getUserSessionDetails } from '../../../helpers/userSessionHandler'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,17 +35,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const StudentRequest = () => {
   const [requests, setRequests] = React.useState([]);
+  const { userId } = getUserSessionDetails();
 
-  //   React.useEffect(() => {
-  //     fetchRequest();
-  //     console.log(fetchRequest() + 'fetc');
-  //   }, []);
+  React.useEffect(() => {
+    fetchRequest();
+  }, []);
 
-  //   const fetchRequest = async () => {
-  //     const res = await axios.get(`${BASE_URL}/requests/getRequests/:groupId`);
-  //     console.log(res.data.requests);
-  //     setRequests(res.data.requests);
-  //   };
+  const fetchRequest = async () => {
+    const res = await axios.get(`${BASE_URL}/requests/getRequestsByUserId/${userId}`);
+    setRequests(res.data.requests);
+  };
+  console.log(requests);
 
   return (
     <>
@@ -81,7 +55,7 @@ const StudentRequest = () => {
             <Table sx={{ minWidth: 900 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>GroupID</StyledTableCell>
+                  <StyledTableCell>Group Name</StyledTableCell>
                   <StyledTableCell>Topic Name</StyledTableCell>
                   <StyledTableCell align="center">
                     Topic Description{" "}
@@ -92,10 +66,10 @@ const StudentRequest = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dummyData.map((row) => (
-                  <StyledTableRow key={row.groupId}>
+                {requests.map((row) => (
+                  <StyledTableRow key={row._id}>
                     <StyledTableCell component="th" scope="row">
-                      {row.groupId}
+                      {row.groupName}
                     </StyledTableCell>
                     <StyledTableCell align="justify" style={{ width: "12%" }}>
                       {row.topicName}

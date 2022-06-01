@@ -48,17 +48,7 @@ const DisplayGroupDetails = ({
             onButtonPress={() => {
               console.log("group details");
             }}
-            children={
-              <AddPanelMember
-                fPanelMemberName={fPanelMemberName}
-                setFPMName={setFPMName}
-                sPanelMemberName={sPanelMemberName}
-                setSPMName={setSPMName}
-                tPanelMemberName={tPanelMemberName}
-                setTPMName={setTPMName}
-                groupObjId={groupObjId}
-              />
-            }
+            children={<AddPanelMember />}
           />
         </Grid>
 
