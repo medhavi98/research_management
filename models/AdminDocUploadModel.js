@@ -12,7 +12,7 @@ const docTemplateSchema = new Schema(
       required: true,
     },
   },
-  { collection: "admin_documents" }
+  { collection: "adminDocuments" }
 );
 
 const AdminDocsModel = mongoose.model("AdminDocsModel", docTemplateSchema);
