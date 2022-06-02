@@ -11,9 +11,14 @@ import { Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
-import { getUserSessionDetails } from "../../../helpers/userSessionHandler";
-import FormDialog from "../../Common/FormDialog";
-import UpdateStudentRequest from "./UpdateStudentRequest";
+
+let dummyData = [
+  {
+    groupId: "GID001",
+    submissionType: "Test Name styled styled",
+    marks: "45",
+  },
+];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,21 +40,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const StudentRequest = () => {
+const StudentMarks = () => {
   const [requests, setRequests] = React.useState([]);
-  const { userId } = getUserSessionDetails();
 
-  React.useEffect(() => {
-    fetchRequest();
-  }, []);
+  //   React.useEffect(() => {
+  //     fetchRequest();
+  //     console.log(fetchRequest() + 'fetc');
+  //   }, []);
 
-  const fetchRequest = async () => {
-    const res = await axios.get(
-      `${BASE_URL}/requests/getRequestsByUserId/${userId}`
-    );
-    setRequests(res.data.requests);
-  };
-  console.log(requests);
+  //   const fetchRequest = async () => {
+  //     const res = await axios.get(`${BASE_URL}/requests/getRequests/:groupId`);
+  //     console.log(res.data.requests);
+  //     setRequests(res.data.requests);
+  //   };
 
   return (
     <>
@@ -59,43 +62,28 @@ const StudentRequest = () => {
             <Table sx={{ minWidth: 900 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Group Name</StyledTableCell>
-                  <StyledTableCell>Topic Name</StyledTableCell>
-                  <StyledTableCell align="center">
-                    Topic Description{" "}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">Review</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
+                  <StyledTableCell>GroupID</StyledTableCell>
+                  <StyledTableCell>Submission Type</StyledTableCell>
+                  <StyledTableCell>Marks</StyledTableCell>
                   <StyledTableCell>Action</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {requests.map((row) => (
-                  <StyledTableRow key={row._id}>
+                {dummyData.map((row) => (
+                  <StyledTableRow key={row.groupId}>
                     <StyledTableCell component="th" scope="row">
-                      {row.groupName}
-                    </StyledTableCell>
-                    <StyledTableCell align="justify" style={{ width: "12%" }}>
-                      {row.topicName}
-                    </StyledTableCell>
-                    <StyledTableCell align="justify" style={{ width: "40%" }}>
-                      {row.topicDescription}
-                    </StyledTableCell>
-                    <StyledTableCell align="justify" style={{ width: "25%" }}>
-                      {row.review}
+                      {row.groupId}
                     </StyledTableCell>
                     <StyledTableCell align="justify">
-                      {/* {row.isAccepted === true ? "Accept" : "Reject"} */}
+                      {row.submissionType}
                     </StyledTableCell>
+                    <StyledTableCell align="justify">
+                      {row.marks}
+                    </StyledTableCell>
+
                     <StyledTableCell>
-                      <FormDialog
-                        testButton="Update"
-                        Description="Add Your Research Group Member Details"
-                        onButtonPress={() => {
-                          console.log("group details");
-                        }}
-                        children={<UpdateStudentRequest />}
-                      />
+                      {" "}
+                      <Button variant="outlined">Test</Button>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -108,4 +96,4 @@ const StudentRequest = () => {
   );
 };
 
-export default StudentRequest;
+export default StudentMarks;

@@ -3,15 +3,13 @@ import TextFieldComponent from "../../Common/TextFieldComponent";
 
 const UpdateUserDetails = ({
   RNumber,
-  setRNumber,
   fullName,
-  setFullName,
   sliitMail,
-  setSliitMail,
   personalEmail,
   setPersonalEmail,
   phoneNumber,
   setPhoneNumber,
+  onSubmit
 }) => {
   const handelOnSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +18,7 @@ const UpdateUserDetails = ({
 
   return (
     <>
-      <form onSubmit={handelOnSubmit}>
+      <form onSubmit={e => onSubmit(e)}>
         <TextFieldComponent
           label="Registration Number"
           inputName="RNumber"
@@ -29,7 +27,6 @@ const UpdateUserDetails = ({
           inputValue={RNumber}
           required
           disabled
-          handleChange={(e) => setRNumber(e.target.value)}
         />
         <TextFieldComponent
           label="Name"
@@ -39,7 +36,6 @@ const UpdateUserDetails = ({
           inputValue={fullName}
           required
           disabled
-          handleChange={(e) => setFullName(e.target.value)}
         />
         <TextFieldComponent
           label="SLLIT Email"
@@ -49,7 +45,6 @@ const UpdateUserDetails = ({
           inputValue={sliitMail}
           required
           disabled
-          handleChange={(e) => setSliitMail(e.target.value)}
         />
         <TextFieldComponent
           label="Personal Email"

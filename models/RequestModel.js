@@ -4,13 +4,17 @@ const { Schema } = mongoose;
 const requestSchema = new Schema({
     supervisor: {
         type: Object,
+        //{
+        // type: "supervisor",
+        // supervisorId: "sdasdaku32423re",
+        // }
     },
     groupId: {
         type: String,
     },
-    isAccepted: {
-        type: Boolean,
-        default: false,
+    status: {
+        type: String,
+        default: 'Pending',
     },
     topicName: {
         type: String,
@@ -21,7 +25,7 @@ const requestSchema = new Schema({
     review: {
         type: String,
     },
-}, {collection : 'requests'})
+}, { collection: 'requests' })
 
-const RequestModel = mongoose.model("RequestModel" , requestSchema);
+const RequestModel = mongoose.model("RequestModel", requestSchema);
 module.exports = RequestModel;

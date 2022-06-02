@@ -16,6 +16,7 @@ import UserTabs from "../Admin/Users/UserTabs";
 import TopicsTabView from "../Student/TopicSubmission/TopicsTabView";
 import StudentRequest from "../Staff/StudentsRequest/StudentRequest";
 import AdminDocSubmission from "../Admin/DocumentSubmission/AdminDocSubmissions";
+import StudentMarks from "../Staff/StudentsRequest/StudentMarks";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -32,6 +33,7 @@ const Layout = ({ children }) => {
   const staff = [
     "Dashboard",
     "Student requests",
+    "Groups",
     "Group marks",
     "Chat",
     "staff",
@@ -79,6 +81,8 @@ const Layout = ({ children }) => {
 
             {/* {Staff} */}
             {focus === "Student requests" ? <StudentRequest /> : ""}
+            {focus === "Groups" ? <h1>test</h1> : ""}
+            {focus === "Group marks" ? <StudentMarks /> : ""}
 
             {/* {Student} */}
             {focus === "Topic submission" ? <TopicsTabView /> : ""}

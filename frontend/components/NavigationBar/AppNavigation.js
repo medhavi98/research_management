@@ -15,17 +15,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import GroupsIcon from '@mui/icons-material/Groups';
-import TopicIcon from '@mui/icons-material/Topic';
-import ManIcon from '@mui/icons-material/Man';
-import PercentIcon from '@mui/icons-material/Percent';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ForumIcon from '@mui/icons-material/Forum';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import Person from '@mui/icons-material/Person';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GroupsIcon from "@mui/icons-material/Groups";
+import TopicIcon from "@mui/icons-material/Topic";
+import ManIcon from "@mui/icons-material/Man";
+import PercentIcon from "@mui/icons-material/Percent";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import ForumIcon from "@mui/icons-material/Forum";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import Person from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
-import { getUserSessionDetails, removeUserSessionDetails } from "../../helpers/userSessionHandler";
+import {
+  getUserSessionDetails,
+  removeUserSessionDetails,
+} from "../../helpers/userSessionHandler";
 
 const drawerWidth = 250;
 
@@ -46,20 +49,33 @@ function AppNavigation(props) {
           <ListItem key={text}>
             <ListItemButton>
               <ListItemIcon>
-                {text == "Dashboard" ? <DashboardIcon />
-                  : text === "Group details" ? <GroupsIcon />
-                    : text === "Topic submission" ? <TopicIcon />
-                      : text === "Document submission" ? <DriveFolderUploadIcon />
-                        : text === "Users" ? <ManIcon />
-                          : text === "Student groups" ? <GroupsIcon />
-                            : text === "Documents" ? <DriveFolderUploadIcon />
-                              : text === "Student requests" ? <PersonAddIcon />
-                                : text === "Group marks" ? <PercentIcon />
-                                  : text === "Chat" ? <ForumIcon />
-                                    : text === "student" ? <Person />
-                                      : null}
+                {text == "Dashboard" ? (
+                  <DashboardIcon />
+                ) : text === "Group details" ? (
+                  <GroupsIcon />
+                ) : text === "Topic submission" ? (
+                  <TopicIcon />
+                ) : text === "Document submission" ? (
+                  <DriveFolderUploadIcon />
+                ) : text === "Users" ? (
+                  <ManIcon />
+                ) : text === "Student groups" ? (
+                  <GroupsIcon />
+                ) : text === "Documents" ? (
+                  <DriveFolderUploadIcon />
+                ) : text === "Student requests" ? (
+                  <PersonAddIcon />
+                ) : text === "Group marks" ? (
+                  <PercentIcon />
+                ) : text === "Chat" ? (
+                  <ForumIcon />
+                ) : text === "student" ? (
+                  <Person />
+                ) : text === "Groups" ? (
+                  <GroupsIcon />
+                ) : null}
               </ListItemIcon>
-              <div onClick={() => props.onClickItem(text)} >
+              <div onClick={() => props.onClickItem(text)}>
                 <ListItemText primary={text} />
               </div>
             </ListItemButton>
@@ -75,7 +91,7 @@ function AppNavigation(props) {
 
   const userLoggedHandler = () => {
     removeUserSessionDetails();
-    window.location = '/login';
+    window.location = "/login";
   };
 
   return (
@@ -103,7 +119,7 @@ function AppNavigation(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             LOGO
           </Typography>
-          <Link to={''} onClick={userLoggedHandler} >
+          <Link to={""} onClick={userLoggedHandler}>
             <Button color="inherit">Log out</Button>
           </Link>
         </Toolbar>
@@ -152,10 +168,8 @@ function AppNavigation(props) {
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
-        className='box-content'
-      >
-
-      </Box>
+        className="box-content"
+      ></Box>
     </Box>
   );
 }
