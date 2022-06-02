@@ -211,4 +211,14 @@ router.get("/getCosupervisor", async (req, res) => {
   }
 });
 
+//get all user details
+router.get("/getAllUserDetails", async (req, res) => {
+  try {
+    const users = await userDetails.find();
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(400).json("Co-Supervisorr fetching failed", error);
+  }
+});
+
 module.exports = router;
