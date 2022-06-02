@@ -21,7 +21,7 @@ groupRegistrationRouter.post("/", async (req, res) => {
 
     for (let i = 0; i < studentIds.length; i++) {
       let id = await UserModel.findOne({
-        studentId: studentIds[i],
+        studentId: studentIds[i].toUpperCase(),
       });
       console.log("studentId", id._id);
       stdID.push(id._id);
