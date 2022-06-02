@@ -42,7 +42,7 @@ const Registration = () => {
         sliitEmail,
         personalEmail,
         nic,
-        studentId,
+        studentId: studentId.toUpperCase(),
         userType: userType === "as staff" ? "staff" : "student",
       });
     } else if (userType === "as staff") {
@@ -54,7 +54,7 @@ const Registration = () => {
         sliitEmail,
         personalEmail,
         nic,
-        staffId,
+        staffId: staffId.toUpperCase(),
         interestFields,
         registerType,
         userType: userType === "as staff" ? "staff" : "student",
