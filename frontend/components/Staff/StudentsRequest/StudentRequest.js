@@ -49,7 +49,22 @@ const StudentRequest = () => {
     );
     setRequests(res.data.requests);
   };
-  console.log(requests);
+
+  const handelOnSubmit = async (e, review, status, id) => {
+    e.preventDefault();
+    const res = await axios.post(`${BASE_URL}/requests/edit/${id}`, {
+      requestDetails: {
+        review,
+        status,
+      }
+    })
+    if (res.status === 200) {
+      const res = await axios.get(
+        `${BASE_URL}/requests/getRequestsByUserId/${userId}`
+      );
+      setRequests(res.data.requests);
+    }
+  };
 
   return (
     <>
@@ -85,7 +100,7 @@ const StudentRequest = () => {
                       {row.review}
                     </StyledTableCell>
                     <StyledTableCell align="justify">
-                      {/* {row.isAccepted === true ? "Accept" : "Reject"} */}
+                      {row.status}
                     </StyledTableCell>
                     <StyledTableCell>
                       <FormDialog
@@ -94,7 +109,7 @@ const StudentRequest = () => {
                         onButtonPress={() => {
                           console.log("group details");
                         }}
-                        children={<UpdateStudentRequest />}
+                        children={<UpdateStudentRequest id={row._id} handelOnSubmit={(e, review, reviewStatus) => { handelOnSubmit(e, review, reviewStatus, row._id) }} />}
                       />
                     </StyledTableCell>
                   </StyledTableRow>
