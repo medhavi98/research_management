@@ -63,7 +63,7 @@ groupRegistrationRouter.post("/", async (req, res) => {
     console.log("stdID", stdID);
   } catch (err) {
     console.error("error while requesting ", err);
-    res.status(500).json(error);
+    res.status(500).json(err);
   }
 });
 
