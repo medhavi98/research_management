@@ -5,8 +5,8 @@ const _ = require('lodash');
 
 //add request details
 requestRouter.post('/', async (req, res) => {
-    const { supervisor, groupId, isAccepted, topicName, topicDescription, review } = req.body.requestDetails;
-    const request = new RequestModel({ supervisor, groupId, isAccepted, topicName, topicDescription, review });
+    const { supervisor, groupId, status, topicName, topicDescription, review } = req.body.requestDetails;
+    const request = new RequestModel({ supervisor, groupId, status, topicName, topicDescription, review });
     try {
         await request.save();
         res.status(200).json("Request saved successfully");
@@ -18,8 +18,8 @@ requestRouter.post('/', async (req, res) => {
 //edit request details
 requestRouter.post('/edit/:requestId', async (req, res) => {
     const { requestId } = req.params;
-    const { supervisor, isAccepted, topicName, topicDescription, review } = req.body.requestDetails;
-    const editedRequest = { supervisor, isAccepted, topicName, topicDescription, review };
+    const { supervisor, status, topicName, topicDescription, review } = req.body.requestDetails;
+    const editedRequest = { supervisor, status, topicName, topicDescription, review };
 
     try {
         await RequestModel.findOneAndUpdate({ _id: requestId }, editedRequest);;
