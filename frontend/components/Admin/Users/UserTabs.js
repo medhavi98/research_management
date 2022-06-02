@@ -60,6 +60,8 @@ const UserTabs = () => {
     if (response.data.user) {
       const res = await axios.get(`${BASE_URL}/user/getAllUserDetails`);
       setUsers(res.data.users)
+    } else {
+      alert("❌ Couldn't delete the user. Please try again.");
     }
   }
   return (
@@ -129,6 +131,9 @@ const UserDetailsCard = ({ id, name, onUpdatePress, onDeletePress, onClick, RNum
       personalEmail,
       phone: phoneNumber
     })
+    if (!response.data.user) {
+      alert("❌ Couldn't update user details. Please try again.")
+    }
   }
 
   return (

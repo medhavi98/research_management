@@ -230,7 +230,7 @@ router.post("/editUserDetails/:userId", async (req, res) => {
     user.personalEmail = personalEmail;
     user.phone = phone;
     await user.save();
-    res.status(200).json();
+    res.status(200).json({ user });
   } catch (error) {
     res.status(400).json("Co-Supervisorr fetching failed", error);
   }
