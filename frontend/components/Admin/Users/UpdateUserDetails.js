@@ -29,7 +29,6 @@ const UpdateUserDetails = ({
           inputValue={RNumber}
           required
           disabled
-          handleChange={(e) => setRNumber(e.target.value)}
         />
         <TextFieldComponent
           label="Name"
@@ -39,7 +38,6 @@ const UpdateUserDetails = ({
           inputValue={fullName}
           required
           disabled
-          handleChange={(e) => setFullName(e.target.value)}
         />
         <TextFieldComponent
           label="SLLIT Email"
@@ -49,7 +47,6 @@ const UpdateUserDetails = ({
           inputValue={sliitMail}
           required
           disabled
-          handleChange={(e) => setSliitMail(e.target.value)}
         />
         <TextFieldComponent
           label="Personal Email"

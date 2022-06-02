@@ -72,6 +72,10 @@ const UserTabs = () => {
                   <UserDetailsCard
                     name={user.fullName}
                     onClick={tab1HandleClickOpen}
+                    RNumber={user.studentId}
+                    sliitMail={user.sliitEmail}
+                    pEmail={user.personalEmail}
+                    phone={user.phone}
                   />
                 );
               }
@@ -84,6 +88,10 @@ const UserTabs = () => {
                   <UserDetailsCard
                     name={user.fullName}
                     onClick={tab2HandleClickOpen}
+                    RNumber={user.staffId}
+                    sliitMail={user.sliitEmail}
+                    pEmail={user.personalEmail}
+                    phone={user.phone}
                   />
                 );
               }
@@ -95,17 +103,14 @@ const UserTabs = () => {
   );
 };
 
-const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick }) => {
+const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick, RNumber, sliitMail, pEmail, phone }) => {
+  const [personalEmail, setPersonalEmail] = React.useState(pEmail);
+  const [phoneNumber, setPhoneNumber] = React.useState(phone);
+
   const commonStyles = {
     borderLeft: 5,
     borderLeftColor: "#9cbcff",
   };
-
-  const [RNumber, setRNumber] = React.useState("");
-  const [fullName, setFullName] = React.useState("");
-  const [sliitMail, setSliitMail] = React.useState("");
-  const [personalEmail, setPersonalEmail] = React.useState("");
-  const [phoneNumber, setPhoneNumber] = React.useState("");
 
   return (
     <Card sx={{ ...commonStyles, mt: 2 }} onClick={onClick}>
@@ -124,14 +129,10 @@ const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick }) => {
               children={
                 <UpdateUserDetails
                   RNumber={RNumber}
-                  setRNumber={setRNumber}
-                  fullName={fullName}
-                  setFullName={setFullName}
                   sliitMail={sliitMail}
-                  setSliitMail={setSliitMail}
                   personalEmail={personalEmail}
-                  setPersonalEmail={setPersonalEmail}
                   phoneNumber={phoneNumber}
+                  setPersonalEmail={setPersonalEmail}
                   setPhoneNumber={setPhoneNumber}
                 />
               }
