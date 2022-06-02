@@ -3,15 +3,13 @@ import TextFieldComponent from "../../Common/TextFieldComponent";
 
 const UpdateUserDetails = ({
   RNumber,
-  setRNumber,
   fullName,
-  setFullName,
   sliitMail,
-  setSliitMail,
   personalEmail,
   setPersonalEmail,
   phoneNumber,
   setPhoneNumber,
+  onSubmit
 }) => {
   const handelOnSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +18,7 @@ const UpdateUserDetails = ({
 
   return (
     <>
-      <form onSubmit={handelOnSubmit}>
+      <form onSubmit={e => onSubmit(e)}>
         <TextFieldComponent
           label="Registration Number"
           inputName="RNumber"

@@ -54,7 +54,14 @@ const UserTabs = () => {
     const response = await axios.get(`${BASE_URL}/user/getAllUserDetails`);
     setUsers(response.data.users)
   }
-  console.log(users)
+
+  const onDeletePress = async id => {
+    const response = await axios.delete(`${BASE_URL}/user/deleteUser/${id}`)
+    if (response.data.user) {
+      const res = await axios.get(`${BASE_URL}/user/getAllUserDetails`);
+      setUsers(res.data.users)
+    }
+  }
   return (
     <Card>
       <Box sx={{ width: "100%", typography: "body1" }}>
@@ -70,12 +77,14 @@ const UserTabs = () => {
               if (user.userType === "student") {
                 return (
                   <UserDetailsCard
+                    id={user._id}
                     name={user.fullName}
                     onClick={tab1HandleClickOpen}
                     RNumber={user.studentId}
                     sliitMail={user.sliitEmail}
                     pEmail={user.personalEmail}
                     phone={user.phone}
+                    onDeletePress={() => onDeletePress(user._id)}
                   />
                 );
               }
@@ -86,12 +95,14 @@ const UserTabs = () => {
               if (user.userType === "staff") {
                 return (
                   <UserDetailsCard
+                    id={user._id}
                     name={user.fullName}
                     onClick={tab2HandleClickOpen}
                     RNumber={user.staffId}
                     sliitMail={user.sliitEmail}
                     pEmail={user.personalEmail}
                     phone={user.phone}
+                    onDeletePress={() => onDeletePress(user._id)}
                   />
                 );
               }
@@ -103,7 +114,7 @@ const UserTabs = () => {
   );
 };
 
-const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick, RNumber, sliitMail, pEmail, phone }) => {
+const UserDetailsCard = ({ id, name, onUpdatePress, onDeletePress, onClick, RNumber, sliitMail, pEmail, phone }) => {
   const [personalEmail, setPersonalEmail] = React.useState(pEmail);
   const [phoneNumber, setPhoneNumber] = React.useState(phone);
 
@@ -111,6 +122,14 @@ const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick, RNumber,
     borderLeft: 5,
     borderLeftColor: "#9cbcff",
   };
+
+  const onUserUpdate = async e => {
+    e.preventDefault();
+    const response = await axios.post(`${BASE_URL}/user/editUserDetails/${id}`, {
+      personalEmail,
+      phone: phoneNumber
+    })
+  }
 
   return (
     <Card sx={{ ...commonStyles, mt: 2 }} onClick={onClick}>
@@ -124,7 +143,7 @@ const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick, RNumber,
               testButton="Update"
               Description="Update Details"
               onButtonPress={() => {
-                console.log("group details");
+                console.log("Close dialog box")
               }}
               children={
                 <UpdateUserDetails
@@ -134,6 +153,8 @@ const UserDetailsCard = ({ name, onUpdatePress, onDeletePress, onClick, RNumber,
                   phoneNumber={phoneNumber}
                   setPersonalEmail={setPersonalEmail}
                   setPhoneNumber={setPhoneNumber}
+                  fullName={name}
+                  onSubmit={e => onUserUpdate(e)}
                 />
               }
             />
