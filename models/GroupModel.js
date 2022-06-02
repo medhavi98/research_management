@@ -32,6 +32,13 @@ const groupSchema = new Schema(
         required: false,
       },
     ],
+    groupDocuments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "adminDocuments",
+        required: false,
+      },
+    ],
   },
   { collection: "groups" }
 );

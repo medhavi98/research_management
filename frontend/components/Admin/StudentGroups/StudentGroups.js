@@ -19,7 +19,7 @@ const StudentGroups = () => {
     fetchGroupUserNames();
     fetchPanelMembers();
   }, []);
-
+  let userTypes = [];
   const fetchGroupUserNames = async () => {
     await axios
       .get(`${BASE_URL}/groups/`)
@@ -36,7 +36,14 @@ const StudentGroups = () => {
     await axios
       .get(`${BASE_URL}/user/getPanelMembers`)
       .then((response) => {
-        setPanelMembers(response.data);
+        for (let i = 0; i < response.data.length; i++) {
+          userTypes.push({
+            name: response.data[i].fullName,
+            value: response.data[i]._id,
+          });
+        }
+        setPanelMembers(userTypes);
+
         console.log("getPanelMembers", response.data);
       })
       .catch((err) => {
@@ -66,6 +73,7 @@ const StudentGroups = () => {
                 groupDetails.map((item, index) => (
                   <DisplayGroupDetails
                     key={index}
+                    panelMembers={panelMembers}
                     groupObjId={item._id}
                     GroupId={item.groupName}
                     supervisorName={

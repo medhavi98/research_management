@@ -137,7 +137,7 @@ groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
             { _id: members[i] },
             {
               $push: {
-                groupIds: [JSON.stringify({ panel_member: groupId })],
+                groupIds: groupId,
               },
             }
           ).catch(async (err) => {
