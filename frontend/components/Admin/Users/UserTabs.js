@@ -6,17 +6,24 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Button, Card, Grid } from "@mui/material";
 import FormDialog from "../../Common/FormDialog";
+import axios from 'axios';
+import { BASE_URL } from '../../constants'
 // import GroupDetailsInputs from "../../Student/GroupDetails/GroupDetailsInputs";
 import UpdateUserDetails from "./UpdateUserDetails";
 
 const UserTabs = () => {
   const [value, setValue] = React.useState("1");
+  const [users, setUsers] = React.useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(event.target.value);
     console.log(newValue + "newValue");
   };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   const DummyData = [
     {
@@ -37,11 +44,17 @@ const UserTabs = () => {
     },
   ];
 
-  const tab1HandleClickOpen = () => {};
+  const tab1HandleClickOpen = () => { };
 
   const tab2HandleClickOpen = () => {
     console.log("tab2HandleClickOpen");
   };
+
+  const fetchData = async () => {
+    const response = await axios.get(`${BASE_URL}/user/getAllUserDetails`);
+    setUsers(response.data.users)
+  }
+  console.log(users)
   return (
     <Card>
       <Box sx={{ width: "100%", typography: "body1" }}>
@@ -53,11 +66,11 @@ const UserTabs = () => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            {DummyData.map((user, index) => {
-              if (user.type === "student") {
+            {users.map((user, index) => {
+              if (user.userType === "student") {
                 return (
                   <UserDetailsCard
-                    name={user.name}
+                    name={user.fullName}
                     onClick={tab1HandleClickOpen}
                   />
                 );
@@ -65,11 +78,11 @@ const UserTabs = () => {
             })}
           </TabPanel>
           <TabPanel value="2">
-            {DummyData.map((user, index) => {
-              if (user.type === "staff") {
+            {users.map((user, index) => {
+              if (user.userType === "staff") {
                 return (
                   <UserDetailsCard
-                    name={user.name}
+                    name={user.fullName}
                     onClick={tab2HandleClickOpen}
                   />
                 );
