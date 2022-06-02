@@ -1,19 +1,23 @@
 import { Button, FormControl, Grid } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropDown from "../../Common/DropDown";
 import TextFieldComponent from "../../Common/TextFieldComponent";
+import { BASE_URL } from "../../constants";
 
-const AddPanelMember = () => {
+const AddPanelMember = ({ panelMembers, groupObjId }) => {
+  console.log("panelMembers details", panelMembers);
+  console.log("groupObjId", groupObjId);
+
   const handelOnSubmit = async (event) => {
     event.preventDefault();
-    const panelMembers = {
+    const panelMembersObj = {
       memberOne: fPanelMemberName,
       memberTwo: sPanelMemberName,
       memberThree: tPanelMemberName,
     };
     await axios
-      .put(`${BASE_URL}/groups/addPanelMembers/${groupObjId}`, panelMembers)
+      .put(`${BASE_URL}/groups/addPanelMembers/${groupObjId}`, panelMembersObj)
       .then((response) => {
         console.log(response.data);
         alert("Panel members added successfully");
@@ -24,16 +28,12 @@ const AddPanelMember = () => {
       });
   };
 
-  const userTypes = [
-    { name: "Karthiga", value: "Karthiga" },
-    { name: "Lalith", value: "Lalith" },
-  ];
-
   const [fPanelMemberName, setfPanelMemberName] = useState("");
   const [sPanelMemberName, setsPanelMemberName] = useState("");
   const [tPanelMemberName, settPanelMemberName] = useState("");
 
   const userTypeHandler = (event) => {
+    console.log("event: " + event.target.value);
     setfPanelMemberName(event.target.value);
   };
   const userTypeHandler2 = (event) => {
@@ -54,7 +54,7 @@ const AddPanelMember = () => {
             value={fPanelMemberName}
             minWidth="100%"
             onChange={userTypeHandler}
-            options={userTypes}
+            options={panelMembers}
           />
         </Grid>
         <Grid mt={2}>
@@ -65,7 +65,7 @@ const AddPanelMember = () => {
             value={sPanelMemberName}
             minWidth="100%"
             onChange={userTypeHandler2}
-            options={userTypes}
+            options={panelMembers}
           />
         </Grid>
         <Grid mt={2}>
@@ -76,7 +76,7 @@ const AddPanelMember = () => {
             value={tPanelMemberName}
             minWidth="100%"
             onChange={userTypeHandler3}
-            options={userTypes}
+            options={panelMembers}
           />
         </Grid>
 

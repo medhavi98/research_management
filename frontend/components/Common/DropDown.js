@@ -20,7 +20,7 @@ const DropDown = ({
   minWidth,
 }) => {
   // const classes = useStyles();
-
+  console.log("options", options);
   return (
     <div>
       <FormControl color="success" sx={{ minWidth: { minWidth } }}>

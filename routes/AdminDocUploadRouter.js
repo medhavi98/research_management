@@ -12,13 +12,14 @@ adminDocUploadRouter.post("/", (req, res) => {
   fileDetails
     .save()
     .then(() => {
-      res.json("File details are saved");
+      res.status(200).json("File details are saved");
     })
     .catch((err) => {
       console.log({
         status: "Error in saving file details",
         error: err.message,
       });
+      res.status(500).json("Error in saving file details");
     });
 });
 

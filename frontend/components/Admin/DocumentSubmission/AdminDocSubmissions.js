@@ -16,7 +16,7 @@ const AdminDocSubmissions = () => {
     console.log("ruf", researchDetails);
 
     axios
-      .post(`http://localhost:5001/fileUploadstd`, researchDetails)
+      .post(`http://localhost:5001/adminDocumentUploadRouter`, researchDetails)
       .then(() => {
         window.alert("File Uploaded to database!");
       })

@@ -12,6 +12,7 @@ const Submissions = () => {
   const submitResearchDoc = () => {
     const researchDetails = {
       templateFile: ResearchUploadFile,
+      id: localStorage.getItem("userId"),
     };
     console.log("ruf", researchDetails);
 
