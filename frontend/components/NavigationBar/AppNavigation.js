@@ -73,6 +73,8 @@ function AppNavigation(props) {
                   <Person />
                 ) : text === "Groups" ? (
                   <GroupsIcon />
+                ) : text === "Documents Type" ? (
+                  <DriveFolderUploadIcon />
                 ) : null}
               </ListItemIcon>
               <div onClick={() => props.onClickItem(text)}>
