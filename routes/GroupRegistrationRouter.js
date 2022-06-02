@@ -116,6 +116,7 @@ groupRegistrationRouter.get("/getGroupDetails/:groupId", async (req, res) => {
   }
 });
 
+//Add Panel members to group and update
 groupRegistrationRouter.put("/addPanelMembers/:groupId", async (req, res) => {
   const { groupId } = req.params;
   console.log("Add Panel members");
