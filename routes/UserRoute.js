@@ -221,4 +221,30 @@ router.get("/getAllUserDetails", async (req, res) => {
   }
 });
 
+//edit one user details
+router.post("/editUserDetails/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const { personalEmail, phone } = req.body;
+  try {
+    const user = await userDetails.findById(userId);
+    user.personalEmail = personalEmail;
+    user.phone = phone;
+    await user.save();
+    res.status(200).json();
+  } catch (error) {
+    res.status(400).json("Co-Supervisorr fetching failed", error);
+  }
+});
+
+//delete one user details
+router.delete("/deleteUser/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await userDetails.findByIdAndDelete(userId);
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(400).json("Co-Supervisorr fetching failed", error);
+  }
+});
+
 module.exports = router;
