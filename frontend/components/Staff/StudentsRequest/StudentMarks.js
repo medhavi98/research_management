@@ -11,6 +11,8 @@ import { Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
+import FormDialog from "../../Common/FormDialog";
+import AddMarks from "../Groups/AddMarks";
 
 let dummyData = [
   {
@@ -42,7 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const StudentMarks = () => {
   const [requests, setRequests] = React.useState([]);
-
+  const [marks, setMarks] = React.useState("");
   //   React.useEffect(() => {
   //     fetchRequest();
   //     console.log(fetchRequest() + 'fetc');
@@ -82,8 +84,16 @@ const StudentMarks = () => {
                     </StyledTableCell>
 
                     <StyledTableCell>
-                      {" "}
-                      <Button variant="outlined">Test</Button>
+                      <FormDialog
+                        testButton="Add Marks"
+                        Description="Add Marks"
+                        onButtonPress={() => {
+                          console.log("group details");
+                        }}
+                        children={
+                          <AddMarks marks={marks} setMarks={setMarks} />
+                        }
+                      />
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

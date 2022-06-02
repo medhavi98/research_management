@@ -16,6 +16,8 @@ import UserTabs from "../Admin/Users/UserTabs";
 import TopicsTabView from "../Student/TopicSubmission/TopicsTabView";
 import StudentRequest from "../Staff/StudentsRequest/StudentRequest";
 import StudentMarks from "../Staff/StudentsRequest/StudentMarks";
+import Groups from "../Staff/Groups/Groups";
+import DownloadDocument from "../Staff/DocumentDownload/DownloadDocument";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -28,14 +30,20 @@ const Layout = ({ children }) => {
     "Chat",
     "student",
   ];
-  const admin = ["Dashboard", "Users", "Student groups", "Documents", "admin"];
+  const admin = [
+    "Dashboard",
+    "Users",
+    "Student groups",
+    "Documents Type",
+    "admin",
+  ];
   const staff = [
     "Dashboard",
     "Student requests",
     "Groups",
     "Group marks",
     "Chat",
-    "staff",
+    "Documents",
   ];
   const { userId } = getUserSessionDetails();
 
@@ -79,8 +87,9 @@ const Layout = ({ children }) => {
 
             {/* {Staff} */}
             {focus === "Student requests" ? <StudentRequest /> : ""}
-            {focus === "Groups" ? <h1>test</h1> : ""}
+            {focus === "Groups" ? <Groups /> : ""}
             {focus === "Group marks" ? <StudentMarks /> : ""}
+            {focus === "Documents" ? <DownloadDocument /> : ""}
 
             {/* {Student} */}
             {focus === "Topic submission" ? <TopicsTabView /> : ""}
