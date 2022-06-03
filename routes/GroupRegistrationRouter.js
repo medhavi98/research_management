@@ -171,4 +171,16 @@ groupRegistrationRouter.get("/", async (req, res) => {
   }
 });
 
+// add blind reviewer 
+groupRegistrationRouter.post("/addBlindReviewer/:groupName", async (req, res) => {
+  const { groupName } = req.params;
+  const { blindReviewerId } = req.body;
+  try {
+    const group = await GroupModel.findOneAndUpdate({ groupName }, { blindReviewerId });
+    res.status(200).json({ group });
+  } catch (error) {
+    res.status(400).json("group details fetching failed", error);
+  }
+});
+
 module.exports = groupRegistrationRouter;
