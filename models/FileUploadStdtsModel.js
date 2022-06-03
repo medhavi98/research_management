@@ -1,15 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const researchTemplateSchema = new Schema ({
-    templateFile: {
-        type: String,
-        required: true,
-      }
+const researchTemplateSchema = new Schema({
+  templateFile: {
+    type: String,
+    required: true,
+  },
+  submissionTitle: {
+    type: String,
+    required: true,
+  },
 });
 
 const researchPapers = mongoose.model(
-    "UploadedResearchFile",researchTemplateSchema
+  "UploadedResearchFile",
+  researchTemplateSchema
 );
 
 module.exports = researchPapers;
