@@ -184,7 +184,7 @@ router.get("/getPanelMembers", async (req, res) => {
       res.status(200).json(result);
     });
   } catch (error) {
-    res.status(400).json("panel member fetching failed", error);
+    res.status(400).json("panel member fetching failed");
   }
 });
 
@@ -196,7 +196,7 @@ router.get("/getCosupervisor", async (req, res) => {
       res.status(200).json(result);
     });
   } catch (error) {
-    res.status(400).json("Co-Supervisorr fetching failed", error);
+    res.status(400).json("Co-Supervisorr fetching failed");
   }
 });
 
@@ -206,7 +206,7 @@ router.get("/getAllUserDetails", async (req, res) => {
     const users = await userDetails.find();
     res.status(200).json({ users });
   } catch (error) {
-    res.status(400).json("Co-Supervisorr fetching failed", error);
+    res.status(400).json("Get all user details failed");
   }
 });
 
@@ -221,7 +221,7 @@ router.post("/editUserDetails/:userId", async (req, res) => {
     await user.save();
     res.status(200).json({ user });
   } catch (error) {
-    res.status(400).json("Co-Supervisorr fetching failed", error);
+    res.status(400).json("Edit user details failed");
   }
 });
 
@@ -232,7 +232,7 @@ router.delete("/deleteUser/:userId", async (req, res) => {
     const user = await userDetails.findByIdAndDelete(userId);
     res.status(200).json({ user });
   } catch (error) {
-    res.status(400).json("Co-Supervisorr fetching failed", error);
+    res.status(400).json("Delete user failed");
   }
 });
 
@@ -244,7 +244,7 @@ router.get("/getSupervisors", async (req, res) => {
     });
     res.status(200).json({ users });
   } catch (error) {
-    res.status(400).json("Co-Supervisorr fetching failed", error);
+    res.status(400).json("Get supervisors failed");
   }
 });
 

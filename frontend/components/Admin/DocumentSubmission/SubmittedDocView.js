@@ -54,16 +54,16 @@ function SubmittedDocView() {
   };
 
   const submitEditedInfo = (id) => {
-    alert(id);
-    console.log("edit information", uploadType);
-    let permissions = editInfo.permissions;
-    if (JSON.stringify(uploadType) === JSON.stringify(editInfo.permissions)) {
-      permissions = uploadType;
-    }
+    // alert(id);
+    // console.log("edit information", uploadType);
+    // let permissions = editInfo.permissions;
+    // if (JSON.stringify(uploadType) === JSON.stringify(editInfo.permissions)) {
+    //   permissions = uploadType;
+    // }
     const newInfo = {
       templateFile: editInfo.templateFile,
       submissionTitle: submissionTitle,
-      permissions: permissions,
+      permissions: selectedTypes,
     };
 
     axios
@@ -106,8 +106,7 @@ function SubmittedDocView() {
       .then((response) => {
         console.log("get group response", response.data);
         setSubmittedDocuments(response.data);
-        setSelectedTypes(response[0].permissions);
-        console.log("response[0].permissions ", response[0].permissions);
+        setSelectedTypes(response.data[0].permissions);
       })
       .catch((err) => {
         console.log(err);
@@ -133,8 +132,7 @@ function SubmittedDocView() {
   console.log("selectedTypes", selectedTypes);
 
   const isPermissionChecked = (permissionType) => {
-    //return selectedTypes.includes(permissionType);
-    return true;
+    return selectedTypes.includes(permissionType);
   };
 
   return (
