@@ -25,7 +25,8 @@ adminDocUploadRouter.post("/", (req, res) => {
     });
 });
 
-adminDocUploadRouter.get("/", async (req, res) => {
+adminDocUploadRouter.get("/getAllDoc", async (req, res) => {
+  console.log("get");
   await DocUploadAdmin.find()
     .then((details) => {
       res.status(200).json(details);
@@ -35,7 +36,8 @@ adminDocUploadRouter.get("/", async (req, res) => {
     });
 });
 
-adminDocUploadRouter.get("/:id", async (req, res) => {
+adminDocUploadRouter.get("/getDocAdmin/:id", async (req, res) => {
+  console.log("get id ", req.params.id);
   let fileId = req.params.id;
 
   await DocUploadAdmin.findById(fileId)
