@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { Container } from "@mui/material";
 import { storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import TextFieldComponent from "../../Common/TextFieldComponent";
 import axios from "axios";
 const Submissions = () => {
   const [ResearchUploadFile, setResearchUploadFile] = useState();
+  const [submissionTitle, setSubmissionTitle] = useState();
   const [rTemplate, setRTemplate] = useState({});
 
   const submitResearchDoc = () => {
@@ -53,9 +55,34 @@ const Submissions = () => {
     });
   };
 
+  const onSubmit = (e) => {
+    console.log("value", submissionTitle);
+  };
+
   return (
     <>
-      <Grid>
+      <form onSubmit={(e) => onSubmit(e)}>
+        <TextFieldComponent
+          label="Submission Title"
+          inputName="submissionTitle"
+          classes="form-field"
+          width="100%"
+          inputValue={submissionTitle}
+          required
+          handleChange={(e) => setSubmissionTitle(e.target.value)}
+        />
+
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ float: "right" }}
+        >
+          Submit
+        </Button>
+      </form>
+
+      {/* <Grid>
         <Grid container>
           <Grid item md={8}>
             <Typography variant="h6">Introduction to the Research</Typography>
@@ -93,7 +120,7 @@ const Submissions = () => {
                 Submit
               </button>
             </Grid>
-            <Grid mt={3}>
+            {/* <Grid mt={3}>
               <Button
                 variant="contained"
                 color="success"
@@ -118,8 +145,8 @@ const Submissions = () => {
               >
                 Submit
               </button>
-            </Grid>
-            <Grid mt={3}>
+            </Grid> */}
+      {/* <Grid mt={3}>
               <Button
                 variant="contained"
                 color="success"
@@ -143,10 +170,10 @@ const Submissions = () => {
               >
                 Submit
               </button>
-            </Grid>
-          </Grid>
+            </Grid> */}
+      {/* </Grid>
         </Grid>
-      </Grid>
+      </Grid>  */}
     </>
   );
 };
