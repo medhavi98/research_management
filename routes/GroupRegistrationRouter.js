@@ -171,5 +171,39 @@ groupRegistrationRouter.get("/", async (req, res) => {
     res.status(400).json("group details fetching failed", error);
   }
 });
+groupRegistrationRouter.get(
+  "/getGroupDocuments/:id",
+  async function (req, res) {
+    const { id } = req.params;
+    console.log("get group documents called: " + id);
+    await UserModel.findOne({ _id: id }).then(async (group) => {
+      console.log("group: " + group.groupIds[0]);
+      await GroupModel.findOne({ _id: group.groupIds[0] })
+        .populate("groupDocuments", "templateFile , submissionTitle")
+        .then((response) => {
+          console.log("groups document fetching success", response);
+          res.status(200).json(response.groupDocuments);
+        })
+        .catch((error) => {
+          console.log("error fetching");
+          res.status(500).json(error);
+        });
+    });
+  }
+);
+
+groupRegistrationRouter.get("/staffDoc/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log("id: " + id);
+
+  await GroupModel.find({ supervisorId: id })
+    .populate("groupDocuments", "templateFile submissionTitle")
+    .then((details) => {
+      res.status(200).json(details);
+    })
+    .catch((err) => {
+      res.send({ status: "Error in Fetching", err: err.message });
+    });
+});
 
 module.exports = groupRegistrationRouter;
