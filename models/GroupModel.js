@@ -40,7 +40,7 @@ const groupSchema = new Schema(
     groupDocuments: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "adminDocuments",
+        ref: "UploadedResearchFile",
         required: false,
       },
     ],

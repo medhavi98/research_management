@@ -2,11 +2,13 @@ const adminDocUploadRouter = require("express").Router();
 const DocUploadAdmin = require("../models/AdminDocUploadModel");
 
 adminDocUploadRouter.post("/", (req, res) => {
-  const { templateFile } = req.body;
+  const { templateFile, permissions, submissionTitle } = req.body;
   console.log("templatefile", templateFile);
 
   const fileDetails = new DocUploadAdmin({
     templateFile,
+    submissionTitle,
+    permissions,
   });
 
   fileDetails
@@ -45,19 +47,49 @@ adminDocUploadRouter.get("/:id", async (req, res) => {
     });
 });
 
-adminDocUploadRouter.put("/:id", async (req, res) => {
-  let fileId = req.params.id;
+adminDocUploadRouter.get("/studentResources", async (req, res) => {
+  console.log("dd");
+  await DocUploadAdmin.find({ permissions: ["Student"] })
+    .then((details) => {
+      console.log(details);
+      res.status(200).json(details);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
 
-  const fileDetails = {
-    templateFile: `http://localhost:5001/documents/${req.file.filename}`,
-  };
-
-  await DocUploadAdmin.findByIdAndUpdate(fileId, fileDetails)
-    .then(() => {
-      res.send({ status: "Files are updated" });
+adminDocUploadRouter.get("/staffResource", async (req, res) => {
+  console.log("hhgjkee");
+  await DocUploadAdmin.find({ permissions: ["Staff"] })
+    .then((details) => {
+      console.log(details);
+      res.status(200).json(details);
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+adminDocUploadRouter.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { submissionTitle, permissions } = req.body;
+  console.log("submissionTitle, permissions", submissionTitle, permissions);
+
+  await DocUploadAdmin.updateOne(
+    { _id: id },
+    {
+      $set: { submissionTitle: submissionTitle },
+      $push: { permissions: permissions },
+    }
+  )
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
     });
 });
 
@@ -65,11 +97,12 @@ adminDocUploadRouter.delete("/:id", async (req, res) => {
   let fileId = req.params.id;
 
   await DocUploadAdmin.findOneAndDelete(fileId)
-    .then(() => {
-      res.send({ status: "File Deleted" });
+    .then((response) => {
+      res.status(200).json(response);
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).json(err);
     });
 });
 

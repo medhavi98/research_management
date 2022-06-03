@@ -4,25 +4,30 @@ import DownloadIcon from "@mui/icons-material/Download";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import axios from "axios";
 
-const Resources = () => {
+function StudentDocuments() {
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
 
   useEffect(() => {
     console.log("hhgf");
-    getStudentResources();
+    getStudentSubmissions();
   }, []);
 
-  const getStudentResources = async () => {
+  const getStudentSubmissions = async () => {
     await axios
-      .get("http://localhost:5001/adminDocumentUploadRouter/studentResources")
+      .get(
+        `http://localhost:5001/groups/staffDoc/${localStorage.getItem(
+          "userId"
+        )}`
+      )
       .then((response) => {
         console.log(response);
         setSubmittedDocuments(response.data);
       })
       .catch((error) => {
-        console.log("err", error);
+        console.log(error);
       });
   };
+
   return (
     <>
       {submittedDocuments ? (
@@ -97,6 +102,6 @@ const Resources = () => {
       </Grid> */}
     </>
   );
-};
+}
 
-export default Resources;
+export default StudentDocuments;

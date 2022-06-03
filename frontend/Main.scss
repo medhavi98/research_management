@@ -50,14 +50,13 @@ body {
   }
 }
 
-
 .card-dialog {
   width: 600px;
-  overflow-x: hidden;  
+  overflow-x: hidden;
 
   .message-card-group {
     display: block;
-    
+
     .message-card-left {
       border-left: 3px solid #9cbcff;
       margin: 15px 0px;
@@ -80,7 +79,7 @@ body {
   }
 }
 
-.message-card-footer{
+.message-card-footer {
   padding: 50px 0px;
 }
 
