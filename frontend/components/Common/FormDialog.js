@@ -13,6 +13,7 @@ export default function FormDialog({
   Title,
   Description,
   children,
+  buttonProps
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -26,7 +27,7 @@ export default function FormDialog({
 
   return (
     <div>
-      <Button variant="contained" color="success" onClick={handleClickOpen}>
+      <Button variant="contained" color="success" onClick={handleClickOpen} {...buttonProps}>
         {testButton}
       </Button>
 

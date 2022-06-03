@@ -56,7 +56,7 @@ const Groups = () => {
     },
   ];
 
-  const tab1HandleClickOpen = () => {};
+  const tab1HandleClickOpen = () => { };
 
   const tab2HandleClickOpen = () => {
     console.log("tab2HandleClickOpen");
@@ -88,8 +88,10 @@ const Groups = () => {
                       ? item.coSupervisorId.fullName
                       : "Not Assigned"
                   }
+                  blindReviewer={item.blindReviewerId}
                   pMembers={item.panelMemberIds ? item.panelMemberIds : []}
                   students={item.studentIds ? item.studentIds : []}
+                  fetchGroupUserNames={fetchGroupUserNames}
                 />
               ))
             ) : (

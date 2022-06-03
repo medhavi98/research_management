@@ -1,46 +1,49 @@
 import { Button, FormControl, Grid } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DropDown from "../../Common/DropDown";
 import TextFieldComponent from "../../Common/TextFieldComponent";
+import { BASE_URL } from "../../constants";
 
-const AddBlindSupervisor = () => {
-  const handelOnSubmit = async (event) => {
-    event.preventDefault();
-    const panelMembers = {
-      memberOne: fPanelMemberName,
-      memberTwo: sPanelMemberName,
-      memberThree: tPanelMemberName,
-    };
-    await axios
-      .put(`${BASE_URL}/groups/addPanelMembers/${groupObjId}`, panelMembers)
-      .then((response) => {
-        console.log(response.data);
-        alert("Panel members added successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Panel members not added ");
-      });
-  };
+const AddBlindSupervisor = ({ id, fetchGroupUserNames }) => {
 
-  const userTypes = [
-    { name: "Karthiga", value: "Karthiga" },
-    { name: "Lalith", value: "Lalith" },
-  ];
-
-  const [fPanelMemberName, setfPanelMemberName] = useState("");
+  const [reviewer, setReviewer] = useState("");
   const [sPanelMemberName, setsPanelMemberName] = useState("");
   const [tPanelMemberName, settPanelMemberName] = useState("");
+  const [blindReviewers, setBlindReviewers] = useState([]);
+
+  useEffect(() => {
+    fetchBlindSupervisors();
+  }, [])
+
+  const fetchBlindSupervisors = async () => {
+    const res = await axios.get(`${BASE_URL}/user/getSupervisors`);
+    let arr = [];
+    res.data.users.map((user, index) => {
+      arr = ([...arr, {
+        name: user.fullName,
+        value: user._id,
+      }])
+      console.log(user._id)
+    })
+    setBlindReviewers(arr);
+  };
 
   const userTypeHandler = (event) => {
-    setfPanelMemberName(event.target.value);
+    setReviewer(event.target.value);
   };
-  const userTypeHandler2 = (event) => {
-    setsPanelMemberName(event.target.value);
-  };
-  const userTypeHandler3 = (event) => {
-    settPanelMemberName(event.target.value);
+
+  const handelOnSubmit = async (event) => {
+    event.preventDefault();
+    console.log(id)
+    const res = await axios.post(`${BASE_URL}/groups/addBlindReviewer/${id}`, {
+      blindReviewerId: reviewer,
+    });
+    if (res.data.group) {
+      alert("✔ Blind reviewer added successfully!");
+      fetchGroupUserNames();
+    }
+
   };
 
   return (
@@ -51,10 +54,10 @@ const AddBlindSupervisor = () => {
             label="Add blind Supervisor"
             tValue="Add blind Supervisor"
             name="user_type"
-            value={fPanelMemberName}
+            value={reviewer}
             minWidth="100%"
             onChange={userTypeHandler}
-            options={userTypes}
+            options={blindReviewers}
           />
         </Grid>
 
