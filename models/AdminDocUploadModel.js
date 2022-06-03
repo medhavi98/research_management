@@ -6,9 +6,13 @@ const docTemplateSchema = new Schema({
     type: String,
     required: true,
   },
+  submissionTitle: {
+    type: String,
+    required: true,
+  },
   permissions: {
     type: [String],
-    required: false,
+    required: true,
   },
 });
 
