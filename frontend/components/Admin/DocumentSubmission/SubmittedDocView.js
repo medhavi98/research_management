@@ -102,7 +102,7 @@ function SubmittedDocView() {
 
   const getGroupDocuments = () => {
     axios
-      .get(`http://localhost:5001/adminDocumentUploadRouter`)
+      .get(`http://localhost:5001/adminDocumentUploadRouter/getAllDoc/`)
       .then((response) => {
         console.log("get group response", response.data);
         setSubmittedDocuments(response.data);
