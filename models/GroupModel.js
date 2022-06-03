@@ -13,7 +13,8 @@ const groupSchema = new Schema(
       },
     ],
     groupLeaderId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserDetails",
     },
     supervisorId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -32,6 +33,10 @@ const groupSchema = new Schema(
         required: false,
       },
     ],
+    blindReviewerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserDetails",
+    },
     groupDocuments: [
       {
         type: mongoose.Schema.Types.ObjectId,

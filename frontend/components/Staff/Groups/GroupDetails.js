@@ -19,7 +19,10 @@ const GroupDetails = ({
   pMembers,
   students,
   groupObjId,
+  blindReviewer,
+  fetchGroupUserNames,
 }) => {
+  console.log(blindReviewer)
   const [fPanelMemberName, setFPMName] = React.useState("");
   const [sPanelMemberName, setSPMName] = React.useState("");
   const [tPanelMemberName, setTPMName] = React.useState("");
@@ -46,12 +49,13 @@ const GroupDetails = ({
         </Grid>
         <Grid item md={3}>
           <FormDialog
-            testButton=" Blind supervisor"
+            testButton="+ Blind supervisor"
             Description="Add blind supervisor"
             onButtonPress={() => {
               console.log("group details");
             }}
-            children={<AddBlindSupervisor />}
+            children={<AddBlindSupervisor id={GroupId} fetchGroupUserNames={fetchGroupUserNames} />}
+            buttonProps={blindReviewer ? { disabled: true } : {}}
           />
         </Grid>
 
@@ -79,12 +83,12 @@ const GroupDetails = ({
           </Grid>
           {pMembers
             ? pMembers.map((member) => {
-                return (
-                  <Grid item md={3}>
-                    {member.fullName}
-                  </Grid>
-                );
-              })
+              return (
+                <Grid item md={3}>
+                  {member.fullName}
+                </Grid>
+              );
+            })
             : "Not assigned."}
         </Grid>
 
@@ -96,12 +100,12 @@ const GroupDetails = ({
         <Grid container mt={2}>
           {students
             ? students.map((student) => {
-                return (
-                  <Grid item md={3}>
-                    {student.fullName}
-                  </Grid>
-                );
-              })
+              return (
+                <Grid item md={3}>
+                  {student.fullName}
+                </Grid>
+              );
+            })
             : "Not added."}
         </Grid>
       </Grid>

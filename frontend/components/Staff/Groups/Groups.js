@@ -10,13 +10,17 @@ import BlindGroups from "./BlindGroups";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
 import * as React from "react";
+import { getUserSessionDetails } from '../../../helpers/userSessionHandler'
 
 const Groups = () => {
   const [value, setValue] = React.useState("1");
   const [groupDetails, setGroupDetails] = React.useState([]);
+  const [blindGroups, setBlindGroups] = React.useState([]);
+  const { userId } = getUserSessionDetails();
 
   React.useEffect(() => {
     fetchGroupUserNames();
+    fetchBlindGroups();
   }, []);
 
   const handleChange = (event, newValue) => {
@@ -26,15 +30,14 @@ const Groups = () => {
   };
 
   const fetchGroupUserNames = async () => {
-    await axios
-      .get(`${BASE_URL}/groups/`)
-      .then((response) => {
-        setGroupDetails(response.data);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await axios.get(`${BASE_URL}/groups/getGroupsBySupervisorId/${userId}`);
+    setGroupDetails(response.data.groups);
+  };
+
+  const fetchBlindGroups = async () => {
+    const response = await axios.get(`${BASE_URL}/groups/getGroupsByBlindReviewerId/${userId}`);
+    console.log(response.data.groups);
+    setBlindGroups(response.data.groups);
   };
 
   const DummyData = [
@@ -56,7 +59,7 @@ const Groups = () => {
     },
   ];
 
-  const tab1HandleClickOpen = () => {};
+  const tab1HandleClickOpen = () => { };
 
   const tab2HandleClickOpen = () => {
     console.log("tab2HandleClickOpen");
@@ -79,8 +82,8 @@ const Groups = () => {
                   groupObjId={item._id}
                   GroupId={item.groupName}
                   supervisorName={
-                    item.supervisorId
-                      ? item.supervisorId.fullName
+                    item.blindReviewerId
+                      ? item.blindReviewerId.fullName
                       : "Not Assigned"
                   }
                   coSupervisorName={
@@ -88,8 +91,10 @@ const Groups = () => {
                       ? item.coSupervisorId.fullName
                       : "Not Assigned"
                   }
+                  blindReviewer={item.blindReviewerId}
                   pMembers={item.panelMemberIds ? item.panelMemberIds : []}
                   students={item.studentIds ? item.studentIds : []}
+                  fetchGroupUserNames={fetchGroupUserNames}
                 />
               ))
             ) : (
@@ -97,7 +102,14 @@ const Groups = () => {
             )}
           </TabPanel>
           <TabPanel value="2">
-            <BlindGroups />
+
+            {blindGroups ? (
+              blindGroups.map((item, index) => (
+                <BlindGroups GroupId={item.groupName} />
+              ))
+            ) : (
+              <label>No Groups registered yet</label>
+            )}
           </TabPanel>
         </TabContext>
       </Box>
