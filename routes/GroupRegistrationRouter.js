@@ -200,4 +200,15 @@ groupRegistrationRouter.get("/getGroupsBySupervisorId/:supervisorId", async (req
   }
 });
 
+// get groups by blind reviewer id
+groupRegistrationRouter.get("/getGroupsByBlindReviewerId/:blindReviewerId", async (req, res) => {
+  const { blindReviewerId } = req.params;
+  try {
+    const groups = await GroupModel.find({ blindReviewerId })
+    res.status(200).json({ groups });
+  } catch (error) {
+    res.status(400).json("group details fetching failed", error);
+  }
+});
+
 module.exports = groupRegistrationRouter;
