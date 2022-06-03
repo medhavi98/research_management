@@ -7,7 +7,6 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import AppBar from "@mui/material/AppBar";
 import Resources from "./AdminDocSubmissions";
-import Submissions from "./AdminResources";
 
 const AdminDocSubmission = () => {
   const [value, setValue] = React.useState("1");
@@ -33,9 +32,7 @@ const AdminDocSubmission = () => {
             <TabPanel value="1">
               <Resources />
             </TabPanel>
-            <TabPanel value="2">
-              <Submissions />
-            </TabPanel>
+            <TabPanel value="2">Test</TabPanel>
           </TabContext>
         </Box>
       </Card>
