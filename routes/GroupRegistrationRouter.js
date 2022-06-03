@@ -1,4 +1,6 @@
+const { default: mongoose } = require("mongoose");
 const GroupModel = require("../models/GroupModel");
+const userDetails = require("../models/UserModel");
 const UserModel = require("../models/UserModel");
 
 const groupRegistrationRouter = require("express").Router();
@@ -178,6 +180,21 @@ groupRegistrationRouter.post("/addBlindReviewer/:groupName", async (req, res) =>
   try {
     const group = await GroupModel.findOneAndUpdate({ groupName }, { blindReviewerId });
     res.status(200).json({ group });
+  } catch (error) {
+    res.status(400).json("group details fetching failed", error);
+  }
+});
+
+// get groups by supervisor id
+groupRegistrationRouter.get("/getGroupsBySupervisorId/:supervisorId", async (req, res) => {
+  const { supervisorId } = req.params;
+  try {
+    const groups = await GroupModel.find({ supervisorId })
+      .populate("panelMemberIds", "fullName")
+      .populate("coSupervisorId", "fullName")
+      .populate("studentIds", "fullName")
+      .populate("blindReviewerId", "fullName");
+    res.status(200).json({ groups });
   } catch (error) {
     res.status(400).json("group details fetching failed", error);
   }
