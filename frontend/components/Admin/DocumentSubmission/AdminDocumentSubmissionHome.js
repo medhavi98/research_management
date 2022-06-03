@@ -8,6 +8,10 @@ import { Button, Card, Grid } from "@mui/material";
 import FormDialog from "../../Common/FormDialog";
 import axios from "axios";
 import { BASE_URL } from "../../constants";
+import Resources from "./AdminDocSubmission";
+import AdminDocSubmission from "./AdminDocSubmission";
+import AdminDocSubmissions from "./AdminDocSubmissions";
+import SubmittedDocView from "./SubmittedDocView";
 
 const AdminDocumentSubmissionHome = () => {
   const [value, setValue] = React.useState("1");
@@ -23,12 +27,16 @@ const AdminDocumentSubmissionHome = () => {
         <TabContext value={value}>
           <Box sx={{ bgcolor: "background.paper", width: 1000 }}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="Student" value="1" />
-              <Tab label="Staff" value="2" />
+              <Tab label="Submissions" value="1" />
+              <Tab label="Recent Document Submission" value="2" />
             </TabList>
           </Box>
-          <TabPanel value="1">Test</TabPanel>
-          <TabPanel value="2">Test</TabPanel>
+          <TabPanel value="1">
+            <AdminDocSubmissions />
+          </TabPanel>
+          <TabPanel value="2">
+            <SubmittedDocView />
+          </TabPanel>
         </TabContext>
       </Box>
     </Card>
