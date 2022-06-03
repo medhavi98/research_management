@@ -187,18 +187,6 @@ router.get("/getPanelMembers", async (req, res) => {
   }
 });
 
-router.get("/getSupervisors", async (req, res) => {
-  console.log("Supervisor members fetched");
-  try {
-    await userDetails.find({ registerType: "Supervisor" }).then((result) => {
-      console.log("data fetched");
-      res.status(200).json(result);
-    });
-  } catch (error) {
-    res.status(400).json("Supervisor member fetching failed", error);
-  }
-});
-
 router.get("/getCosupervisor", async (req, res) => {
   console.log("Co-Supervisor fetched");
   try {
@@ -242,6 +230,18 @@ router.delete("/deleteUser/:userId", async (req, res) => {
   try {
     const user = await userDetails.findByIdAndDelete(userId);
     res.status(200).json({ user });
+  } catch (error) {
+    res.status(400).json("Co-Supervisorr fetching failed", error);
+  }
+});
+
+//get all supervisors
+router.get("/getSupervisors", async (req, res) => {
+  try {
+    const users = await userDetails.find({
+      userType: "staff",
+    });
+    res.status(200).json({ users });
   } catch (error) {
     res.status(400).json("Co-Supervisorr fetching failed", error);
   }
