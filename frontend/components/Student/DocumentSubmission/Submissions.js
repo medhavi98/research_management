@@ -12,13 +12,14 @@ const Submissions = () => {
   const submitResearchDoc = () => {
     const researchDetails = {
       templateFile: ResearchUploadFile,
+      id: localStorage.getItem("userId"),
     };
     console.log("ruf", researchDetails);
 
     axios
       .post(`http://localhost:5001/fileUploadstd`, researchDetails)
       .then(() => {
-        window.alert("File Uploaded!");
+        window.alert("File Uploaded to Database!");
       })
       .catch((err) => {
         window.alert("FIle is not uploaded successfully : ", err.message);
@@ -40,8 +41,14 @@ const Submissions = () => {
       getDownloadURL(upload.ref).then((url) => {
         console.log(url);
         setResearchUploadFile(url); //  this.setState({ ResearchUploadFile: url});
-        setTimeout(submitResearchDoc(), 2000);
-        window.alert("uploaded");
+        console.log("ResearchUploadFile 1", ResearchUploadFile);
+
+        setTimeout(() => {
+          console.log("ResearchUploadFile 2", ResearchUploadFile);
+          submitResearchDoc();
+          //setTimeout(submitResearchDoc(), 2000);
+          window.alert("Uploaded to Firebase");
+        }, 6000);
       });
     });
   };

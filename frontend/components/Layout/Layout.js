@@ -15,9 +15,11 @@ import { Container, Grid } from "@mui/material";
 import UserTabs from "../Admin/Users/UserTabs";
 import TopicsTabView from "../Student/TopicSubmission/TopicsTabView";
 import StudentRequest from "../Staff/StudentsRequest/StudentRequest";
+import AdminDocSubmission from "../Admin/DocumentSubmission/AdminDocSubmissions";
 import StudentMarks from "../Staff/StudentsRequest/StudentMarks";
 import Groups from "../Staff/Groups/Groups";
 import DownloadDocument from "../Staff/DocumentDownload/DownloadDocument";
+import AdminDocumentSubmissionHome from "../Admin/DocumentSubmission/AdminDocumentSubmissionHome";
 
 const Layout = ({ children }) => {
   const [focus, setFocus] = useState("Dashboard");
@@ -84,6 +86,7 @@ const Layout = ({ children }) => {
             {/* {Admin} */}
             {focus === "Student groups" ? <StudentGroups /> : ""}
             {focus === "Users" ? <UserTabs /> : ""}
+            {focus === "Documents Type" ? <AdminDocumentSubmissionHome /> : ""}
 
             {/* {Staff} */}
             {focus === "Student requests" ? <StudentRequest /> : ""}

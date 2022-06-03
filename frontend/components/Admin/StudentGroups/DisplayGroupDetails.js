@@ -16,7 +16,9 @@ const DisplayGroupDetails = ({
   pMembers,
   students,
   groupObjId,
+  panelMembers,
 }) => {
+  console.log("panelMembers in display: ", panelMembers);
   const [fPanelMemberName, setFPMName] = React.useState("");
   const [sPanelMemberName, setSPMName] = React.useState("");
   const [tPanelMemberName, setTPMName] = React.useState("");
@@ -48,7 +50,12 @@ const DisplayGroupDetails = ({
             onButtonPress={() => {
               console.log("group details");
             }}
-            children={<AddPanelMember />}
+            children={
+              <AddPanelMember
+                panelMembers={panelMembers}
+                groupObjId={groupObjId}
+              />
+            }
           />
         </Grid>
 

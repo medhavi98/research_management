@@ -9,8 +9,6 @@ const AdminDocSubmissions = () => {
   const [ResearchUploadFile, setResearchUploadFile] = useState();
   const [rTemplate, setRTemplate] = useState({});
 
-  const id = localStorage.getItem("abc");
-
   const submitResearchDoc = () => {
     const researchDetails = {
       templateFile: ResearchUploadFile,
@@ -18,9 +16,9 @@ const AdminDocSubmissions = () => {
     console.log("ruf", researchDetails);
 
     axios
-      .post(`http://localhost:5001/fileUploadstd`, researchDetails)
+      .post(`http://localhost:5001/adminDocumentUploadRouter`, researchDetails)
       .then(() => {
-        window.alert("File Uploaded!");
+        window.alert("File Uploaded to database!");
       })
       .catch((err) => {
         window.alert("FIle is not uploaded successfully : ", err.message);
@@ -42,8 +40,14 @@ const AdminDocSubmissions = () => {
       getDownloadURL(upload.ref).then((url) => {
         console.log(url);
         setResearchUploadFile(url); //  this.setState({ ResearchUploadFile: url});
-        setTimeout(submitResearchDoc(), 2000);
-        window.alert("uploaded");
+        console.log("ResearchUploadFile 1", ResearchUploadFile);
+
+        setTimeout(() => {
+          console.log("ResearchUploadFile 2", ResearchUploadFile);
+          // setTimeout(submitResearchDoc(), 2000);
+          submitResearchDoc();
+          window.alert("Url saved to firebase");
+        }, 6000);
       });
     });
   };
