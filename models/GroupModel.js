@@ -32,6 +32,10 @@ const groupSchema = new Schema(
         required: false,
       },
     ],
+    blindReviewerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserDetails",
+    },
   },
   { collection: "groups" }
 );
