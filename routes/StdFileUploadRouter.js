@@ -4,11 +4,12 @@ const GroupModel = require("../models/GroupModel");
 const userDetails = require("../models/UserModel");
 
 stdFileUploadRouter.post("/", (req, res) => {
-  const { templateFile, id } = req.body;
-  console.log("templatefile", templateFile, id);
+  const { templateFile, id, submissionTitle } = req.body;
+  console.log("templatefile", templateFile, id, submissionTitle);
 
   const fileDetails = new FileUploadStd({
     templateFile,
+    submissionTitle,
   });
 
   fileDetails
@@ -82,12 +83,27 @@ stdFileUploadRouter.put("/:id", async (req, res) => {
     });
 });
 
-stdFileUploadRouter.delete("/:id", async (req, res) => {
-  let fileId = req.params.id;
+stdFileUploadRouter.delete("/:id/:userId", async (req, res) => {
+  const { id, userId } = req.params;
 
-  await FileUploadStd.findOneAndDelete(fileId)
-    .then(() => {
-      res.send({ status: "File Deleted" });
+  await FileUploadStd.findOneAndDelete(id)
+    .then(async (result) => {
+      await userDetails.findOne({ _id: userId }).then(async (group) => {
+        await GroupModel.updateOne(
+          { _id: group.groupIds[0] },
+          {
+            $pull: {
+              groupDocuments: id,
+            },
+          }
+        )
+          .then((response) => {
+            res.status(200).send(response);
+          })
+          .catch((error) => {
+            res.status(500).send(error);
+          });
+      });
     })
     .catch((err) => {
       console.log(err);
