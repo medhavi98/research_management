@@ -9,6 +9,7 @@ import "./Main.scss";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import PublicRoute from "./components/Auth/PublicRoute";
 import SubmissionsStd from "./components/Student/DocumentSubmission/Submissions";
+import StudentDocuments from "./components/Staff/DocumentDownload/StudentDocuments";
 
 export default class App extends Component {
   render() {
