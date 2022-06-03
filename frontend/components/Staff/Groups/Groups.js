@@ -15,10 +15,12 @@ import { getUserSessionDetails } from '../../../helpers/userSessionHandler'
 const Groups = () => {
   const [value, setValue] = React.useState("1");
   const [groupDetails, setGroupDetails] = React.useState([]);
+  const [blindGroups, setBlindGroups] = React.useState([]);
   const { userId } = getUserSessionDetails();
 
   React.useEffect(() => {
     fetchGroupUserNames();
+    fetchBlindGroups();
   }, []);
 
   const handleChange = (event, newValue) => {
@@ -29,8 +31,13 @@ const Groups = () => {
 
   const fetchGroupUserNames = async () => {
     const response = await axios.get(`${BASE_URL}/groups/getGroupsBySupervisorId/${userId}`);
-    console.log(response.data.groups);
     setGroupDetails(response.data.groups);
+  };
+
+  const fetchBlindGroups = async () => {
+    const response = await axios.get(`${BASE_URL}/groups/getGroupsByBlindReviewerId/${userId}`);
+    console.log(response.data.groups);
+    setBlindGroups(response.data.groups);
   };
 
   const DummyData = [
@@ -95,7 +102,14 @@ const Groups = () => {
             )}
           </TabPanel>
           <TabPanel value="2">
-            <BlindGroups />
+
+            {blindGroups ? (
+              blindGroups.map((item, index) => (
+                <BlindGroups GroupId={item.groupName} />
+              ))
+            ) : (
+              <label>No Groups registered yet</label>
+            )}
           </TabPanel>
         </TabContext>
       </Box>
