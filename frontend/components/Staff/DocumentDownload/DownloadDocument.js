@@ -1,108 +1,42 @@
-import React, { useState } from "react";
-import { Button, Card, Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { Button, Card, Grid } from "@mui/material";
 
-const commonStyles = {
-  borderLeft: 5,
-  boxShadow: "0 6px 20px rgba(56, 125, 255, 0.17)",
-};
+const DownloadDocument = () => {
+  const [value, setValue] = React.useState("1");
+  const [users, setUsers] = React.useState([]);
 
-const DownloadDocument = ({
-  GroupId,
-  supervisorName,
-  coSupervisorName,
-  pMembers,
-  students,
-  groupObjId,
-}) => {
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    console.log(event.target.value);
+    console.log(newValue + "newValue");
+  };
+
+  const tab1HandleClickOpen = () => {};
+
+  const tab2HandleClickOpen = () => {
+    console.log("tab2HandleClickOpen");
+  };
+
   return (
-    <Box
-      sx={{
-        ...commonStyles,
-        mt: 2,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        boxShadow: 2,
-        padding: "30px 40px",
-        borderRadius: "10px",
-        backgroundColor: "#DDDDDD",
-        borderLeftColor: "#9cbcff",
-      }}
-    >
-      <Grid container m={3}>
-        <Grid item md={9}>
-          <b>
-            <h3>GroupID:{GroupId}</h3>
-          </b>
-        </Grid>
-        <Grid item md={3}></Grid>
-        <Grid mt={2}>
-          <Grid container>
-            <Grid item md={8}>
-              <Typography mt={4}>Research topic</Typography>
-              <Typography mt={4}>Charter Document</Typography>
-              <Typography mt={4}>Presentation </Typography>
-            </Grid>
-            <Grid item mt={4} md={4}>
-              <Grid>
-                <Button
-                  variant="contained"
-                  color="success"
-                  size="small"
-                  type="submit"
-                  component="label"
-                  startIcon={<DriveFolderUploadIcon />}
-                >
-                  <a
-                    href=""
-                    download
-                    style={{ color: "white", textDecoration: "none" }}
-                  >
-                    Download
-                  </a>
-                </Button>
-              </Grid>
-              <Grid mt={3}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="success"
-                  component="label"
-                  startIcon={<DriveFolderUploadIcon />}
-                >
-                  <a
-                    href=""
-                    download
-                    style={{ color: "white", textDecoration: "none" }}
-                  >
-                    Download
-                  </a>
-                </Button>
-              </Grid>
-              <Grid mt={3}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="success"
-                  component="label"
-                  startIcon={<DriveFolderUploadIcon />}
-                >
-                  <a
-                    href=""
-                    download
-                    style={{ color: "white", textDecoration: "none" }}
-                  >
-                    Download
-                  </a>
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Box>
+    <Card>
+      <Box sx={{ width: "100%", typography: "body1" }}>
+        <TabContext value={value}>
+          <Box sx={{ bgcolor: "background.paper", width: 1000 }}>
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="Student Docs" value="1" />
+              <Tab label="Admin Docs" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">Student Docs</TabPanel>
+          <TabPanel value="2">Admin Docs</TabPanel>
+        </TabContext>
+      </Box>
+    </Card>
   );
 };
 
