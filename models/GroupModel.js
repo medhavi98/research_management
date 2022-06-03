@@ -13,7 +13,8 @@ const groupSchema = new Schema(
       },
     ],
     groupLeaderId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserDetails",
     },
     supervisorId: {
       type: mongoose.Schema.Types.ObjectId,

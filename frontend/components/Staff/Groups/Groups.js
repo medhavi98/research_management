@@ -10,10 +10,12 @@ import BlindGroups from "./BlindGroups";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
 import * as React from "react";
+import { getUserSessionDetails } from '../../../helpers/userSessionHandler'
 
 const Groups = () => {
   const [value, setValue] = React.useState("1");
   const [groupDetails, setGroupDetails] = React.useState([]);
+  const { userId } = getUserSessionDetails();
 
   React.useEffect(() => {
     fetchGroupUserNames();
@@ -26,15 +28,9 @@ const Groups = () => {
   };
 
   const fetchGroupUserNames = async () => {
-    await axios
-      .get(`${BASE_URL}/groups/`)
-      .then((response) => {
-        setGroupDetails(response.data);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await axios.get(`${BASE_URL}/groups/getGroupsBySupervisorId/${userId}`);
+    console.log(response.data.groups);
+    setGroupDetails(response.data.groups);
   };
 
   const DummyData = [
@@ -79,8 +75,8 @@ const Groups = () => {
                   groupObjId={item._id}
                   GroupId={item.groupName}
                   supervisorName={
-                    item.supervisorId
-                      ? item.supervisorId.fullName
+                    item.blindReviewerId
+                      ? item.blindReviewerId.fullName
                       : "Not Assigned"
                   }
                   coSupervisorName={
