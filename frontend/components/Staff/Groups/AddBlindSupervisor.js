@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import DropDown from "../../Common/DropDown";
 import TextFieldComponent from "../../Common/TextFieldComponent";
 import { BASE_URL } from "../../constants";
+import { getUserSessionDetails } from '../../../helpers/userSessionHandler';
 
 const AddBlindSupervisor = ({ id, fetchGroupUserNames }) => {
 
@@ -11,6 +12,7 @@ const AddBlindSupervisor = ({ id, fetchGroupUserNames }) => {
   const [sPanelMemberName, setsPanelMemberName] = useState("");
   const [tPanelMemberName, settPanelMemberName] = useState("");
   const [blindReviewers, setBlindReviewers] = useState([]);
+  const { userId } = getUserSessionDetails();
 
   useEffect(() => {
     fetchBlindSupervisors();
@@ -20,11 +22,12 @@ const AddBlindSupervisor = ({ id, fetchGroupUserNames }) => {
     const res = await axios.get(`${BASE_URL}/user/getSupervisors`);
     let arr = [];
     res.data.users.map((user, index) => {
-      arr = ([...arr, {
-        name: user.fullName,
-        value: user._id,
-      }])
-      console.log(user._id)
+      if (user._id !== userId) {
+        arr = ([...arr, {
+          name: user.fullName,
+          value: user._id,
+        }])
+      }
     })
     setBlindReviewers(arr);
   };
