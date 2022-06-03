@@ -81,7 +81,7 @@ adminDocUploadRouter.put("/:id", async (req, res) => {
     { _id: id },
     {
       $set: { submissionTitle: submissionTitle },
-      $push: { permissions: permissions },
+      $set: { permissions: permissions },
     }
   )
     .then((response) => {
