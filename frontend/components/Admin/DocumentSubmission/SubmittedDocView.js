@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Typography,
+} from "@mui/material";
 import "../../Student/DocumentSubmission/SubmissionsStyles.css";
 import DownloadIcon from "@mui/icons-material/Download";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,6 +28,7 @@ function SubmittedDocView() {
   const [editInfo, setEditInfo] = React.useState({});
   const [submissionTitle, setSubmissionTitle] = useState();
   const [uploadType, setUploadType] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,7 +69,6 @@ function SubmittedDocView() {
     axios
       .put(`http://localhost:5001/adminDocumentUploadRouter/${id}`, newInfo)
       .then((response) => {
-        console.log("response : ", response);
         alert("Information Updated successfully");
       })
       .catch((error) => {
@@ -71,41 +79,63 @@ function SubmittedDocView() {
   };
 
   const deleteSubmission = async (id) => {
-    console.log("document id : ", id);
     await axios
       .delete(`http://localhost:5001/adminDocumentUploadRouter/${id}`)
       .then((response) => {
-        console.log("response : ", response);
         alert("Document Deleted");
       });
   };
 
-  const staffTypeHandler = (type) => {
-    console.log("type : ", type);
-    if (!uploadType.includes(type)) {
-      console.log("fff");
-      setUploadType([...uploadType, type]);
-    } else {
-      console.log("fffdddd");
-      const newArray = uploadType.filter((value) => {
-        return value !== type;
-      });
-      setUploadType(newArray);
-    }
-  };
+  // const staffTypeHandler = (type) => {
+  //   console.log("type : ", type);
+  //   if (!uploadType.includes(type)) {
+  //     console.log("fff");
+  //     setUploadType([...uploadType, type]);
+  //   } else {
+  //     console.log("fffdddd");
+  //     const newArray = uploadType.filter((value) => {
+  //       return value !== type;
+  //     });
+  //     setUploadType(newArray);
+  //   }
+  // };
 
   const getGroupDocuments = () => {
     axios
       .get(`http://localhost:5001/adminDocumentUploadRouter`)
       .then((response) => {
-        console.log(response.data);
+        console.log("get group response", response.data);
         setSubmittedDocuments(response.data);
+        setSelectedTypes(response[0].permissions);
+        console.log("response[0].permissions ", response[0].permissions);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const category = [{ checkBoName: "Student" }, { checkBoName: "Staff" }];
+  const category = [
+    { name: "Student", value: "Student" },
+    { name: "Staff", value: "Staff" },
+  ];
+
+  const typeController = (e) => {
+    if (!selectedTypes.includes(e.target.value)) {
+      console.log("not in array");
+      setSelectedTypes([...selectedTypes, e.target.value]);
+    } else {
+      console.log("In array");
+      const filteredPermission = selectedTypes.filter((value) => {
+        return value !== e.target.value;
+      });
+      setSelectedTypes(filteredPermission);
+    }
+  };
+  console.log("selectedTypes", selectedTypes);
+
+  const isPermissionChecked = (permissionType) => {
+    //return selectedTypes.includes(permissionType);
+    return true;
+  };
 
   return (
     <div>
@@ -157,10 +187,33 @@ function SubmittedDocView() {
           <br />
           <br />
           <label>Set Access permissions</label>
-          <CheckBox
+          {/* <CheckBox
+            
             options={category}
             onChange={(e) => staffTypeHandler(e.target.value)}
-          />
+          /> */}
+          <FormGroup>
+            {category.map((values) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={isPermissionChecked(values.value)}
+                      sx={{
+                        color: "black",
+                        "&.Mui-checked": {
+                          color: "black",
+                        },
+                      }}
+                    />
+                  }
+                  value={values.value}
+                  label={values.name}
+                  onChange={typeController}
+                />
+              );
+            })}
+          </FormGroup>
 
           <br />
 
