@@ -5,6 +5,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Button, Card, Grid } from "@mui/material";
+import AdminDocument from "./AdminDocument";
+import StudentDocuments from "./StudentDocuments";
 
 const DownloadDocument = () => {
   const [value, setValue] = React.useState("1");
@@ -32,8 +34,12 @@ const DownloadDocument = () => {
               <Tab label="Admin Docs" value="2" />
             </TabList>
           </Box>
-          <TabPanel value="1">Student Docs</TabPanel>
-          <TabPanel value="2">Admin Docs</TabPanel>
+          <TabPanel value="1">
+            <StudentDocuments />
+          </TabPanel>
+          <TabPanel value="2">
+            <AdminDocument />
+          </TabPanel>
         </TabContext>
       </Box>
     </Card>
