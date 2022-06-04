@@ -76,6 +76,7 @@ const Login = () => {
                     type="Password"
                     classes="form-field"
                     width="88%"
+                    type="password"
                     required
                     inputValue={password}
                     handleChange={(e) => setPassword(e.target.value)}
