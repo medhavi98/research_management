@@ -4,7 +4,7 @@ import Login from "./components/Auth/Login";
 import Registration from "./components/Auth/Registration";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/DashBoard";
-import TopicRegister from "./components/Student/TopicSubmission/TopicRegister";
+import InitialSubmission from "./components/Student/TopicSubmission/InitialSubmission";
 import "./Main.scss";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import PublicRoute from "./components/Auth/PublicRoute";
@@ -23,7 +23,7 @@ export default class App extends Component {
               path="/register_topic"
               element={
                 <Layout>
-                  <TopicRegister />
+                  <InitialSubmission />
                 </Layout>
               }
             />

@@ -2,10 +2,16 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const topicSchema = new Schema({
-    submissionType: {
+    supervisorId: {
         type: String,
     },
-    supervisorId: {
+    coSupervisorId: {
+        type: String,
+    },
+    researchGroup: {
+        type: String,
+    }, 
+    researchField: {
         type: String,
     },
     groupId: {
@@ -15,9 +21,6 @@ const topicSchema = new Schema({
         type: String,
     },
     topicDescription: {
-        type: String,
-    },
-    researchField: {
         type: String,
     },
 }, {collection : 'topics'})
