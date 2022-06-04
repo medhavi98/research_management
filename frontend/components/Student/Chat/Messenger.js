@@ -22,6 +22,7 @@ import { BASE_URL } from '../../constants';
 const Messenger = () => {
     const socket = io("http://localhost:5001/");
     const { userId } = getUserSessionDetails();
+    console.log('userId ', userId)
 
     // const messages = [
     //     {
@@ -119,6 +120,7 @@ const Messenger = () => {
     const fetchUserGroups = async () => {
         const response = await axios.get(`${BASE_URL}/user/getGroupIds/${userId}`);
         setUserGroupIds(response.data.groupIds);
+        console.log(response.data.groupIds);
 
         const groupIds = JSON.stringify(response.data.groupIds);
         const msgResponses = await axios.get(`${BASE_URL}/messages/getMessagesByGroup/${groupIds}`);
@@ -126,7 +128,6 @@ const Messenger = () => {
         setMessageLength(msgResponses.data.messageLength);
         console.log(msgResponses)
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (send_message !== "") {

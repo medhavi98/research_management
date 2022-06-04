@@ -30,15 +30,8 @@ const Layout = ({ children }) => {
     "Topic submission",
     "Document submission",
     "Chat",
-    "student",
   ];
-  const admin = [
-    "Dashboard",
-    "Users",
-    "Student groups",
-    "Documents Type",
-    "admin",
-  ];
+  const admin = ["Dashboard", "Users", "Student groups", "Documents Type"];
   const staff = [
     "Dashboard",
     "Student requests",
