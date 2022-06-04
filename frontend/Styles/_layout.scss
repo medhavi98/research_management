@@ -17,14 +17,25 @@
   color: #000000;
 }
 
+// .card-gradient {
+//   background-image: linear-gradient(
+//     to left top,
+//     #ffc700,
+//     #f8b400,
+//     #f0a100,
+//     #e68e00,
+//     #dc7c00
+//   );
+// }
+
 .card-gradient {
   background-image: linear-gradient(
-    to left top,
-    #ffc700,
-    #f8b400,
-    #f0a100,
-    #e68e00,
-    #dc7c00
+    to right bottom,
+    #00753d,
+    #008842,
+    #009b46,
+    #00ae49,
+    #00c24b
   );
 }
 
