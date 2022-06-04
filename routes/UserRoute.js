@@ -188,7 +188,7 @@ router.get("/getPanelMembers", async (req, res) => {
   }
 });
 
-router.get("/getCosupervisor", async (req, res) => {
+router.get("/getCoSupervisor", async (req, res) => {
   console.log("Co-Supervisor fetched");
   try {
     await userDetails.find({ registerType: "Co-Supervisor" }).then((result) => {
@@ -196,9 +196,29 @@ router.get("/getCosupervisor", async (req, res) => {
       res.status(200).json(result);
     });
   } catch (error) {
-    res.status(400).json("Co-Supervisorr fetching failed");
+    res.status(400).json("Co-Supervisor fetching failed");
   }
 });
+
+
+//get supervisor by id
+router.get("/getSupervisors/:id", async (req, res) => {
+  
+  const { id } = req.params;
+  try {
+
+    const supervisor = await userDetails.findById(id);
+    if(!supervisor){
+      res.status(404).json("Not found");
+    }    
+    res.status(200).json({supervisor});
+
+  } catch (error) {
+    res.status(400).json({message: "User retrieving failed"})
+  }
+});
+
+
 
 //get all user details
 router.get("/getAllUserDetails", async (req, res) => {

@@ -5,11 +5,11 @@ const _ = require('lodash');
 
 //add request details
 requestRouter.post('/', async (req, res) => {
-    const { supervisor, groupId, status, topicName, topicDescription, review } = req.body.requestDetails;
-    const request = new RequestModel({ supervisor, groupId, status, topicName, topicDescription, review });
+    const { supervisor, groupId, status, topicName, researchGroup, researchField, topicDescription, review, requestDate } = req.body.requestDetails;
+    const request = new RequestModel({ supervisor, groupId, status, topicName, researchGroup, researchField, topicDescription, review, requestDate });
     try {
         await request.save();
-        res.status(200).json("Request saved successfully");
+        res.status(201).json("Request saved successfully");
     } catch (error) {
         res.status(400).json("Request could not be saved");
     }
@@ -18,8 +18,8 @@ requestRouter.post('/', async (req, res) => {
 //edit request details
 requestRouter.post('/edit/:requestId', async (req, res) => {
     const { requestId } = req.params;
-    const { supervisor, status, topicName, topicDescription, review } = req.body.requestDetails;
-    const editedRequest = { supervisor, status, topicName, topicDescription, review };
+    const { supervisor, status, topicName, topicDescription, review, requestDate } = req.body.requestDetails;
+    const editedRequest = { supervisor, status, topicName, topicDescription, review, requestDate };
 
     try {
         await RequestModel.findOneAndUpdate({ _id: requestId }, editedRequest);;
@@ -70,4 +70,25 @@ requestRouter.get('/getRequestsByUserId/:userId', async (req, res) => {
         res.status(400).json("Requests retrieving failed");
     }
 })
+
+//get request by id
+requestRouter.get('/requestById/:requestId', async (req, res) => {
+
+    const { requestId } = req.params;
+
+    try {
+        
+        const request = await RequestModel.findById(requestId);
+
+        if(!request){
+            res.status(404).json("Request not Found");
+        }
+
+        res.status(200).json({request});
+
+    } catch (error) {
+        res.status(400).json("Request retrieving failed");
+    }
+})
+
 module.exports = requestRouter;
