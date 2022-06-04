@@ -53,7 +53,7 @@ const Submissions = () => {
         window.alert("File Uploaded to Database!");
       })
       .catch((err) => {
-        window.alert("FIle is not uploaded successfully : ", err.message);
+        //window.alert("FIle is not uploaded successfully : ", err.message);
       });
   };
 

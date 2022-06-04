@@ -15,13 +15,14 @@ function StudentDocuments() {
   const getStudentSubmissions = async () => {
     await axios
       .get(
-        `http://localhost:5001/groups/staffDoc/${localStorage.getItem(
+        `http://localhost:5001/groups/studentsDoc/${localStorage.getItem(
           "userId"
         )}`
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setSubmittedDocuments(response.data);
+        console.log("submittedDocuments", submittedDocuments);
       })
       .catch((error) => {
         console.log(error);
@@ -32,27 +33,43 @@ function StudentDocuments() {
     <>
       {submittedDocuments ? (
         submittedDocuments.map((doc, index) => {
-          console.log("doc " + doc.submissionTitle);
+          console.log("doc " + doc.groupName);
           return (
             <>
-              <Card variant="outlined" className="uploaded-card" key={doc._id}>
-                <Typography variant="h6" mt={1} mb={1} ml={2} mr={1}>
-                  {doc.submissionTitle}
-                </Typography>
-                <div className="uploaded-card-Btn">
-                  <a href={doc.templateFile}>
-                    <Button>
-                      <DownloadIcon />
-                    </Button>
-                  </a>
-                </div>
-              </Card>
+              <label>
+                <b>{doc.groupName}</b>
+              </label>
+              <hr />
               <br />
+              {doc.groupDocuments.map((doc1, index) => {
+                return (
+                  <>
+                    <Card
+                      variant="outlined"
+                      className="uploaded-card"
+                      key={doc1._id}
+                    >
+                      <Typography variant="h6" mt={1} mb={1} ml={2} mr={1}>
+                        {doc1.submissionTitle}
+                      </Typography>
+                      <div className="uploaded-card-Btn">
+                        <a href={doc1.templateFile}>
+                          <Button>
+                            <DownloadIcon />
+                          </Button>
+                        </a>
+                      </div>
+                    </Card>
+                    <br />
+                  </>
+                );
+              })}
             </>
           );
+          <br />;
         })
       ) : (
-        <label>No Resources From Admin</label>
+        <label>No Resources From Students</label>
       )}
 
       {/* <Grid>
