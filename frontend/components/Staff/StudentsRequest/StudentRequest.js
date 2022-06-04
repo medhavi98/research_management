@@ -95,6 +95,7 @@ const StudentRequest = () => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Group Name</StyledTableCell>
+                  <StyledTableCell>Type</StyledTableCell>
                   <StyledTableCell>Topic Name</StyledTableCell>
                   <StyledTableCell align="center">
                     Topic Description{" "}
@@ -109,6 +110,9 @@ const StudentRequest = () => {
                   <StyledTableRow key={row._id}>
                     <StyledTableCell component="th" scope="row">
                       {row.groupName}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {row.supervisor.type}
                     </StyledTableCell>
                     <StyledTableCell align="justify" style={{ width: "12%" }}>
                       {row.topicName}
