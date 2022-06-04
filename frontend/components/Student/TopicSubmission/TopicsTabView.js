@@ -46,21 +46,21 @@ const TopicsTabView = () => {
             const group_id = response.data.groupIds[0]
             const requests = await axios.get(`${BASE_URL}/requests/getRequests/${group_id}`);
             console.log("Group request ", requests);
-            
+
             //supervisor request and status
             setSupervisorRequest(requests.data.requests[0].supervisor.type === "supervisor");
             console.log("Supervisor : ", requests.data.requests[0].supervisor.type === "supervisor");
 
             setSupervisorReqStatus(requests.data.requests[0].status);
             console.log("Supervisor request status", requests.data.requests[0].status);
-
+            console.log("Co-supervisor request ", requests.data.requests[1].supervisor.type === "co-supervisor");
 
             const group = await axios.get(`${BASE_URL}/groups/getGroupDetails/${group_id}`);
             setGroupName(group.data.groups.groupName);
 
             //co-supervisor request and status
             setCoSupervisorRequest(requests.data.requests[1].supervisor.type === "co-supervisor");
-            console.log(requests.data.requests[1].supervisor.type === "co-supervisor");
+            console.log("Co-supervisor status ", requests.data.requests[1].supervisor.type === "co-supervisor");
 
             if (requests.data.requests[1].status) {
 
@@ -174,12 +174,12 @@ const TopicsTabView = () => {
                                     <div className='info-message'>
                                         <Typography variant='h5'>Your initial topic submission not yet complete!</Typography>
                                     </div>
-                                    : supervisorRequest === true && supervisorReqStatus === "Accept" ?
-                                        <CoSupervisorSubmission />
-                                        : supervisorReqStatus === "Accept" && coSupervisorRequest === true ?
-                                            <div className='info-message'>
-                                                <Typography variant='h5'>You are already submit the co-supervisor request, please wait while the co-supervisor accepts!</Typography>
-                                            </div>
+                                    : supervisorReqStatus === "Accept" && coSupervisorRequest === true ?
+                                        <div className='info-message'>
+                                            <Typography variant='h5'>You are already submit the co-supervisor request, please wait while the co-supervisor accepts!</Typography>
+                                        </div>
+                                        : supervisorRequest === true && supervisorReqStatus === "Accept" ?
+                                            <CoSupervisorSubmission />
                                             : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Reject" ?
                                                 <CoSupervisorSubmission />
                                                 : null
