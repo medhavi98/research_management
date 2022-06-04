@@ -203,18 +203,18 @@ router.get("/getCoSupervisor", async (req, res) => {
 
 //get supervisor by id
 router.get("/getSupervisors/:id", async (req, res) => {
-  
+
   const { id } = req.params;
   try {
 
     const supervisor = await userDetails.findById(id);
-    if(!supervisor){
+    if (!supervisor) {
       res.status(404).json("Not found");
-    }    
-    res.status(200).json({supervisor});
+    }
+    res.status(200).json({ supervisor });
 
   } catch (error) {
-    res.status(400).json({message: "User retrieving failed"})
+    res.status(400).json({ message: "User retrieving failed" })
   }
 });
 
@@ -265,6 +265,20 @@ router.get("/getSupervisors", async (req, res) => {
     res.status(200).json({ users });
   } catch (error) {
     res.status(400).json("Get supervisors failed");
+  }
+});
+
+//add group id to user table
+router.post("/editUserDetailsGroupId/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const { groupId } = req.body;
+  try {
+    const user = await userDetails.findByIdAndUpdate(userId, {
+      $push: { groupIds: groupId }
+    });
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(400).json("Edit user details failed");
   }
 });
 
