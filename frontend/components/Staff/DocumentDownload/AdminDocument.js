@@ -16,7 +16,7 @@ function AdminDocument() {
     await axios
       .get("http://localhost:5001/adminDocumentUploadRouter/staffResource")
       .then((response) => {
-        console.log(response);
+        console.log("response for get staff", response);
         setSubmittedDocuments(response.data);
       })
       .catch((error) => {
@@ -27,7 +27,7 @@ function AdminDocument() {
     <>
       {submittedDocuments ? (
         submittedDocuments.map((doc, index) => {
-          console.log("doc " + doc.submissionTitle);
+          console.log("doc admin" + doc.submissionTitle);
           return (
             <>
               <Card variant="outlined" className="uploaded-card" key={doc._id}>
