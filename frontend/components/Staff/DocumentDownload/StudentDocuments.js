@@ -15,7 +15,7 @@ function StudentDocuments() {
   const getStudentSubmissions = async () => {
     await axios
       .get(
-        `http://localhost:5001/groups/staffDoc/${localStorage.getItem(
+        `http://localhost:5001/groups/studentsDoc/${localStorage.getItem(
           "userId"
         )}`
       )
