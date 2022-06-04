@@ -19,11 +19,21 @@ const requestSchema = new Schema({
     topicName: {
         type: String,
     },
+    researchGroup: {
+        type: String,
+    }, 
+    researchField: {
+        type: String,
+    },    
     topicDescription: {
         type: String,
     },
     review: {
         type: String,
+    },
+    requestDate: {
+        type: Date,
+        default: new Date(),
     },
 }, { collection: 'requests' })
 
