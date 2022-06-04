@@ -43,7 +43,7 @@ const AdminDocSubmissions = () => {
         window.alert("File Uploaded to database!");
       })
       .catch((err) => {
-        window.alert("FIle is not uploaded successfully : ", err.message);
+        //window.alert("FIle is not uploaded successfully : ", err.message);
       });
   };
 
@@ -69,7 +69,7 @@ const AdminDocSubmissions = () => {
           console.log("ResearchUploadFile 2", ResearchUploadFile);
           // setTimeout(submitResearchDoc(), 2000);
           submitResearchDoc(e);
-          window.alert("Url saved to firebase");
+          //window.alert("Url saved to firebase");
         }, 6000);
       });
     });
