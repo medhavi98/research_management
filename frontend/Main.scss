@@ -155,8 +155,21 @@ body {
 .info-message-complete{
   display: flex;
   justify-content: center;
+  text-align: center;
   margin-left: 10%;
   margin-top: 5%;
+  color: #0074c7;  
+  padding: 15px;
+  background-color: #0074c720;
+  border-radius: 10px;  
+}
+
+.info-message-completed{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20%;
+  margin-left: 10%;
   color: #0074c7;  
   padding: 15px;
   background-color: #0074c720;
