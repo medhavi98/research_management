@@ -31,10 +31,6 @@ const TopicsTabView = () => {
     const [supervisorReqStatus, setSupervisorReqStatus] = useState("");
     const [coSupervisorReqStatus, setCoSupervisorReqStatus] = useState("");
 
-    useEffect(() => {
-        getGroupId();
-    }, []);
-
     const getGroupId = async () => {
 
         try {
@@ -44,32 +40,73 @@ const TopicsTabView = () => {
             setGroupId(response.data.groupIds[0]);
 
             const group_id = response.data.groupIds[0]
-            const requests = await axios.get(`${BASE_URL}/requests/getRequests/${group_id}`);
-            console.log("Group request ", requests);
+            console.log("Group id ", group_id);
 
-            //supervisor request and status
-            setSupervisorRequest(requests.data.requests[0].supervisor.type === "supervisor");
-            console.log("Supervisor : ", requests.data.requests[0].supervisor.type === "supervisor");
+            if (group_id) {
 
-            setSupervisorReqStatus(requests.data.requests[0].status);
-            console.log("Supervisor request status", requests.data.requests[0].status);
-            console.log("Co-supervisor request ", requests.data.requests[1].supervisor.type === "co-supervisor");
+                const requests = await axios.get(`${BASE_URL}/requests/getRequests/${group_id}`);
+                console.log("Group request ", requests.data.requests.length);
+                console.log("request", requests.data.requests[0]);
 
-            const group = await axios.get(`${BASE_URL}/groups/getGroupDetails/${group_id}`);
-            setGroupName(group.data.groups.groupName);
+                const group = await axios.get(`${BASE_URL}/groups/getGroupDetails/${group_id}`);
+                setGroupName(group.data.groups.groupName);
 
-            //co-supervisor request and status
-            setCoSupervisorRequest(requests.data.requests[1].supervisor.type === "co-supervisor");
-            console.log("Co-supervisor status ", requests.data.requests[1].supervisor.type === "co-supervisor");
+                console.log(group.data.groups.groupName);
 
-            if (requests.data.requests[1].status) {
 
-                setCoSupervisorReqStatus(requests.data.requests[1].status);
-                console.log("co sup request status", requests.data.requests[1].status);
+                //supervisor request and status
+                if (requests.data.requests.length === 0) {
+                    setSupervisorRequest(false);
+                    setCoSupervisorRequest(false);
+                    console.log(false);
+                } else {
+                    setSupervisorRequest(requests.data.requests[0].supervisor.type === "supervisor");
+                    setSupervisorReqStatus(requests.data.requests[0].status);
+                    console.log(requests.data.requests.length);
+
+                    console.log("supervisor : ", requests.data.requests[0].supervisor.type === "supervisor");
+                    console.log("supervisor status : ", requests.data.requests[0].status);
+
+                    if (!requests.data.requests[1]) {
+                        console.log("co-supervisor request ", false);
+                        setCoSupervisorReqStatus(false);
+
+                        console.log("co-supervisor : ", requests.data.requests[1].supervisor.type === "co-supervisor");
+                        console.log("co-supervisor status : ", requests.data.requests[1].status);
+
+                    } else {
+                        setCoSupervisorRequest(requests.data.requests[1].supervisor.type === "co-supervisor");
+                        setCoSupervisorReqStatus(requests.data.requests[1].status)
+                        console.log("co-supervisor : ", requests.data.requests[1].supervisor.type === "co-supervisor");
+                        console.log("co-supervisor status : ", requests.data.requests[1].status);
+
+                    }
+
+                }
+                // console.log("Supervisor : ", requests.data.requests[0].supervisor.type === "supervisor");
+
+
+                // setSupervisorReqStatus(requests.data.requests[0].status);
+                // console.log("Supervisor request status", requests.data.requests[0].status);
+                // console.log("Co-supervisor request ", requests.data.requests[1].supervisor.type === "co-supervisor");
+
+
+                // //co-supervisor request and status
+                // setCoSupervisorRequest(requests.data.requests[1].supervisor.type === "co-supervisor");
+                // console.log("Co-supervisor status ", requests.data.requests[1].supervisor.type === "co-supervisor");
+
+                // if (requests.data.requests[1].status) {
+
+                //     setCoSupervisorReqStatus(requests.data.requests[1].status);
+                //     console.log("co sup request status", requests.data.requests[1].status);
+
+                // } else {
+                //     console.log("waiting");
+                //     setCoSupervisorReqStatus("waiting");
+                // }
 
             } else {
-                console.log("waiting");
-                setCoSupervisorReqStatus("waiting");
+                alert("You have not yet create a group");
             }
 
 
@@ -78,6 +115,11 @@ const TopicsTabView = () => {
         }
 
     }
+
+
+    useEffect(() => {
+        getGroupId();
+    }, []);
 
 
     const handleChange = (event, newValue) => {
@@ -129,10 +171,9 @@ const TopicsTabView = () => {
                                     <InitialSubmission />
 
                                     : supervisorRequest === true && supervisorReqStatus === "Accept" ?
-                                        <div className='info-message'>
-                                            <Typography variant='h5'>You are already submit the topic for supervisor acceptance!</Typography>
+                                        <div className='info-message-completed'>
+                                            <Typography variant='h5'>Your requested accept by the supervisor!</Typography>
                                         </div>
-
                                         : supervisorRequest === false ?
                                             <InitialSubmission />
                                             : null
@@ -174,15 +215,28 @@ const TopicsTabView = () => {
                                     <div className='info-message'>
                                         <Typography variant='h5'>Your initial topic submission not yet complete!</Typography>
                                     </div>
-                                    : supervisorReqStatus === "Accept" && coSupervisorRequest === true ?
+                                    : supervisorReqStatus === "Accept" && coSupervisorRequest === false ?
                                         <div className='info-message'>
-                                            <Typography variant='h5'>You are already submit the co-supervisor request, please wait while the co-supervisor accepts!</Typography>
+                                            <Typography variant='h5'>You have not yes submit the co-supervisor request!</Typography>
                                         </div>
-                                        : supervisorRequest === true && supervisorReqStatus === "Accept" ?
-                                            <CoSupervisorSubmission />
+                                        : supervisorReqStatus === "Accept" && coSupervisorRequest === true && coSupervisorReqStatus === "Pending" ?
+                                            <div className='info-message'>
+                                                <Typography variant='h5'>You are already submit the co-supervisor request, please wait while the co-supervisor accepts!</Typography>
+                                            </div>
                                             : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Reject" ?
-                                                <CoSupervisorSubmission />
-                                                : null
+                                                <>
+                                                    <div className='info-message-reject'>
+                                                        <Typography variant='h5'>Your request has been rejected by the co-supervisor, please re-submit the topic!</Typography>
+                                                    </div>
+                                                    <CoSupervisorSubmission />
+                                                </>
+                                                : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Accept" ?
+                                                    <div className='info-message-completed'>
+                                                        <Typography variant='h5'>Your requested accept by the co-supervisor!</Typography>
+                                                    </div>
+                                                    : supervisorRequest === true && supervisorReqStatus === "Accept" ?
+                                                        <CoSupervisorSubmission />
+                                                        : null
                             }
 
                         </TabPanel>
@@ -195,23 +249,26 @@ const TopicsTabView = () => {
                                     <div className='info-message'>
                                         <Typography variant='h5'>Your initial topic submission not yet complete!</Typography>
                                     </div>
-                                    : supervisorReqStatus === "Accept" && coSupervisorRequest === false ?
+                                    : supervisorRequest === true && supervisorReqStatus === "Accept" && coSupervisorRequest !== true ?
                                         <div className='info-message'>
                                             <Typography variant='h5'>Your have not yet submit the co-supervisor request!</Typography>
                                         </div>
-                                        : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Reject" ?
-                                            <div className='info-message-reject'>
-                                                <Typography variant='h5'>Your request have been rejected by co-supervisor, please re-submit request!</Typography>
-                                            </div>
-                                            : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Accept" ?
+                                        : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Pending" ?
+                                            <CoSuperSubmissionStatus groupId={groupName} />
+                                            : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Reject" ?
                                                 <>
-                                                    < div className='info-message-complete'>
+                                                    <div className='info-message-reject'>
                                                         <Typography variant='h5'>Your request have been rejected by co-supervisor, please re-submit request!</Typography>
                                                     </div>
                                                     <CoSuperSubmissionStatus groupId={groupName} />
                                                 </>
-                                                : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Pending" ?
-                                                    <CoSuperSubmissionStatus groupId={groupName} />
+                                                : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Accept" ?
+                                                    <>
+                                                        < div className='info-message-complete'>
+                                                            <Typography variant='h5'>Your request have been rejected by co-supervisor, please re-submit request!</Typography>
+                                                        </div>
+                                                        <CoSuperSubmissionStatus groupId={groupName} />
+                                                    </>
                                                     : null
                             }
                         </TabPanel>
