@@ -51,7 +51,7 @@ adminDocUploadRouter.get("/getDocAdmin/:id", async (req, res) => {
 
 adminDocUploadRouter.get("/studentResources", async (req, res) => {
   console.log("dd");
-  await DocUploadAdmin.find({ permissions: ["Student"] })
+  await DocUploadAdmin.find({ permissions: { $in: ["Student"] } })
     .then((details) => {
       console.log(details);
       res.status(200).json(details);
@@ -63,7 +63,7 @@ adminDocUploadRouter.get("/studentResources", async (req, res) => {
 
 adminDocUploadRouter.get("/staffResource", async (req, res) => {
   console.log("Staff Resource");
-  await DocUploadAdmin.find({ permissions: ["Staff"] })
+  await DocUploadAdmin.find({ permissions: { $in: ["Staff"] } })
     .then((details) => {
       console.log("details", details);
       res.status(200).json(details);
