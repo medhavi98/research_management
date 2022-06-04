@@ -4,8 +4,8 @@ const topicRouter = require('express').Router();
 
 //add Topic details
 topicRouter.post('/', async (req,res) => {
-    const { submissionType, supervisorId, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
-    const topic = new TopicModel({ submissionType, supervisorId, groupId, topicName, topicDescription, researchField });
+    const { supervisorId, researchGroup, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
+    const topic = new TopicModel({ supervisorId, researchGroup, groupId, topicName, topicDescription, researchField });
     try {
         await topic.save();
         res.status(201).json("Topic saved successfully");
@@ -18,8 +18,8 @@ topicRouter.post('/', async (req,res) => {
 //edit Topic details
 topicRouter.put('/edit/:topicId', async (req,res) => {
     const { topicId } = req.params;
-    const { supervisorId, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
-    const editedTopic = { supervisorId, groupId, topicName, topicDescription, researchField };
+    const { supervisorId, coSupervisorId, researchGroup, groupId, topicName, topicDescription, researchField } = req.body.topicDetails;
+    const editedTopic = { supervisorId, coSupervisorId, researchGroup, groupId, topicName, topicDescription, researchField };
 
     try {
         await TopicModel.findOneAndUpdate({_id: topicId}, editedTopic);;

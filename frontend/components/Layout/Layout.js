@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppNavigation from "../NavigationBar/AppNavigation";
-import TopicRegister from "../Student/TopicSubmission/TopicRegister";
+import InitialSubmission from "../Student/TopicSubmission/InitialSubmission";
 import GroupDetails from "../Student/GroupDetails";
 import DashBoard from "../DashBoard";
 import DocumentSubmission from "../Student/DocumentSubmission/DocumentSubmission";

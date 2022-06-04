@@ -14,7 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupsIcon from "@mui/icons-material/Groups";
 import TopicIcon from "@mui/icons-material/Topic";
@@ -25,6 +25,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import Person from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import {
   getUserSessionDetails,
   removeUserSessionDetails,
@@ -118,11 +119,25 @@ function AppNavigation(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            LOGO
-          </Typography>
-          <Link to={""} onClick={userLoggedHandler}>
-            <Button color="inherit">Log out</Button>
+          <Stack direction="row" spacing={2}>
+            <MenuBookIcon fontSize="large" sx={{ color: "green" }} />
+            <Typography variant="h6" sx={{ color: "green" }}>
+              RM Tool
+            </Typography>
+          </Stack>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+          <Link
+            to={""}
+            onClick={userLoggedHandler}
+            style={{ textDecoration: "none" }}
+          >
+            <Button variant="contained" color="error">
+              Log out
+            </Button>
           </Link>
         </Toolbar>
       </AppBar>
