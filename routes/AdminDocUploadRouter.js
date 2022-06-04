@@ -51,7 +51,7 @@ adminDocUploadRouter.get("/getDocAdmin/:id", async (req, res) => {
 
 adminDocUploadRouter.get("/studentResources", async (req, res) => {
   console.log("dd");
-  await DocUploadAdmin.find({ permissions: ["Student"] })
+  await DocUploadAdmin.find({ permissions: { $in: ["Student"] } })
     .then((details) => {
       console.log(details);
       res.status(200).json(details);
@@ -62,16 +62,24 @@ adminDocUploadRouter.get("/studentResources", async (req, res) => {
 });
 
 adminDocUploadRouter.get("/staffResource", async (req, res) => {
-  console.log("hhgjkee");
-  await DocUploadAdmin.find({ permissions: ["Staff"] })
+  console.log("Staff Resource");
+  await DocUploadAdmin.find({ permissions: { $in: ["Staff"] } })
     .then((details) => {
-      console.log(details);
+      console.log("details", details);
       res.status(200).json(details);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
+
+  // try {
+  //   const details = await DocUploadAdmin.find({ permissions: ["Staff"] });
+  //   console.log("details staff", details);
+  //   res.status(200).json(details);
+  // } catch (err) {
+  //   res.status(500).json("cannot get staff resource", err);
+  // }
 });
 
 adminDocUploadRouter.put("/:id", async (req, res) => {
