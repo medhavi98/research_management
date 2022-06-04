@@ -50,7 +50,7 @@ const StudentRequest = () => {
     setRequests(res.data.requests);
   };
 
-  const handelOnSubmit = async (e, review, status, id, groupId) => {
+  const handelOnSubmit = async (e, review, status, id, groupId, type) => {
     e.preventDefault();
     const res = await axios.post(`${BASE_URL}/requests/edit/${id}`, {
       requestDetails: {
@@ -59,11 +59,19 @@ const StudentRequest = () => {
       }
     })
     if (status === "Approved") {
-      await axios.post(`${BASE_URL}/groups/edit/${groupId}`, {
-        groupDetails: {
-          supervisorId: userId,
-        }
-      });
+      if (type === "Supervisor") {
+        await axios.post(`${BASE_URL}/groups/edit/${groupId}`, {
+          groupDetails: {
+            supervisorId: userId,
+          }
+        });
+      } else if (type === "co-supervisor") {
+        await axios.post(`${BASE_URL}/groups/edit/${groupId}`, {
+          groupDetails: {
+            coSupervisorId: userId,
+          }
+        });
+      }
     }
     if (res.status === 200) {
       const res = await axios.get(
@@ -116,7 +124,7 @@ const StudentRequest = () => {
                         onButtonPress={() => {
                           console.log("group details");
                         }}
-                        children={<UpdateStudentRequest id={row._id} handelOnSubmit={(e, review, reviewStatus) => { handelOnSubmit(e, review, reviewStatus, row._id, row.groupId) }} />}
+                        children={<UpdateStudentRequest id={row._id} handelOnSubmit={(e, review, reviewStatus) => { handelOnSubmit(e, review, reviewStatus, row._id, row.groupId, row.supervisor.type) }} />}
                       />
                     </StyledTableCell>
                   </StyledTableRow>
