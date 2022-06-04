@@ -263,7 +263,7 @@ const InitialSubmission = () => {
                       <Button
                         type="submit"
                         variant="contained"
-                        color="primary"
+                        color="success"
                         sx={{ width: "40%" }}
                       >Submit
                       </Button>
@@ -271,7 +271,7 @@ const InitialSubmission = () => {
                       <Button
                         type="submit"
                         variant="contained"
-                        color="primary"
+                        color="success"
                         disabled
                         sx={{ width: "40%" }}
                       >
