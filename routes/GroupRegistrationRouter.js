@@ -232,7 +232,7 @@ groupRegistrationRouter.get(
   async (req, res) => {
     const { supervisorId } = req.params;
     try {
-      const groups = await GroupModel.find({ supervisorId })
+      const groups = await GroupModel.find({ $or: [{ supervisorId }, { coSupervisorId: supervisorId }] })
         .populate("panelMemberIds", "fullName")
         .populate("coSupervisorId", "fullName")
         .populate("studentIds", "fullName")
