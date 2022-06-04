@@ -172,7 +172,7 @@ const TopicsTabView = () => {
 
                                     : supervisorRequest === true && supervisorReqStatus === "Accept" ?
                                         <div className='info-message-completed'>
-                                            <Typography variant='h5'>Your requested accept by the supervisor!</Typography>
+                                            <Typography variant='h5'>Your request accepted by the supervisor!</Typography>
                                         </div>
                                         : supervisorRequest === false ?
                                             <InitialSubmission />
@@ -197,7 +197,7 @@ const TopicsTabView = () => {
                                         : supervisorRequest === true && supervisorReqStatus === "Accept" ?
                                             <>
                                                 <div className='info-message-complete'>
-                                                    <Typography variant='h5'>Your requested accept by the supervisor!</Typography>
+                                                    <Typography variant='h5'>Your request accepted by the supervisor!</Typography>
                                                 </div>
                                                 <SubmissionStatus groupId={groupName} />
                                             </>
@@ -232,7 +232,7 @@ const TopicsTabView = () => {
                                                 </>
                                                 : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Accept" ?
                                                     <div className='info-message-completed'>
-                                                        <Typography variant='h5'>Your requested accept by the co-supervisor!</Typography>
+                                                        <Typography variant='h5'>Your request accepted by the co-supervisor!</Typography>
                                                     </div>
                                                     : supervisorRequest === true && supervisorReqStatus === "Accept" ?
                                                         <CoSupervisorSubmission />
@@ -265,7 +265,7 @@ const TopicsTabView = () => {
                                                 : supervisorReqStatus === "Accept" && coSupervisorReqStatus === "Accept" ?
                                                     <>
                                                         < div className='info-message-complete'>
-                                                            <Typography variant='h5'>Your request have been rejected by co-supervisor, please re-submit request!</Typography>
+                                                            <Typography variant='h5'>Your request accepted by the co-supervisor!</Typography>
                                                         </div>
                                                         <CoSuperSubmissionStatus groupId={groupName} />
                                                     </>
