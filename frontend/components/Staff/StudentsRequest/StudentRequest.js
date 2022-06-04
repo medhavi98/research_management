@@ -58,8 +58,10 @@ const StudentRequest = () => {
         status,
       }
     })
-    if (status === "Approved") {
-      if (type === "Supervisor") {
+    console.log('status ', status);
+    console.log('type ', type);
+    if (status === "Accept") {
+      if (type === "supervisor") {
         await axios.post(`${BASE_URL}/groups/edit/${groupId}`, {
           groupDetails: {
             supervisorId: userId,
@@ -72,6 +74,9 @@ const StudentRequest = () => {
           }
         });
       }
+      await axios.post(`${BASE_URL}/user/editUserDetailsGroupId/${userId}`, {
+        groupId: groupId,
+      });
     }
     if (res.status === 200) {
       const res = await axios.get(
